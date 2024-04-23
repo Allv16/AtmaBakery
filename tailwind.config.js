@@ -2,7 +2,37 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    fontFamily: {
+      cormorant: ["Cormorant"],
+      mulish: ["Mulish"],
+    },
+    colors: {
+      black: "#040A0A",
+      white: "#FBFBFB",
+    },
+    extend: {
+      colors: {
+        primary: "#29565B",
+        "primary-dark": "#18373B",
+        "primary-light": "#537478",
+        secondary: "#B69231",
+        "secondary-dark": "#634E16",
+        "secondary-light": "#F5F1E4",
+      },
+    },
   },
-  plugins: [],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["light"],
+          primary: "#29565B",
+          "primary-content": "#FBFBFB",
+          secondary: "#B69231",
+          "secondary-content": "#FBFBFB",
+        },
+      },
+    ],
+  },
+  plugins: [require("daisyui")],
 };

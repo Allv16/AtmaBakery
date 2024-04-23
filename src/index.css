@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Cormorant";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/src/assets/fonts/Cormorant) format("ttf");
+  }
+  @font-face {
+    font-family: "Mulish";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(/src/assets/fonts/Mulish) format("ttf");
+  }
+}
