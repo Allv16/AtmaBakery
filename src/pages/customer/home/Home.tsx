@@ -1,5 +1,5 @@
 import React from "react";
-import { NavWrapper } from "../../components/Wrapper";
+import { NavWrapper } from "../../../components/Wrapper";
 
 export default function Home() {
   return (

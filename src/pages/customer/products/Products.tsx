@@ -1,6 +1,6 @@
 import React from "react";
-import { getAllProcuts } from "../../lib/repository/ProductRepository";
-import { IProduct } from "../../lib/interfaces/IProducts";
+import { getAllProcuts } from "../../../lib/repository/ProductRepository";
+import { IProduct } from "../../../lib/interfaces/IProducts";
 
 export default function Products() {
   const { data, error, isLoading, isValidating } = getAllProcuts();
