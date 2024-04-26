@@ -1,31 +1,30 @@
 import React from "react";
 import { NavWrapper } from "../../../components/Wrapper";
+import Category from "./components/Category";
+
+import Carousel from "./components/Carousel";
+import carousel1 from "../../../assets/images/carousel/Carousel-1.png";
+import carousel2 from "../../../assets/images/carousel/Carousel-2.png";
+import carousel3 from "../../../assets/images/carousel/Carousel-3.png";
+import carousel4 from "../../../assets/images/carousel/Carousel-4.png";
+import SweetWords from "./components/SweetWords";
+import PopularProducts from "./components/PopularProducts";
+import Services from "./components/Services";
 
 export default function Home() {
+  const carouselImages = [carousel1, carousel2, carousel3, carousel4];
+  const sweetWord = `Everyone has a favourite cake, pastry, pudding or pie
+from when they were kids.`;
+  const sweetWord2 = `Balancing a diet with sweet treats is the best way to a happy body.`;
+
   return (
     <NavWrapper>
-      <div className="text-center text-4xl font-bold text-gray-900 mt-10">
-        {/* Open the modal using document.getElementById('ID').showModal() method */}
-        <button
-          className="btn"
-          onClick={() =>
-            (
-              document.getElementById("my_modal_2") as HTMLDialogElement
-            ).showModal()
-          }
-        >
-          open modal
-        </button>
-        <dialog id="my_modal_2" className="modal">
-          <div className="modal-box">
-            <h3 className="font-bold text-lg">Hello!</h3>
-            <p className="py-4">Press ESC key or click outside to close</p>
-          </div>
-          <form method="dialog" className="modal-backdrop">
-            <button>close</button>
-          </form>
-        </dialog>
-      </div>
+      <Carousel images={carouselImages} />
+      <Category />
+      <SweetWords content={sweetWord} />
+      <PopularProducts />
+      <SweetWords content={sweetWord2} author="Mary Berry" />
+      <Services />
     </NavWrapper>
   );
 }

@@ -18,6 +18,9 @@ export default {
         serif: ["Cormorant", "serif"],
         sans: ["Mulish", "sans-serif"],
       },
+      backgroundImage: (theme) => ({
+        texture: "url('/src/assets/images/others/Texture.png')",
+      }),
     },
   },
   daisyui: {
