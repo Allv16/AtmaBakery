@@ -6,10 +6,6 @@ export default {
       cormorant: ["Cormorant"],
       mulish: ["Mulish"],
     },
-    colors: {
-      black: "#040A0A",
-      white: "#FBFBFB",
-    },
     extend: {
       colors: {
         primary: "#29565B",
@@ -18,6 +14,8 @@ export default {
         secondary: "#B69231",
         "secondary-dark": "#634E16",
         "secondary-light": "#F5F1E4",
+        black: "#040A0A",
+        white: "#FBFBFB",
       },
     },
   },
