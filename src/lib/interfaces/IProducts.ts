@@ -5,4 +5,5 @@ export type IProduct = {
   limit_produksi: string;
   jenis_produk: string;
   id_penitip?: string;
+  image: string;
 };

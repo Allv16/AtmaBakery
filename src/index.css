@@ -1,20 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  @font-face {
-    font-family: "Cormorant";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("/assets/fonts/Cormorant.ttf") format("ttf");
-  }
-  @font-face {
-    font-family: "Mulish";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("/assets/fonts/Mulish.ttf") format("ttf");
-  }
-}

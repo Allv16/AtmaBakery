@@ -3,6 +3,34 @@ import Home from "./pages/customer/home/Home";
 import Login from "./pages/customer/login/Login";
 import Products from "./pages/customer/products/Products";
 import About from "./pages/customer/about/About";
+import Dashboard from "./pages/admin/dashboard/Dashboard";
+import Hampers from "./pages/admin/hampers/Hampers";
+import AddHampers from "./pages/admin/hampers/AddHampers";
+import AdminProducts from "./pages/admin/products/Products";
+import Ingredients from "./pages/admin/foodstuff/Ingredients";
+import AddIngredients from "./pages/admin/foodstuff/AddIngredients";
+import Recipe from "./pages/admin/foodstuff/Recipe";
+import DashboardMO from "./pages/mo/dashboard/DashboardMO";
+import EditIngredients from "./pages/admin/foodstuff/EditIngredients";
+import AddRecipe from "./pages/admin/foodstuff/AddRecipe";
+import Employee from "./pages/mo/employee/Employee.";
+import DashboardOwner from "./pages/owner/dashboard/Dashboard";
+import AddProduct from "./pages/admin/products/AddProduct";
+import JobTitle from "./pages/mo/jobTitle/JobTitle";
+import EditProduct from "./pages/admin/products/EditProduct";
+import EditHampers from "./pages/admin/hampers/EditHampers";
+import AddPromoPoints from "./pages/admin/points/AddPromoPoints";
+import PromoPoints from "./pages/admin/points/PromoPoints";
+import EditRecipe from "./pages/admin/foodstuff/EditRecipe";
+import Partner from "./pages/mo/partner/Partner";
+import AddEmployee from "./pages/mo/employee/AddEmployee";
+import EditEmployee from "./pages/mo/employee/EditEmployee";
+import AddPartner from "./pages/mo/partner/AddPartner";
+import EditPartner from "./pages/mo/partner/EditPartner";
+import AddJobTitle from "./pages/mo/jobTitle/AddJobTitle";
+import EditJobTitle from "./pages/mo/jobTitle/EditJobTitle";
+import OwnerEmployee from "./pages/owner/employee/OwnerEmployee";
+import EditOwnerEmployee from "./pages/owner/employee/EditOwnerEmployee";
 
 export const router = createBrowserRouter([
   {
@@ -20,5 +48,117 @@ export const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/admin-dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/admin-hampers",
+    element: <Hampers />,
+  },
+  {
+    path: "/add-hampers",
+    element: <AddHampers />,
+  },
+  {
+    path: "/edit-hampers",
+    element: <EditHampers />,
+  },
+  {
+    path: "/admin-products",
+    element: <AdminProducts />,
+  },
+  {
+    path: "/add-products",
+    element: <AddProduct />,
+  },
+  {
+    path: "/edit-products",
+    element: <EditProduct />,
+  },
+  {
+    path: "/admin-ingredients",
+    element: <Ingredients />,
+  },
+  {
+    path: "/add-ingredients",
+    element: <AddIngredients />,
+  },
+  {
+    path: "/edit-ingredients",
+    element: <EditIngredients />,
+  },
+  {
+    path: "/admin-recipe",
+    element: <Recipe />,
+  },
+  {
+    path: "/add-recipe",
+    element: <AddRecipe />,
+  },
+  {
+    path: "/edit-recipe",
+    element: <EditRecipe />,
+  },
+  {
+    path: "/admin-points",
+    element: <PromoPoints />,
+  },
+  {
+    path: "/add-points",
+    element: <AddPromoPoints />,
+  },
+  {
+    path: "/mo-dashboard",
+    element: <DashboardMO />,
+  },
+  {
+    path: "/mo-employee",
+    element: <Employee />,
+  },
+  {
+    path: "/add-employee",
+    element: <AddEmployee />,
+  },
+  {
+    path: "/edit-employee",
+    element: <EditEmployee />,
+  },
+  {
+    path: "/mo-partner",
+    element: <Partner />,
+  },
+  {
+    path: "/add-partner",
+    element: <AddPartner />,
+  },
+  {
+    path: "/edit-partner",
+    element: <EditPartner />,
+  },
+  {
+    path: "/mo-job-title",
+    element: <JobTitle />,
+  },
+  {
+    path: "/add-job-title",
+    element: <AddJobTitle />,
+  },
+  {
+    path: "/edit-job-title",
+    element: <EditJobTitle />,
+  },
+  {
+    path: "/owner-dashboard",
+    element: <DashboardOwner />,
+  },
+  {
+    path: "/owner-employee",
+    element: <OwnerEmployee />,
+  },
+  {
+    path: "/edit-owner-employee",
+    element: <EditOwnerEmployee />,
   },
 ]);
