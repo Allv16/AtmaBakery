@@ -9,7 +9,6 @@ export const FormLogin = () => {
         <InputForm
           type="email"
           placeholder="youremailadrress@email.com"
-          className="peer h-10 w-full border-b border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
         />
       </div>
       <div className="form-control mt-16">
@@ -17,21 +16,20 @@ export const FormLogin = () => {
         <InputForm
           type="password"
           placeholder="Enter your password"
-          className="peer h-10 w-full border-b border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
         />
         <label className="label-text px-0 text-end pt-2">
-          <a href="#" className="label-text link link-hover text-primary">
+          <a href="#" className="label-text link link-hover text-xs text-primary xl:text-base">
             Forgot password?
           </a>
         </label>
       </div>
       <div className="form-control mt-16">
-        <button className="btn btn-lg btn-primary font font-semibold">
+        <button className="btn btn-sm btn-primary font font-semibold text-xs md:btn-md md:text-sm xl:btn-lg xl:text-base">
           Login
         </button>
-        <p className="label-text mt-6 text-center text-l">
+        <p className="label-text mt-4 text-center text-xs xl:text-base">
           Don't have an account ?{" "}
-          <a href="#" className="label-text link link-hover font-bold text-l text-primary">
+          <a href="#" className="label-text link link-hover font-bold text-xs text-primary xl:text-base">
             Sign Up
           </a>
         </p>
@@ -48,7 +46,6 @@ export const FormRegister = () => {
         <InputForm
           type="text"
           placeholder="Enter your full name"
-          className="peer h-10 w-full border-b border-gray-400 text-gray-900 focus:outline-none focus:borer-rose-600"
         />
       </div>
       <div className="form-control mt-10">
@@ -56,7 +53,6 @@ export const FormRegister = () => {
         <InputForm
           type="email"
           placeholder="Enter your email address"
-          className="peer h-10 w-full border-b border-gray-400 text-gray-900 focus:outline-none focus:borer-rose-600"
         />
       </div>
       <div className="form-control mt-10">
@@ -64,16 +60,15 @@ export const FormRegister = () => {
         <InputForm
           type="password"
           placeholder="Enter your password"
-          className="peer h-10 w-full border-b border-gray-400 text-gray-900 focus:outline-none focus:borer-rose-600"
         />
       </div>
       <div className="form-control mt-16">
-        <button className="btn btn-lg btn-primary font font-semibold">
+        <button className="btn btn-sm btn-primary font font-semibold text-xs md:btn-md md:text-sm xl:btn-lg xl:text-base">
           Create Account
         </button>
-        <p className="label-text mt-4 text-center text-l">
+        <p className="label-text mt-4 text-center text-xs xl:text-base">
           Already have an account ?{" "}
-          <a href="#" className="label-text link link-hover font-bold text-l text-primary">
+          <a href="#" className="label-text link link-hover font-bold text-xs text-primary xl:text-base">
             Sign In
           </a>
         </p>

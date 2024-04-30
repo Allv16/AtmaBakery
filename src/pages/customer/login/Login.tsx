@@ -3,34 +3,17 @@ import images from "../../../assets/images/graehsgi.png";
 
 export default function Login() {
   return (
-    <div className="w-full h-screen p-20 flex items-start">
-      <div className="relative w-1/2 h-full flex flex-col">
-        <div className="absolute top-[15%] left-[10%] flex flex-col">
-          <h1 className="text-6xl text-white font-cormorant font-bold">
-            The best way to enjoy your food.
-          </h1>
-          <p className="text-2xl text-white font-cormorant font-semibold">
-            Atma Kitchen
-          </p>
-        </div>
-        <img
-          src={images}
-          alt="Image"
-          className="w-full h-full object-cover p-10"
-        />
+    <div className="flex h-screen max-w-7xl flex-col-2 px-4 xl:px-0 mx-auto">
+      <div className="hidden lg:flex items-center justify-center flex-1 my-auto">
+        <img src={images} alt="Image" className="w-full h-full object-cover" />
       </div>
-
-      <div className="w-1/2 h-full flex flex-col p-10">
-        <div className="w-full flex flex-col max-w-[500px]">
-          <div className="w-full flex flex-col mb-2">
-            <h3 className="text-5xl font-cormorant font-semibold mb-2">
-              Login
-            </h3>
-            <p className="text-l mb-2 font-medium mt-5">
-              Welcome Back! Please enter your details.
-            </p>
-          </div>
-        </div>
+      <div className="w-full lg:w-1/2 flex justify-center flex-col px-4 lg:pl-32">
+        <h3 className="text-2xl font-cormorant font-semibold mb-2 md:text-4xl xl:text-5xl">
+          Login
+        </h3>
+        <p className="text-sm mb-2 font-medium mt-2 md:text-xs xl:text-base">
+          Welcome Back! Please enter your details.
+        </p>
 
         <div className="w-full flex flex-col pt-16">
           <FormLogin />
