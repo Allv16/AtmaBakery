@@ -15,7 +15,7 @@ export default function Register() {
         <h3 className="text-2xl font-cormorant font-semibold mb-2 md:text-4xl xl:text-5xl">
           Create Account
         </h3>
-        <p className="text-sm mb-2 font-medium mt-2 md:text-xs xl:text-base">
+        <p className="text-xs mb-2 font-medium mt-2 md:text-sm xl:text-base">
           Enter your information to create an account.
         </p>
 
