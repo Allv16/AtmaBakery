@@ -35,7 +35,7 @@ const DropdownNotification = () => {
   });
 
   return (
-    <li className="relative">
+    <li className="relative hidden sm:block">
       <Link
         ref={trigger}
         onClick={() => {

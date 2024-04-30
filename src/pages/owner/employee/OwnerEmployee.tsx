@@ -1,8 +1,12 @@
 import React from 'react';
 import { OwnerWrapper } from '../../../components/Wrapper';
-import { OwnerEmployeeTable } from '../../../components/Table/Table';
+import { EmployeeTable } from '../../../components/Table/Table';
+import { getAllEmployee } from '../../../lib/repository/EmployeeRepository';
 
 const OwnerEmployee: React.FC = () => {
+    //API CALL
+    const { data, error, isLoading, isValidating } = getAllEmployee();
+
     return (
         <OwnerWrapper>
             <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -10,9 +14,17 @@ const OwnerEmployee: React.FC = () => {
                     Atma Kitchen Employee
                 </h2>
             </div>
-            <div className="rounded-sm border border-stroke bg-white shadow-default p-4 overflow-x-auto">
-                <OwnerEmployeeTable />
-            </div>
+            {isLoading &&
+                <div className="w-full mt-64 flex justify-center items-center">
+                    <span className="loading loading-dots loading-md"></span>
+                </div>
+            }
+            {error && <div>Error</div>}
+            {data && (
+                <div className="rounded-sm border border-stroke bg-white shadow-default p-4 overflow-x-auto">
+                    <EmployeeTable employeeData={data} />
+                </div>
+            )}
         </OwnerWrapper>
     );
 };

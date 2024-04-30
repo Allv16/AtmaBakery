@@ -35,7 +35,7 @@ const AddRecipe: React.FC = () => {
 
                     <div className="flex justify-end gap-3 mt-10">
                         <button className="btn btn-active">Cancel</button>
-                        <button className="btn btn-primary">Add Ingredients</button>
+                        <button className="btn btn-primary">Add Recipe</button>
                     </div>
                 </form>
             </div>

@@ -11,73 +11,6 @@ const Products: React.FC = () => {
 
   const [selectedTab, setSelectedTab] = useState<string>("all");
 
-  //   const product: IProduct[] = [
-  //     {
-  //       id_produk: "1",
-  //       nama_produk: "Lapis Legit",
-  //       harga: "850000",
-  //       limit_produksi: "50",
-  //       jenis_produk: "Cake",
-  //       image: "https://via.placeholder.com/150",
-  //     },
-  //     {
-  //       id_produk: "2",
-  //       nama_produk: "Lapis Surabaya",
-  //       harga: "500000",
-  //       limit_produksi: "50",
-  //       jenis_produk: "Cake",
-  //       image: "https://via.placeholder.com/150",
-  //     },
-  //     {
-  //       id_produk: "3",
-  //       nama_produk: "Brownies",
-  //       harga: "350000",
-  //       limit_produksi: "50",
-  //       jenis_produk: "Cake",
-  //       image: "https://via.placeholder.com/150",
-  //     },
-  //     {
-  //       id_produk: "4",
-  //       nama_produk: "Spikoe",
-  //       harga: "300000",
-  //       limit_produksi: "50",
-  //       jenis_produk: "Cake",
-  //       image: "https://via.placeholder.com/150",
-  //     },
-  //     {
-  //       id_produk: "5",
-  //       nama_produk: "Matcha Creamy Latte",
-  //       harga: "300000",
-  //       limit_produksi: "50",
-  //       jenis_produk: "Minuman",
-  //       image: "https://via.placeholder.com/150",
-  //     },
-  //     {
-  //       id_produk: "6",
-  //       nama_produk: "Hampers A",
-  //       harga: "300000",
-  //       limit_produksi: "50",
-  //       jenis_produk: "Hampers",
-  //       image: "https://via.placeholder.com/150",
-  //     },
-  //     {
-  //       id_produk: "7",
-  //       nama_produk: "Roti Keju",
-  //       harga: "300000",
-  //       limit_produksi: "50",
-  //       jenis_produk: "Roti",
-  //       image: "https://via.placeholder.com/150",
-  //     },
-  //     {
-  //       id_produk: "8",
-  //       nama_produk: "Keripik Kentang",
-  //       harga: "300000",
-  //       limit_produksi: "50",
-  //       jenis_produk: "Snack",
-  //       image: "https://via.placeholder.com/150",
-  //     },
-  //   ];
-
   const filteredProducts = data?.filter((item) => {
     if (selectedTab === "my") {
       return ["Cake", "Roti", "Minuman", "Hampers"].includes(item.jenis_produk);
@@ -127,16 +60,19 @@ const Products: React.FC = () => {
             </button>
             <button
               role="tab"
-              className={`tab ${
-                selectedTab === "consignment" ? "tab-active" : ""
-              }`}
+              className={`tab ${selectedTab === "consignment" ? "tab-active" : ""
+                }`}
               onClick={() => setSelectedTab("consignment")}
             >
               Consignment
             </button>
           </div>
         </div>
-        {isLoading && <div>Loading...</div>}
+        {isLoading &&
+          <div className="w-full mt-64 flex justify-center items-center">
+            <span className="loading loading-dots loading-md"></span>
+          </div>
+        }
         {error && <div>Error</div>}
         {data && (
           <div className="rounded-sm border border-stroke bg-white shadow-default">

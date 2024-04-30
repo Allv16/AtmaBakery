@@ -32,6 +32,9 @@ import EditJobTitle from "./pages/mo/jobTitle/EditJobTitle";
 import OwnerEmployee from "./pages/owner/employee/OwnerEmployee";
 import EditOwnerEmployee from "./pages/owner/employee/EditOwnerEmployee";
 
+import DetailProduct from "./pages/admin/products/DetailProduct";
+import DetailRecipe from "./pages/admin/foodstuff/DetailRecipe";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -78,6 +81,10 @@ export const router = createBrowserRouter([
     element: <EditProduct />,
   },
   {
+    path: "/detail-products",
+    element: <DetailProduct />,
+  },
+  {
     path: "/admin-ingredients",
     element: <Ingredients />,
   },
@@ -100,6 +107,10 @@ export const router = createBrowserRouter([
   {
     path: "/edit-recipe",
     element: <EditRecipe />,
+  },
+  {
+    path: "/detail-recipe",
+    element: <DetailRecipe />,
   },
   {
     path: "/admin-points",

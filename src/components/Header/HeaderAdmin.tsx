@@ -32,7 +32,7 @@ const HeaderAdmin = (props: {
           </Link>
         </div>
 
-        <div className="hidden sm:block">
+        <div className="w-fit">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
             <div className="relative">
               <button className="absolute left-0 top-1/2 -translate-y-1/2">
@@ -71,8 +71,8 @@ const HeaderAdmin = (props: {
         <div className="flex items-center gap-5 gap-7">
           <ul className="flex items-center gap-2 gap-4">
             <DropdownNotification />
+            <DropdownAdmin />
           </ul>
-          <DropdownAdmin />
         </div>
       </div>
     </header>

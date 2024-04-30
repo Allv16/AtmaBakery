@@ -42,7 +42,7 @@ const AddProduct: React.FC = () => {
 
                     <label className="font-medium text-gray-800">Category</label>
                     <select className="select w-full max-w-md" onChange={handleCategoryChange} value={category}>
-                        <option disabled value="">Select Category</option>
+                        <option value="">Select Category</option>
                         <option value="Cake">Cake</option>
                         <option value="Bread">Bread</option>
                         <option value="Drinks">Drinks</option>
