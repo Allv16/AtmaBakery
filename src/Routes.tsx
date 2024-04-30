@@ -3,6 +3,9 @@ import Home from "./pages/customer/home/Home";
 import Login from "./pages/customer/login/Login";
 import Products from "./pages/customer/products/Products";
 import About from "./pages/customer/about/About";
+import Register from "./pages/customer/register/Register";
+import ForgotPassword from "./pages/customer/forgot-password/ForgotPassword";
+import ResetPassword from "./pages/customer/reset-password/ResetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -20,5 +23,17 @@ export const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
 ]);

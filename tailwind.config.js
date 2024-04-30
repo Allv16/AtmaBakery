@@ -2,6 +2,10 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      cormorant: ["Cormorant"],
+      mulish: ["Mulish"],
+    },
     extend: {
       colors: {
         primary: "#29565B",
@@ -12,11 +16,6 @@ export default {
         "secondary-light": "#F5F1E4",
         black: "#040A0A",
         white: "#FBFBFB",
-        footer: "#1D1C1C",
-      },
-      fontFamily: {
-        serif: ["Cormorant", "serif"],
-        sans: ["Mulish", "sans-serif"],
       },
       backgroundImage: (theme) => ({
         texture: "url('/src/assets/images/others/Texture.png')",
