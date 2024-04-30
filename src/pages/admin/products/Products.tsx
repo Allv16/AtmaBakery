@@ -60,19 +60,20 @@ const Products: React.FC = () => {
             </button>
             <button
               role="tab"
-              className={`tab ${selectedTab === "consignment" ? "tab-active" : ""
-                }`}
+              className={`tab ${
+                selectedTab === "consignment" ? "tab-active" : ""
+              }`}
               onClick={() => setSelectedTab("consignment")}
             >
               Consignment
             </button>
           </div>
         </div>
-        {isLoading &&
+        {isLoading && (
           <div className="w-full mt-64 flex justify-center items-center">
             <span className="loading loading-dots loading-md"></span>
           </div>
-        }
+        )}
         {error && <div>Error</div>}
         {data && (
           <div className="rounded-sm border border-stroke bg-white shadow-default">
