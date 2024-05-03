@@ -1,4 +1,3 @@
-import React from "react";
 import { NavWrapper } from "../../../components/Wrapper";
 import { toast } from "sonner";
 
