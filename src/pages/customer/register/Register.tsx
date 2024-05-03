@@ -1,8 +1,10 @@
 import { FormRegister } from "../../../components/Form";
 import images from "../../../assets/images/f9idlhrn.png";
+import { NavWrapper } from "../../../components/Wrapper";
 
 export default function Register() {
   return (
+    <NavWrapper>
     <div className="flex h-screen max-w-7xl flex-col-2 px-4 xl:px-0 mx-auto">
       <div className="hidden lg:flex items-center justify-center flex-1 my-auto">
         <img
@@ -24,5 +26,6 @@ export default function Register() {
         </div>
       </div>
     </div>
+    </NavWrapper>
   );
 }
