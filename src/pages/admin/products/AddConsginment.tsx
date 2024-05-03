@@ -3,22 +3,7 @@ import React, { useState } from 'react';
 import { ProductBreadcrumb } from '../../../components/Breadcrumbs/Breadcrumb';
 import { AdminWrapper } from '../../../components/Wrapper';
 
-const AddProduct: React.FC = () => {
-    const [category, setCategory] = useState('');
-    const [showPriceForm, setShowPriceForm] = useState(false);
-
-    const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedCategory = event.target.value;
-        setCategory(selectedCategory);
-
-        if (selectedCategory === 'Cake') {
-            setShowPriceForm(true);
-        } else if (selectedCategory === 'Bread' || selectedCategory === 'Drinks') {
-            setShowPriceForm(true);
-        } else {
-            setShowPriceForm(false);
-        }
-    };
+const AddConsignment: React.FC = () => {
 
     return (
         <AdminWrapper>
@@ -41,28 +26,13 @@ const AddProduct: React.FC = () => {
                     <input type="text" placeholder="Enter Product Name" className="input w-full max-w-md" />
 
                     <label className="font-medium text-gray-800">Category</label>
-                    <select className="select w-full max-w-md" onChange={handleCategoryChange} value={category}>
+                    <select className="select w-full max-w-md">
                         <option value="">Select Category</option>
-                        <option value="Cake">Cake</option>
-                        <option value="Bread">Bread</option>
-                        <option value="Drinks">Drinks</option>
+                        <option value="Snack">Snack</option>
                     </select>
 
-                    {showPriceForm && category === 'Cake' && (
-                        <>
-                            <label className="font-medium text-gray-800">Half Pan Price</label>
-                            <input type="number" placeholder="Enter Half Pan Price" className="input w-full max-w-md" />
-
-                            <label className="font-medium text-gray-800">One Pan Price</label>
-                            <input type="number" placeholder="Enter One Pan Price" className="input w-full max-w-md" />
-                        </>
-                    )}
-                    {showPriceForm && (category === 'Bread' || category === 'Drinks') && (
-                        <>
-                            <label className="font-medium text-gray-800">Price</label>
-                            <input type="number" placeholder="Enter Price" className="input w-full max-w-md" />
-                        </>
-                    )}
+                    <label className="font-medium text-gray-800">Price</label>
+                    <input type="number" placeholder="Enter Price" className="input w-full max-w-md" />
 
                     <label className="font-medium text-gray-800">Stocks</label>
                     <input type="number" placeholder="Enter Stocks" className="input w-full max-w-md" />
@@ -75,7 +45,7 @@ const AddProduct: React.FC = () => {
 
                     <div className="flex justify-end gap-3 mx-12">
                         <button className="btn btn-active">Cancel</button>
-                        <button className="btn btn-primary">Add Product</button>
+                        <button className="btn btn-primary">Add Consignment</button>
                     </div>
                 </form>
             </div>
@@ -83,4 +53,4 @@ const AddProduct: React.FC = () => {
     );
 };
 
-export default AddProduct;
+export default AddConsignment;

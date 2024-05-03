@@ -239,8 +239,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         {/* <!-- Material --> */}
                         <li>
                             <NavLink
-                                to="/admin-customers"
-                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes('customers') && 'bg-graydark dark:bg-meta-4'
+                                to="/mo-material-purchase"
+                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes('purchase') && 'bg-graydark dark:bg-meta-4'
                                     }`}
                             >
                                 <svg
@@ -264,8 +264,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         {/* <!-- Other --> */}
                         <li>
                             <NavLink
-                                to="/admin-customers"
-                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes('customers') && 'bg-graydark dark:bg-meta-4'
+                                to="/mo-other-expenses"
+                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes('expenses') && 'bg-graydark dark:bg-meta-4'
                                     }`}
                             >
                                 <svg
@@ -289,8 +289,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         {/* <!-- Attendance --> */}
                         <li>
                             <NavLink
-                                to="/admin-customers"
-                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes('customers') && 'bg-graydark dark:bg-meta-4'
+                                to="/mo-attendance"
+                                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes('attendance') && 'bg-graydark dark:bg-meta-4'
                                     }`}
                             >
                                 <svg

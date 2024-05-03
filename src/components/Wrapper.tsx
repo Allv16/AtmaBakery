@@ -7,6 +7,7 @@ import MOSidebar from '../components/Sidebar/MOSidebar';
 import OwnerSidebar from "./Sidebar/OwnerSidebar";
 import HeaderMO from "./Header/HeaderMO";
 import HeaderOwner from "./Header/HeaderOwner";
+import { FooterAdmin } from "./FooterAdmin";
 
 export const NavWrapper = ({ children }: { children: ReactNode }) => {
   return (
@@ -41,6 +42,10 @@ export const AdminWrapper = ({ children }: { children: ReactNode }) => {
             </div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
+
+          {/* <!-- ===== Footer Area ===== --> */}
+          <FooterAdmin />
+          {/* <!-- ===== Footer End ===== --> */}
         </div>
         {/* <!-- ===== Content Area End ===== --> */}
       </div>
@@ -72,6 +77,10 @@ export const MOWrapper = ({ children }: { children: ReactNode }) => {
             </div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
+
+          {/* <!-- ===== Footer Area ===== --> */}
+          <FooterAdmin />
+          {/* <!-- ===== Footer End ===== --> */}
         </div>
         {/* <!-- ===== Content Area End ===== --> */}
       </div>
@@ -103,6 +112,10 @@ export const OwnerWrapper = ({ children }: { children: ReactNode }) => {
             </div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
+
+          {/* <!-- ===== Footer Area ===== --> */}
+          <FooterAdmin />
+          {/* <!-- ===== Footer End ===== --> */}
         </div>
         {/* <!-- ===== Content Area End ===== --> */}
       </div>

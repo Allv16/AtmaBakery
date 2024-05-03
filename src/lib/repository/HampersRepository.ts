@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable prefer-const */
 import useSWR from "swr";
 import { fetcher } from "../utils/utils";
 import { toast } from "sonner";

@@ -15,7 +15,6 @@ import EditIngredients from "./pages/admin/foodstuff/EditIngredients";
 import AddRecipe from "./pages/admin/foodstuff/AddRecipe";
 import Employee from "./pages/mo/employee/Employee.";
 import DashboardOwner from "./pages/owner/dashboard/Dashboard";
-import AddProduct from "./pages/admin/products/AddProduct";
 import JobTitle from "./pages/mo/jobTitle/JobTitle";
 import EditProduct from "./pages/admin/products/EditProduct";
 import EditHampers from "./pages/admin/hampers/EditHampers";
@@ -34,6 +33,11 @@ import EditOwnerEmployee from "./pages/owner/employee/EditOwnerEmployee";
 
 import DetailProduct from "./pages/admin/products/DetailProduct";
 import DetailRecipe from "./pages/admin/foodstuff/DetailRecipe";
+import AddMyProduct from "./pages/admin/products/AddMyProduct";
+import AddConsignment from "./pages/admin/products/AddConsginment";
+import MaterialPurchase from "./pages/mo/material/MaterialPurchase";
+import OtherExpenses from "./pages/mo/other-expenses/OtherExpenses";
+import Attendance from "./pages/mo/attendance/Attendance";
 
 export const router = createBrowserRouter([
   {
@@ -73,8 +77,12 @@ export const router = createBrowserRouter([
     element: <AdminProducts />,
   },
   {
-    path: "/add-products",
-    element: <AddProduct />,
+    path: "/add-my-products",
+    element: <AddMyProduct />,
+  },
+  {
+    path: "/add-consignment-products",
+    element: <AddConsignment />,
   },
   {
     path: "/edit-products",
@@ -93,7 +101,7 @@ export const router = createBrowserRouter([
     element: <AddIngredients />,
   },
   {
-    path: "/edit-ingredients",
+    path: "/edit-ingredients/:id",
     element: <EditIngredients />,
   },
   {
@@ -109,7 +117,7 @@ export const router = createBrowserRouter([
     element: <EditRecipe />,
   },
   {
-    path: "/detail-recipe",
+    path: "/detail-recipe/:id",
     element: <DetailRecipe />,
   },
   {
@@ -171,5 +179,17 @@ export const router = createBrowserRouter([
   {
     path: "/edit-owner-employee",
     element: <EditOwnerEmployee />,
+  },
+  {
+    path: "/mo-material-purchase",
+    element: <MaterialPurchase />,
+  },
+  {
+    path: "/mo-other-expenses",
+    element: <OtherExpenses />,
+  },
+  {
+    path: "/mo-attendance",
+    element: <Attendance />,
   },
 ]);

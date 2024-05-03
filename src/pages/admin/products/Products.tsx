@@ -21,11 +21,19 @@ const Products: React.FC = () => {
   });
 
   const AddProductButton = () => {
-    if (selectedTab === "my" || selectedTab === "consignment") {
+    if (selectedTab === "my") {
       return (
         <div className="flex justify-center mt-8 mb-4">
-          <Link to="/add-products">
-            <button className="btn btn-primary">Add New Product</button>
+          <Link to="/add-my-products">
+            <button className="btn btn-primary">Add My Product</button>
+          </Link>
+        </div>
+      );
+    } else if (selectedTab === "consignment") {
+      return (
+        <div className="flex justify-center mt-8 mb-4">
+          <Link to="/add-consignment-products">
+            <button className="btn btn-primary">Add Consignment Product</button>
           </Link>
         </div>
       );
@@ -60,9 +68,8 @@ const Products: React.FC = () => {
             </button>
             <button
               role="tab"
-              className={`tab ${
-                selectedTab === "consignment" ? "tab-active" : ""
-              }`}
+              className={`tab ${selectedTab === "consignment" ? "tab-active" : ""
+                }`}
               onClick={() => setSelectedTab("consignment")}
             >
               Consignment

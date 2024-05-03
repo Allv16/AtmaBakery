@@ -1,45 +1,33 @@
-// import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
 import { RecipeBreadcrumb } from '../../../components/Breadcrumbs/Breadcrumb';
 import { AdminWrapper } from '../../../components/Wrapper';
+// import { getRecipesById } from '../../../lib/repository/RecipeRepository';
 
 const DetailRecipe: React.FC = () => {
     //API CALL
-    const { data, error, isLoading, isValidating } = getRecipesById();
-
+    // const { data, error, isLoading, isValidating } = getRecipesById();
     return (
-        <>
-            <AdminWrapper>
-                <RecipeBreadcrumb pageName="Detail Recipe" />
-                {isLoading && <div>Loading...</div>}
-                {error && <div>Error</div>}
-                {data && (
-                    <div className="bg-white shadow-default p-6 grid grid-cols-1 gap-9 sm:grid-cols-2">
-                        <div className="flex flex-col gap-6">
-                            <div className="flex items-center justify-center w-full">
-                                <label className="flex flex-col items-center justify-center w-full h-72 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
-                                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                        {/* <img
-                                    className="w-full h-50 object-cover"
-                                    src={product.foto}
-                                    alt={product.nama_produk}
-                                /> */}
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
+        <AdminWrapper>
+            <RecipeBreadcrumb pageName="Detail Recipe" />
 
-                        <form className="flex flex-col gap-6">
-                            <label className="font-medium text-gray-800">Product Name</label>
-                            <input type="text" placeholder="" className="input w-full max-w-md" />
+            <div className="bg-white shadow-default p-6 grid grid-cols-1 gap-9 sm:grid-cols-2">
+                <form className="flex flex-col gap-6">
+                    <label className="font-medium text-gray-800">Product Name</label>
+                    <input type="text" placeholder="Enter Product Name" className="input w-full max-w-md" />
 
-                            <label className="font-medium text-gray-800">Ingredients</label>
-                            <input type="text" placeholder="" className="input w-full max-w-md" />
-                        </form>
+                    <div className="flex justify-end gap-3 mx-12">
+                        <button className="btn btn-active">Cancel</button>
+                        <button className="btn btn-primary">Add Consignment</button>
                     </div>
-                )}
-            </AdminWrapper>
-        </>
+                </form>
+
+                <div className="flex flex-col gap-6">
+
+
+
+                </div>
+            </div>
+        </AdminWrapper>
+
     );
 };
 

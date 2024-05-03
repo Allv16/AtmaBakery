@@ -44,9 +44,8 @@ export const DropdownAdmin = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black">
-            Yuna
+            Admin
           </span>
-          <span className="block text-xs">Admin</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -143,7 +142,9 @@ export const DropdownMO = () => {
         to="#"
       >
         <span className="hidden text-right lg:block">
-          <span className="block text-xs">Manager Operasional</span>
+          <span className="block text-sm font-medium text-black">
+            Manager Operasional
+          </span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -241,9 +242,8 @@ export const DropdownOwner = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black">
-            Margareth
+            Owner
           </span>
-          <span className="block text-xs">Owner</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">

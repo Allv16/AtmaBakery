@@ -1,8 +1,14 @@
 import React from 'react';
 import { EmployeeBreadcrumb } from '../../../components/Breadcrumbs/Breadcrumb';
 import { MOWrapper } from '../../../components/Wrapper';
+import { IEmployee } from '../../../lib/interfaces/IEmployee';
+
+type EditEmployeeProps = {
+    employee: IEmployee;
+}
 
 const EditEmployee: React.FC = () => {
+
     return (
         <MOWrapper>
             <EmployeeBreadcrumb pageName="Edit Employee" />

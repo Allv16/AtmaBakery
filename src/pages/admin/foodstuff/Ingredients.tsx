@@ -5,7 +5,7 @@ import { getAllIngredients } from "../../../lib/repository/IngredientsRepository
 
 const Ingredients: React.FC = () => {
     //API CALL
-    const { data, error, isLoading, isValidating } = getAllIngredients();
+    const { data, error, isLoading } = getAllIngredients();
 
     return (
         <>

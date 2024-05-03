@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 type CardProductProps = {
   product: IProduct;
+  id_produk: string;
 }
 
 type CardHampersProps = {
@@ -20,7 +21,7 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
     if (location.pathname.includes('admin-products')) {
       navigate('/detail-products');
     } else if (location.pathname.includes('admin-recipe')) {
-      navigate('/detail-recipe/${id_produk}');
+      navigate(`/detail-recipe/${product.id_produk}`);
     }
   };
 
