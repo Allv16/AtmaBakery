@@ -47,3 +47,21 @@ export const addProducts = async (data: any) => {
     console.error(error);
   }
 };
+
+export const getProductsById = (id: string) => {
+  let { data, error, isLoading, isValidating } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/products/${id}`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.product as IProduct,
+    error,
+    isLoading,
+    isValidating,
+  };
+};

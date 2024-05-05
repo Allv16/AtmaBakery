@@ -49,21 +49,22 @@ export const addRecipes = async (data: any) => {
   }
 };
 
-export const getRecipesById = async (id: string) => {
-  try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BASE_API}/recipes/${id}`
-    );
+export const getRecipesById = (id: string) => {
+  let { data, error, isLoading, isValidating } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/recipes/${id}`,
+    fetcher
+  );
 
-    if (response.status === 200) {
-      return response.data as IRecipe;
-    } else {
-      throw new Error("Failed to fetch recipe by ID");
-    }
-  } catch (error) {
-    console.error(error);
-    throw new Error("Failed to fetch recipe by ID");
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
   }
+
+  return {
+    data: data,
+    error,
+    isLoading,
+    isValidating,
+  };
 };
 
 export const editRecipes = async (id: string, data: any) => {
