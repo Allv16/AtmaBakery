@@ -50,7 +50,7 @@ const Products: React.FC = () => {
           </h2>
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end mb-3">
           <div role="tablist" className="tabs tabs-boxed">
             <button
               role="tab"
@@ -68,8 +68,9 @@ const Products: React.FC = () => {
             </button>
             <button
               role="tab"
-              className={`tab ${selectedTab === "consignment" ? "tab-active" : ""
-                }`}
+              className={`tab ${
+                selectedTab === "consignment" ? "tab-active" : ""
+              }`}
               onClick={() => setSelectedTab("consignment")}
             >
               Consignment

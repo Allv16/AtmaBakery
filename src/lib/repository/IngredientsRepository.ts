@@ -60,7 +60,7 @@ export const addIngredients = async (data: any) => {
       }
     );
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       toast.success("Successfully Added Ingredients");
       mutate(`${import.meta.env.VITE_BASE_API}/ingredients`);
     } else {

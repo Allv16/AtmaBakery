@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/customer/home/Home";
-import Login from "./pages/customer/login/Login";
-import Products from "./pages/customer/products/Products";
+// import Login from "./pages/customer/login/Login";
+// import Products from "./pages/customer/products/Products";
 import About from "./pages/customer/about/About";
 import Dashboard from "./pages/admin/dashboard/Dashboard";
 import Hampers from "./pages/admin/hampers/Hampers";
@@ -42,14 +42,14 @@ export const router = createBrowserRouter([
     path: "/",
     element: <Home />,
   },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/products",
-    element: <Products />,
-  },
+  // {
+  //   path: "/login",
+  //   element: <Login />,
+  // },
+  // {
+  //   path: "/products",
+  //   element: <Products />,
+  // },
   {
     path: "/about",
     element: <About />,
@@ -99,8 +99,8 @@ export const router = createBrowserRouter([
     element: <AddIngredients />,
   },
   {
-    path: "/edit-ingredients/:id",
-    element: <EditIngredients />,
+    // path: "/edit-ingredients/:id",
+    // element: <EditIngredients />,
   },
   {
     path: "/admin-recipe",
