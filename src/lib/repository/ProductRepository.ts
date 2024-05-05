@@ -24,18 +24,15 @@ export const getAllProcuts = () => {
 };
 
 export const addProducts = async (data: any) => {
-  console.log(data);
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_BASE_API}/products/add`,
-      {
-        ...data,
-      },
+      data,
       {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           Authorization:
-            "Bearer mzTxE8nv7u28rJ3hMP8QEAGdesaIUfiEK0mkPd9Xeb267e0d",
+            "Bearer cjoNmEBCkM04S4EOFw1dFp8g3pEDZVKg4ectYghfb928477d",
         },
       }
     );
