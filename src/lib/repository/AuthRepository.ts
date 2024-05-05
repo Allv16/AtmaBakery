@@ -45,6 +45,27 @@ export const register = async (data: any) => {
   }
 };
 
+export const isUsernameAvailable = async (username: string) => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_BASE_API}/auth/usermame/is-available/${username}`
+  );
+  return response.data.success;
+};
+
+export const isEmailAvailable = async (email: string) => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_BASE_API}/auth/email/is-available/${email}`
+  );
+  return response.data.success;
+};
+
+export const isEmailVerified = async (username: string) => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_BASE_API}/auth/email/is-verified/${username}`
+  );
+  return response.data.success;
+};
+
 export const editEmployee = async (data: any, id: String) => {
   try {
     const response = await axios.put(

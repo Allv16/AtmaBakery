@@ -1,37 +1,49 @@
 import { Label } from "./Label";
 import { InputForm } from "./Input";
-import { useState } from "react";
-import { login, register } from "../lib/repository/AuthRepository";
+import { useEffect, useState } from "react";
+import {
+  isEmailVerified,
+  login,
+  register,
+} from "../lib/repository/AuthRepository";
 import { useNavigate } from "react-router-dom";
-import { ILoginResponse } from "../lib/interfaces/ILoginResponse";
 import { toast } from "sonner";
 import { ValidationLogin, ValidationRegister } from "./Validation";
 
 export const FormLogin = () => {
   const navigate = useNavigate();
   const inputField = {
-    username: "",
+    username: " ",
     password: "",
   };
 
   const [input, setInput] = useState(inputField);
   const [errors, setErrors] = useState(inputField);
+  const [isMounted, setIsMounted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+
+  const handleLogin = async () => {
+    const loginResponse = await login(input);
+    if (loginResponse && loginResponse.status === 200) {
+      toast.success("Login Success!");
+      navigate("/profile");
+    }
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors(ValidationLogin(input));
+    setErrors(await ValidationLogin(input));
 
-    if (!errors.username || !errors.password) {
-      const loginResponse = await login(input);
+    // if (!errors.username || !errors.password) {
+    //   const loginResponse = await login(input);
 
-      if (loginResponse && loginResponse.status === 200) {
-        toast.success("Login Success!");
-        navigate("/profile");
-      }
-    }
+    //   if (loginResponse && loginResponse.status === 200) {
+    //     toast.success("Login Success!");
+    //     navigate("/profile");
+    //   }
+    // }
 
     // switch (loginResponse?.user.id_role) {
     //   case 1:
@@ -51,6 +63,17 @@ export const FormLogin = () => {
     //     break;
     // }
   };
+
+  useEffect(() => {
+    if (isMounted) {
+      const isNoError = !errors.username && !errors.password;
+      if (isNoError) {
+        handleLogin();
+      }
+    } else {
+      setIsMounted(true);
+    }
+  }, [errors, isMounted]);
 
   return (
     <form className="card" onSubmit={handleSubmit}>
@@ -106,7 +129,7 @@ export const FormLogin = () => {
 export const FormRegister = () => {
   const navigate = useNavigate();
   const inputField = {
-    name: "",
+    name: " ",
     email: "",
     username: "",
     password: "",
@@ -119,6 +142,7 @@ export const FormRegister = () => {
 
   const [input, setInput] = useState(inputField);
   const [errors, setErrors] = useState(inputField);
+  const [isMounted, setIsMounted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -126,26 +150,43 @@ export const FormRegister = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrors(await ValidationRegister(input));
+  };
 
-    setErrors(ValidationRegister(input));
-    if (
-      !errors.name &&
-      !errors.email &&
-      !errors.username &&
-      !errors.password &&
-      !errors.phone &&
-      !errors.address &&
-      !errors.addressLabel &&
-      !errors.birthDate
-    ) {
+  const registerUser = async () => {
+    try {
+      toast.info("Registering...");
       const registerResponse = await register(input);
-
       if (registerResponse && registerResponse.status === 200) {
-        toast.success("Login !");
-        navigate("/profile");
+        toast.success("Register Success! check your email to verify");
+        navigate("/login");
       }
+    } catch (error) {
+      console.error("Registration failed:", error);
     }
   };
+
+  useEffect(() => {
+    console.log(isMounted);
+    if (isMounted) {
+      const isNoError =
+        !errors.name &&
+        !errors.email &&
+        !errors.username &&
+        !errors.password &&
+        !errors.phone &&
+        !errors.address &&
+        !errors.addressLabel &&
+        !errors.birthDate &&
+        !errors.gender;
+
+      if (isNoError) {
+        registerUser();
+      }
+    } else {
+      setIsMounted(true);
+    }
+  }, [errors, isMounted]);
 
   return (
     <form className="card over" onSubmit={handleSubmit}>

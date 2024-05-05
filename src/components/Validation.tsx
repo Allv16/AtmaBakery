@@ -1,4 +1,10 @@
-export const ValidationLogin = (values: any) => {
+import {
+  isEmailAvailable,
+  isEmailVerified,
+  isUsernameAvailable,
+} from "../lib/repository/AuthRepository";
+
+export const ValidationLogin = async (values: any) => {
   const errors = {
     username: "",
     password: "",
@@ -11,6 +17,8 @@ export const ValidationLogin = (values: any) => {
     errors.username = "Username is required!";
   } else if (!username_pattern.test(values.username)) {
     errors.username = "Username must be alphanumeric and 3-30 characters long!";
+  } else if (!(await isEmailVerified(values.username))) {
+    errors.username = "This account is not verified! Please check your email!";
   }
 
   if (values.password === "") {
@@ -22,7 +30,7 @@ export const ValidationLogin = (values: any) => {
   return errors;
 };
 
-export const ValidationRegister = (values: any) => {
+export const ValidationRegister = async (values: any) => {
   const errors = {
     name: "",
     email: "",
@@ -53,12 +61,16 @@ export const ValidationRegister = (values: any) => {
     errors.email = "Email is required!";
   } else if (!email_pattern.test(values.email)) {
     errors.email = "Email must be valid!";
+  } else if (!(await isEmailAvailable(values.email))) {
+    errors.email = "Email is already taken!";
   }
 
   if (values.username === "") {
     errors.username = "Username is required!";
   } else if (!username_pattern.test(values.username)) {
     errors.username = "Username must be alphanumeric and 3-30 characters long!";
+  } else if (!(await isUsernameAvailable(values.username))) {
+    errors.username = "Username is already taken!";
   }
 
   if (values.password === "") {
