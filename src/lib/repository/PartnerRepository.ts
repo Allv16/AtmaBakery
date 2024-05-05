@@ -5,7 +5,7 @@ import { IPartner } from "../interfaces/IPartner";
 import axios from "axios";
 
 export const getAllPartner = () => {
-  let { data, error, isLoading, isValidating } = useSWR(
+  let { data, error, isLoading, isValidating, mutate } = useSWR(
     `${import.meta.env.VITE_BASE_API}/penitip`,
     fetcher
   );
@@ -19,6 +19,7 @@ export const getAllPartner = () => {
     error,
     isLoading,
     isValidating,
+    mutate,
   };
 };
 
@@ -33,7 +34,7 @@ export const addPartner = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );
@@ -54,12 +55,15 @@ export const getPartnerById = (id: string) => {
     fetcher
   );
 
+  console.log(data);
+
   if (!isLoading && error) {
     toast.error("Gagal mengambil data");
+    console.log(error);
   }
 
   return {
-    data: data?.penitip as IPartner,
+    data: data?.custodian as IPartner,
     error,
     isLoading,
     isValidating,
@@ -76,14 +80,14 @@ export const editPartner = async (data: any, id: String) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );
 
     if (response.status === 200) {
       toast.success("Successfully Edited Partner");
-      mutate(`${import.meta.env.VITE_BASE_API}/partner`);
+      mutate(`${import.meta.env.VITE_BASE_API}/penitip`);
     } else {
       toast.error("Failed to Edit Partner");
     }
@@ -99,13 +103,14 @@ export const deletePartner = async (id: string) => {
       {
         headers: {
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );
 
     if (response.status === 200) {
       toast.success("Successfully Deleted Partner");
+      mutate(`${import.meta.env.VITE_BASE_API}/penitip`);
     } else {
       toast.error("Failed to Delete Partner");
     }

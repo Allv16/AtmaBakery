@@ -34,7 +34,7 @@ export const addRecipes = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );
@@ -75,7 +75,7 @@ export const editRecipes = async (id: string, data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );

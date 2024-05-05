@@ -6,7 +6,7 @@ import { JobTitleList } from '../../../components/List/List';
 const JobTitle: React.FC = () => {
     //API CALL
     const { data, error, isLoading } = getAllRoles();
-
+    console.log(data);
     return (
         <>
             <MOWrapper>

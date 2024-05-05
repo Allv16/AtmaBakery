@@ -5,7 +5,7 @@ import { IEmployee } from "../interfaces/IEmployee";
 import axios from "axios";
 
 export const getAllEmployee = () => {
-  let { data, error, isLoading, isValidating } = useSWR(
+  let { data, error, isLoading, isValidating, mutate } = useSWR(
     `${import.meta.env.VITE_BASE_API}/karyawan`,
     fetcher
   );
@@ -19,6 +19,7 @@ export const getAllEmployee = () => {
     error,
     isLoading,
     isValidating,
+    mutate,
   };
 };
 
@@ -52,7 +53,7 @@ export const addEmployee = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );
@@ -95,14 +96,14 @@ export const editEmployee = async (data: any, id: String) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );
 
     if (response.status === 200) {
       toast.success("Successfully Edited Employee");
-      mutate(`${import.meta.env.VITE_BASE_API}/employee`);
+      mutate(`${import.meta.env.VITE_BASE_API}/karyawan`);
     } else {
       toast.error("Failed to Edit Employee");
     }
@@ -118,13 +119,14 @@ export const deleteEmployee = async (id: string) => {
       {
         headers: {
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );
 
     if (response.status === 200) {
       toast.success("Successfully Deleted Employee");
+      mutate(`${import.meta.env.VITE_BASE_API}/karyawan`);
     } else {
       toast.error("Failed to Delete Employee");
     }

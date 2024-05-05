@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { IRoles } from '../../lib/interfaces/IRoles';
 
 type RolesListProps = {

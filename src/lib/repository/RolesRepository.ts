@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import useSWR from "swr";
 import { fetcher } from "../utils/utils";
 import { toast } from "sonner";
@@ -9,6 +8,7 @@ export const getAllRoles = () => {
     `${import.meta.env.VITE_BASE_API}/roles`,
     fetcher
   );
+  console.log(data);
 
   if (!isLoading && error) {
     toast.error("Gagal mengambil data");

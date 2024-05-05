@@ -2,8 +2,6 @@ import useSWR, { mutate } from "swr";
 import { fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IIngredients } from "../interfaces/IIngredients";
-// import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const getAllIngredients = () => {
@@ -55,7 +53,7 @@ export const addIngredients = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer cjoNmEBCkM04S4EOFw1dFp8g3pEDZVKg4ectYghfb928477d",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );
@@ -80,7 +78,7 @@ export const editIngredients = async (data: any, id: String) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer cjoNmEBCkM04S4EOFw1dFp8g3pEDZVKg4ectYghfb928477d",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );
@@ -103,7 +101,7 @@ export const deleteIngredient = async (id: string) => {
       {
         headers: {
           Authorization:
-            "Bearer cjoNmEBCkM04S4EOFw1dFp8g3pEDZVKg4ectYghfb928477d",
+            "Bearer Iwv6rhhT230HRKqWp1Ah1Mo1MoKoF2G8PHjTnKSM5b4d7678",
         },
       }
     );
