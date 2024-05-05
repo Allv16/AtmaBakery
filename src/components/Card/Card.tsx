@@ -37,7 +37,7 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
         onClick={handleDetail}
       />
       <div className="p-4">
-        <h3 className="text-lg font-medium">{product.nama_produk}</h3>
+        <h3 className="text-lg text-black font-medium">{product.nama_produk}</h3>
         <p className="text-gray-600">{product.harga}</p>
         <hr />
         <div className="flex justify-end p-1">

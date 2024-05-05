@@ -43,24 +43,55 @@ export const IngredientsTable = (props: IngredientsTableProps) => {
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
                         </div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <Link to={`/edit-ingredients/${item.id_bahan_baku}`}>
-                                <li><a>Edit</a></li>
-                            </Link>
-                            <li><a onClick={() => handleDelete(item.id_bahan_baku)}>Delete</a></li>
+                            <li>
+                                <Link to={`/edit-ingredients/${item.id_bahan_baku}`}>
+                                    <a>Edit</a>
+                                </Link>
+                            </li>
+                            <li>
+                                <a onClick={() => handleDelete(item.id_bahan_baku)}>Delete</a>
+                            </li>
                         </ul>
+
+                        <dialog id="my_modal_3" className="modal" hidden>
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Confirmation</h3>
+                                <p className="py-4">Are you sure you want to delete this ingredient?</p>
+                                <div className="flex justify-end">
+                                    <form method="dialog" className="flex space-between gap-3">
+                                        <button id="cancel_delete">Cancel</button>
+                                        <button id="confirm_delete" className="btn btn-primary">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
                     </div>
                 </td>
             </tr>
         ));
     };
 
-    const handlePaginationClick = (page: number) => {
-        setCurrentPage(page);
+    const handleDelete = (id: string) => {
+        const modal = document.getElementById('my_modal_3') as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+
+            const confirmDeleteBtn = document.getElementById('confirm_delete') as HTMLButtonElement;
+            confirmDeleteBtn.addEventListener('click', () => {
+                deleteIngredient(id);
+                console.log(`Deleting ingredient with ID ${id}`);
+                modal.close();
+            });
+
+            const cancelDeleteBtn = document.getElementById('cancel_delete') as HTMLButtonElement;
+            cancelDeleteBtn.addEventListener('click', () => {
+                modal.close();
+            });
+        }
     };
 
-    const handleDelete = (id: string) => {
-        deleteIngredient(id);
-        console.log(`Deleting ingredient with ID ${id}`);
+    const handlePaginationClick = (page: number) => {
+        setCurrentPage(page);
     };
 
     const totalPages = Math.ceil(props.ingredientsData.length / itemsPerPage);

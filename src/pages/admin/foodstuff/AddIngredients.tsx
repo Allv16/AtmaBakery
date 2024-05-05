@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IngredientsBreadcrumb } from "../../../components/Breadcrumbs/Breadcrumb";
 import { AdminWrapper } from "../../../components/Wrapper";
 import { addIngredients } from "../../../lib/repository/IngredientsRepository";
+import { useNavigate } from 'react-router-dom';
 
 const AddIngredients: React.FC = () => {
     const inputField = {
@@ -24,6 +25,13 @@ const AddIngredients: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await addIngredients(input);
+        navigate('/admin-ingredients');
+    };
+
+    const navigate = useNavigate();
+
+    const handleCancelClick = () => {
+        navigate('/admin-ingredients');
     };
 
     return (
@@ -96,7 +104,9 @@ const AddIngredients: React.FC = () => {
                     </div>
 
                     <div className="flex justify-end gap-3 mt-10">
-                        <button className="btn btn-active">Cancel</button>
+                        <button className="btn btn-active" onClick={handleCancelClick}>
+                            Cancel
+                        </button>
                         <button className="btn btn-primary" type="submit">
                             Add Ingredients
                         </button>

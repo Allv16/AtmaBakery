@@ -5,7 +5,7 @@ import { IProduct } from "../interfaces/IProducts";
 
 export const getAllProcuts = () => {
   let { data, error, isLoading, isValidating } = useSWR(
-    `${import.meta.env.VITE_BASE_API}/products/random`,
+    `${import.meta.env.VITE_BASE_API}/products`,
     fetcher
   );
 

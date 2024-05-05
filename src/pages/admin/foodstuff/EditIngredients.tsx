@@ -3,7 +3,7 @@ import { IngredientsBreadcrumb } from '../../../components/Breadcrumbs/Breadcrum
 import { AdminWrapper } from '../../../components/Wrapper';
 import { IIngredients } from '../../../lib/interfaces/IIngredients';
 import { editIngredients, getIngredientsById } from '../../../lib/repository/IngredientsRepository';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 type EditIngredientsProps = {
     ingredients: IIngredients;
@@ -49,7 +49,15 @@ const EditIngredients = (props: EditIngredientsProps) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await editIngredients(input, data.id_bahan_baku);
+        navigate('/admin-ingredients');
     };
+
+    const navigate = useNavigate();
+
+    const handleCancelClick = () => {
+        navigate('/admin-ingredients');
+    };
+
     return (
         <AdminWrapper>
             <IngredientsBreadcrumb pageName="Edit Ingredients" />
@@ -104,7 +112,9 @@ const EditIngredients = (props: EditIngredientsProps) => {
                         </div>
 
                         <div className="flex justify-end gap-3 mt-10">
-                            <button className="btn btn-active">Cancel</button>
+                            <button className="btn btn-active" onClick={handleCancelClick}>
+                                Cancel
+                            </button>
                             <button className="btn btn-primary" type="submit">Save Changes</button>
                         </div>
                     </form>
