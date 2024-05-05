@@ -12,7 +12,6 @@ import AddIngredients from "./pages/admin/foodstuff/AddIngredients";
 import Recipe from "./pages/admin/foodstuff/Recipe";
 import DashboardMO from "./pages/mo/dashboard/DashboardMO";
 import EditIngredients from "./pages/admin/foodstuff/EditIngredients";
-import AddRecipe from "./pages/admin/foodstuff/AddRecipe";
 import Employee from "./pages/mo/employee/Employee.";
 import DashboardOwner from "./pages/owner/dashboard/Dashboard";
 import JobTitle from "./pages/mo/jobTitle/JobTitle";
@@ -20,7 +19,6 @@ import EditProduct from "./pages/admin/products/EditProduct";
 import EditHampers from "./pages/admin/hampers/EditHampers";
 import AddPromoPoints from "./pages/admin/points/AddPromoPoints";
 import PromoPoints from "./pages/admin/points/PromoPoints";
-import EditRecipe from "./pages/admin/foodstuff/EditRecipe";
 import Partner from "./pages/mo/partner/Partner";
 import AddEmployee from "./pages/mo/employee/AddEmployee";
 import EditEmployee from "./pages/mo/employee/EditEmployee";
@@ -109,14 +107,6 @@ export const router = createBrowserRouter([
     element: <Recipe />,
   },
   {
-    path: "/add-recipe",
-    element: <AddRecipe />,
-  },
-  {
-    path: "/edit-recipe",
-    element: <EditRecipe />,
-  },
-  {
     path: "/detail-recipe/:id",
     element: <DetailRecipe />,
   },
@@ -141,7 +131,7 @@ export const router = createBrowserRouter([
     element: <AddEmployee />,
   },
   {
-    path: "/edit-employee",
+    path: "/edit-employee/:id",
     element: <EditEmployee />,
   },
   {
@@ -153,7 +143,7 @@ export const router = createBrowserRouter([
     element: <AddPartner />,
   },
   {
-    path: "/edit-partner",
+    path: "/edit-partner/:id",
     element: <EditPartner />,
   },
   {
@@ -177,7 +167,7 @@ export const router = createBrowserRouter([
     element: <OwnerEmployee />,
   },
   {
-    path: "/edit-owner-employee",
+    path: "/edit-owner-employee/:id",
     element: <EditOwnerEmployee />,
   },
   {

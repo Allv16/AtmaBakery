@@ -108,14 +108,6 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
     const navigate = useNavigate()
     const location = useLocation();
 
-    const handleEdit = () => {
-        if (location.pathname.includes('mo-employee')) {
-            navigate('/edit-employee');
-        } else if (location.pathname.includes('owner-employee')) {
-            navigate('/edit-owner-employee');
-        }
-    };
-
     const renderTableRows = () => {
         return currentItems.map((item, index) => (
             <tr key={index}>
@@ -128,9 +120,7 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
                         </div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <li>
-                                <button onClick={handleEdit}>Edit</button>
-                            </li>
+                            <li><a onClick={() => handleEdit(item.id_karyawan)}>Edit</a></li>
                             <li><a onClick={() => handleDelete(item.id_karyawan)}>Delete</a></li>
                         </ul>
                     </div>
@@ -143,6 +133,15 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
         deleteEmployee(id);
         console.log(`Deleting employee with ID ${id}`);
     };
+
+    const handleEdit = (itemId: string) => {
+        if (location.pathname.includes('mo-employee')) {
+            navigate(`/edit-employee/${itemId}`);
+        } else if (location.pathname.includes('owner-employee')) {
+            navigate(`/edit-owner-employee/${itemId}`);
+        }
+    };
+
 
     const handlePaginationClick = (page: number) => {
         setCurrentPage(page);
@@ -197,12 +196,12 @@ export const PartnerTable = (props: PartnerTableProps) => {
                 <td>{item.alamat_penitip}</td>
                 <td>{item.telp_penitip}</td>
                 <td>
-                    <div className="dropdown dropdown-bottom">
+                    <div className="dropdown dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-xs">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
                         </div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <Link to="/edit-partner">
+                            <Link to={`/edit-partner/${item.id_penitip}`}>
                                 <li><a>Edit</a></li>
                             </Link>
                             <li><a onClick={() => handleDelete(item.id_penitip)}>Delete</a></li>

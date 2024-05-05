@@ -22,7 +22,7 @@ export const NavWrapper = ({ children }: { children: ReactNode }) => {
 export const AdminWrapper = ({ children }: { children: ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="dark:bg-boxdark-2 dark:text-white">
+    <div>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
@@ -57,7 +57,7 @@ export const AdminWrapper = ({ children }: { children: ReactNode }) => {
 export const MOWrapper = ({ children }: { children: ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="dark:bg-boxdark-2 dark:text-white">
+    <div>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
@@ -92,7 +92,7 @@ export const MOWrapper = ({ children }: { children: ReactNode }) => {
 export const OwnerWrapper = ({ children }: { children: ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="dark:bg-boxdark-2 dark:text-white">
+    <div>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}

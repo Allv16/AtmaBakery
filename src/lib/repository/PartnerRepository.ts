@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IPartner } from "../interfaces/IPartner";
@@ -33,7 +33,7 @@ export const addPartner = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
         },
       }
     );
@@ -48,6 +48,50 @@ export const addPartner = async (data: any) => {
   }
 };
 
+export const getPartnerById = (id: string) => {
+  let { data, error, isLoading, isValidating, mutate } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/penitip/${id}`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.penitip as IPartner,
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
+};
+
+export const editPartner = async (data: any, id: String) => {
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_BASE_API}/penitip/edit/${id}`,
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      toast.success("Successfully Edited Partner");
+      mutate(`${import.meta.env.VITE_BASE_API}/partner`);
+    } else {
+      toast.error("Failed to Edit Partner");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const deletePartner = async (id: string) => {
   try {
     const response = await axios.delete(
@@ -55,7 +99,7 @@ export const deletePartner = async (id: string) => {
       {
         headers: {
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
         },
       }
     );

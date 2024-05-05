@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IEmployee } from "../interfaces/IEmployee";
@@ -52,7 +52,7 @@ export const addEmployee = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
         },
       }
     );
@@ -67,6 +67,25 @@ export const addEmployee = async (data: any) => {
   }
 };
 
+export const getEmployeeById = (id: string) => {
+  let { data, error, isLoading, isValidating, mutate } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/karyawan/${id}`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.karyawan as IEmployee,
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
+};
+
 export const editEmployee = async (data: any, id: String) => {
   try {
     const response = await axios.put(
@@ -76,7 +95,7 @@ export const editEmployee = async (data: any, id: String) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
         },
       }
     );
@@ -99,7 +118,7 @@ export const deleteEmployee = async (id: string) => {
       {
         headers: {
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
         },
       }
     );

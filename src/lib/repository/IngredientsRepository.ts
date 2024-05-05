@@ -1,6 +1,3 @@
-/* eslint-disable prefer-const */
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import useSWR, { mutate } from "swr";
 import { fetcher } from "../utils/utils";
 import { toast } from "sonner";
@@ -58,7 +55,7 @@ export const addIngredients = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
         },
       }
     );
@@ -83,7 +80,7 @@ export const editIngredients = async (data: any, id: String) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
         },
       }
     );
@@ -106,7 +103,7 @@ export const deleteIngredient = async (id: string) => {
       {
         headers: {
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
         },
       }
     );

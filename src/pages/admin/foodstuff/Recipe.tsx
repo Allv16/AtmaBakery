@@ -1,12 +1,11 @@
 import React from 'react';
 import { AdminWrapper } from '../../../components/Wrapper';
-import { CardProduct, CardRecipe } from '../../../components/Card/Card';
+import { CardRecipe } from '../../../components/Card/Card';
 import { getOwnProducts } from '../../../lib/repository/RecipeRepository';
 
 const Recipe: React.FC = () => {
     //API CALL
-    const { data, error, isLoading, isValidating } = getOwnProducts();
-    console.log(`Data in Recipe: ${data}`);
+    const { data, error, isLoading } = getOwnProducts();
 
     return (
         <>
@@ -28,7 +27,7 @@ const Recipe: React.FC = () => {
                         <div className="flex flex-wrap items-center">
                             {data.map((product) => (
                                 <div key={product.id_produk} className="w-full sm:w-1/2 md:w-1/4 p-4">
-                                    <CardProduct product={product} id={product.id} />
+                                    <CardRecipe product={product} />
                                 </div>
                             ))}
                         </div>

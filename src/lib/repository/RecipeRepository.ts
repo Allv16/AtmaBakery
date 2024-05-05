@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable prefer-const */
 import useSWR from "swr";
 import { fetcher } from "../utils/utils";
 import { toast } from "sonner";
@@ -36,7 +34,7 @@ export const addRecipes = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer 52K9cORaUFVpQhGyf72lIEUVDPCpatsdMl6UAtSN84610c44",
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
         },
       }
     );
@@ -77,7 +75,7 @@ export const editRecipes = async (id: string, data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer 52K9cORaUFVpQhGyf72lIEUVDPCpatsdMl6UAtSN84610c44",
+            "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
         },
       }
     );

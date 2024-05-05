@@ -12,6 +12,7 @@ export const getAllRoles = () => {
 
   if (!isLoading && error) {
     toast.error("Gagal mengambil data");
+    console.log(data);
   }
 
   return {

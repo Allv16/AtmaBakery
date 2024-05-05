@@ -6,7 +6,7 @@ export const fetcher = async (url: string) => {
       headers: {
         "Content-Type": "application/json",
         Authorization:
-          "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+          "Bearer 56gkoUiiQETT8cT7Licj6BFkpihtto6KlUI38pkF57a5f12f",
       },
     });
     return response.data.data;

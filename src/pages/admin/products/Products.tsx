@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { AdminWrapper } from "../../../components/Wrapper";
-import { CardProduct } from "../../../components/Card/Card";
-import { IProduct } from "../../../lib/interfaces/IProducts";
 import { Link } from "react-router-dom";
 import { getAllProcuts } from "../../../lib/repository/ProductRepository";
+import { CardProduct } from "../../../components/Card/Card";
+import { IProduct } from "../../../lib/interfaces/IProducts";
 
 const Products: React.FC = () => {
   //API CALL
@@ -13,7 +13,7 @@ const Products: React.FC = () => {
 
   const filteredProducts = data?.filter((item) => {
     if (selectedTab === "my") {
-      return ["Cake", "Roti", "Minuman", "Hampers"].includes(item.jenis_produk);
+      return ["Cake", "Roti", "Minuman"].includes(item.jenis_produk);
     } else if (selectedTab === "consignment") {
       return item.jenis_produk === "Snack";
     }

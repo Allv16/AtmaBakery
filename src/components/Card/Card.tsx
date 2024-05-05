@@ -6,7 +6,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 type CardProductProps = {
   product: IProduct;
-  id_produk: string;
 }
 
 type CardHampersProps = {
@@ -20,16 +19,12 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
   const handleDetail = () => {
     if (location.pathname.includes('admin-products')) {
       navigate('/detail-products');
-    } else if (location.pathname.includes('admin-recipe')) {
-      navigate(`/detail-recipe/${product.id_produk}`);
     }
   };
 
   const handleEdit = () => {
     if (location.pathname.includes('admin-products')) {
       navigate('/edit-products');
-    } else if (location.pathname.includes('admin-recipe')) {
-      navigate('/edit-recipe');
     }
   };
 
@@ -132,3 +127,26 @@ export const CardHampers = (props: CardHampersProps) => {
     </div>
   );
 };
+
+export const CardRecipe: React.FC<CardProductProps> = ({ product }) => {
+  const navigate = useNavigate();
+
+  const handleDetailRecipe = () => {
+    navigate(`/detail-recipe/${product.id_produk}`);
+  };
+
+  return (
+    <div className="bg-white shadow-md rounded-lg overflow-hidden" onClick={handleDetailRecipe} style={{ cursor: 'pointer' }}>
+      <img
+        className="w-full h-50 object-cover"
+        src={product.foto}
+        alt={product.nama_produk}
+      />
+      <div className="p-4">
+        <h3 className="text-lg font-medium">{product.nama_produk}</h3>
+        <p className="text-gray-600 mb-4">{product.deskripsi}</p>
+      </div>
+    </div>
+  );
+};
+
