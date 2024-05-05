@@ -55,7 +55,7 @@ export const addIngredients = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer cjoNmEBCkM04S4EOFw1dFp8g3pEDZVKg4ectYghfb928477d",
         },
       }
     );
@@ -80,7 +80,7 @@ export const editIngredients = async (data: any, id: String) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer cjoNmEBCkM04S4EOFw1dFp8g3pEDZVKg4ectYghfb928477d",
         },
       }
     );
@@ -103,7 +103,7 @@ export const deleteIngredient = async (id: string) => {
       {
         headers: {
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer cjoNmEBCkM04S4EOFw1dFp8g3pEDZVKg4ectYghfb928477d",
         },
       }
     );
