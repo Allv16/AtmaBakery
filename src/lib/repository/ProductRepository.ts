@@ -1,12 +1,13 @@
 /* eslint-disable prefer-const */
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IProduct } from "../interfaces/IProducts";
+import axios from "axios";
 
 export const getAllProcuts = () => {
   let { data, error, isLoading, isValidating } = useSWR(
-    `${import.meta.env.VITE_BASE_API}/products/random`,
+    `${import.meta.env.VITE_BASE_API}/products`,
     fetcher
   );
 
@@ -23,6 +24,7 @@ export const getAllProcuts = () => {
 };
 
 export const addProducts = async (data: any) => {
+  console.log(data);
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_BASE_API}/products/add`,
@@ -33,13 +35,14 @@ export const addProducts = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer mzTxE8nv7u28rJ3hMP8QEAGdesaIUfiEK0mkPd9Xeb267e0d",
         },
       }
     );
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       toast.success("Successfully Added Products");
+      mutate(`${import.meta.env.VITE_BASE_API}/products`);
     } else {
       toast.error("Failed to Add Products");
     }

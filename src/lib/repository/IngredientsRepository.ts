@@ -58,12 +58,12 @@ export const addIngredients = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer mzTxE8nv7u28rJ3hMP8QEAGdesaIUfiEK0mkPd9Xeb267e0d",
         },
       }
     );
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       toast.success("Successfully Added Ingredients");
       mutate(`${import.meta.env.VITE_BASE_API}/ingredients`);
     } else {
@@ -83,7 +83,7 @@ export const editIngredients = async (data: any, id: String) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer mzTxE8nv7u28rJ3hMP8QEAGdesaIUfiEK0mkPd9Xeb267e0d",
         },
       }
     );
@@ -106,7 +106,7 @@ export const deleteIngredient = async (id: string) => {
       {
         headers: {
           Authorization:
-            "Bearer uA9DY4RBb5IUrR8sF4ZIG3DyjbNjDP6MF4z9FbNYe40a13b5",
+            "Bearer mzTxE8nv7u28rJ3hMP8QEAGdesaIUfiEK0mkPd9Xeb267e0d",
         },
       }
     );

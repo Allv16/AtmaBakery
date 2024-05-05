@@ -50,7 +50,7 @@ const Products: React.FC = () => {
           </h2>
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end mb-3">
           <div role="tablist" className="tabs tabs-boxed">
             <button
               role="tab"
@@ -90,7 +90,7 @@ const Products: React.FC = () => {
                   key={product.id_produk}
                   className="w-full sm:w-1/2 md:w-1/4 p-4"
                 >
-                  <CardProduct product={product} />
+                  <CardProduct product={product} id_produk={""} />
                 </div>
               ))}
             </div>
