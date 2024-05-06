@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { IIngredients } from "../../lib/interfaces/IIngredients";
 import { IRecipe } from "../../lib/interfaces/IRecipe";
+import { Trash2 } from "lucide-react";
+import { editRecipes } from "../../lib/repository/RecipeRepository";
+import { toast } from "sonner";
 
 type IngredientsListProps = {
   ingredientsData: IIngredients[];
   recipeData: IIngredients[];
+  idProduk: string;
 };
 
 export const RecipeForm: React.FC<IngredientsListProps> = (
@@ -29,11 +33,10 @@ export const RecipeForm: React.FC<IngredientsListProps> = (
   useEffect(() => {
     setValues(
       recipeData.map((recipe) => ({
-        quantity: recipe.stok ? recipe.stok.toString() : "",
-        unit: recipe.satuan,
+        jumlah_bahan: recipe.stok ? recipe.stok.toString() : "",
+        id_bahan_baku: recipe.id_bahan_baku,
       }))
     );
-    console.log(recipeData);
   }, [recipeData]);
 
   const removeRecipe = (item: IIngredients) => {
@@ -44,12 +47,23 @@ export const RecipeForm: React.FC<IngredientsListProps> = (
       )
     );
   };
+
+  const handleOnClick = async () => {
+    toast.info("Updating Recipe");
+    await editRecipes(props.idProduk, values);
+  };
   return (
     <div className="grid grid-cols-1 gap-12 sm:grid-cols-2">
       <div className="flex flex-col gap-12">
         <div className="rounded-sm border border-stroke bg-white shadow-default">
-          <div className="border-b border-stroke py-4 px-7">
+          <div className="border-b border-stroke py-4 px-7 flex justify-between items-center">
             <h3 className="font-medium text-black">Recipe</h3>
+            <button
+              className={`btn btn-sm btn-primary`}
+              onClick={handleOnClick}
+            >
+              Edit Recipe
+            </button>
           </div>
           {recipeData.length === 0 && (
             <div className="p-7 py-4">
@@ -59,66 +73,33 @@ export const RecipeForm: React.FC<IngredientsListProps> = (
           {recipeData.map((recipe, index) => (
             <div className="px-7 py-4">
               <div className="flex flex-col gap-1 xl:flex-row">
-                <div className="w-full xl:w-1/2">
+                <div className="w-full ">
                   <label className="mb-3 block text-black">
                     {recipe.nama_bahan_baku}
                   </label>
-                  <input
-                    type="number"
-                    placeholder="Enter quantity"
-                    className="w-full rounded border-[2px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
-                    min="0"
-                    value={values[index]?.quantity}
-                    onChange={(e) => {
-                      const newValues = [...values];
-                      newValues[index].quantity = e.target.value;
-                      setValues(newValues);
-                    }}
-                  />
-                </div>
-
-                <div className="w-full xl:w-1/2 flex items-end">
-                  <select
-                    name="units"
-                    className="w-full rounded border-[2px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
-                    value={values[index]?.unit}
-                    onChange={(e) => {
-                      const newValues = [...values];
-                      newValues[index].unit = e.target.value;
-                      setValues(newValues);
-                    }}
-                  >
-                    <option value="">Select Units</option>
-                    <option value="kg">Kg</option>
-                    <option value="ml">Ml</option>
-                    <option value="gr">Gram</option>
-                    <option value="buah">Buah</option>
-                    <option value="butir">Butir</option>
-                  </select>
-                  <button
-                    type="button"
-                    className="btn btn-square ml-2"
-                    onClick={() => removeRecipe(recipe)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      className="lucide lucide-trash-2"
+                  <div className="flex justify-between">
+                    <div className="flex items-center gap-4">
+                      <input
+                        type="number"
+                        placeholder="Enter quantity"
+                        className="w-full rounded border-[2px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                        min="0"
+                        value={values[index]?.jumlah_bahan}
+                        onChange={(e) => {
+                          const newValues = [...values];
+                          newValues[index].jumlah_bahan = e.target.value;
+                          setValues(newValues);
+                        }}
+                      />
+                      <p className="font-bold">{recipe.satuan}</p>
+                    </div>
+                    <button
+                      className="btn btn-error"
+                      onClick={() => removeRecipe(recipe)}
                     >
-                      <path d="M3 6h18" />
-                      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                      <line x1="10" x2="10" y1="11" y2="17" />
-                      <line x1="14" x2="14" y1="11" y2="17" />
-                    </svg>
-                  </button>
+                      <Trash2 className="text-white" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

@@ -67,13 +67,15 @@ export const getRecipesById = (id: string) => {
 
 export const editRecipes = async (id: string, data: any) => {
   try {
+    console.log(import.meta.env.VITE_API_KEY);
+
     const response = await axios.put(
       `${import.meta.env.VITE_BASE_API}/recipes/edit/${id}`,
       data,
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
         },
       }
     );
