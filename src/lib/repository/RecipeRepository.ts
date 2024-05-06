@@ -67,7 +67,7 @@ export const editRecipes = async (id: string, data: any) => {
       data
     );
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       toast.success("Successfully Edited Recipes");
     } else {
       toast.error("Failed to Edit Recipes");

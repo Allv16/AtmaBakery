@@ -72,7 +72,7 @@ export const editPartner = async (data: any, id: String) => {
       data
     );
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       toast.success("Successfully Edited Partner");
       mutate(`${import.meta.env.VITE_BASE_API}/penitip`);
     } else {
@@ -89,7 +89,7 @@ export const deletePartner = async (id: string) => {
       `${import.meta.env.VITE_BASE_API}/penitip/delete/${id}`
     );
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       toast.success("Successfully Deleted Partner");
       mutate(`${import.meta.env.VITE_BASE_API}/penitip`);
     } else {

@@ -86,7 +86,7 @@ export const editEmployee = async (data: any, id: String) => {
       data
     );
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       toast.success("Successfully Edited Employee");
       mutate(`${import.meta.env.VITE_BASE_API}/karyawan`);
     } else {
@@ -103,7 +103,7 @@ export const deleteEmployee = async (id: string) => {
       `${import.meta.env.VITE_BASE_API}/karyawan/delete/${id}`
     );
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       toast.success("Successfully Deleted Employee");
       mutate(`${import.meta.env.VITE_BASE_API}/karyawan`);
     } else {

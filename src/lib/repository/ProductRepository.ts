@@ -30,7 +30,7 @@ export const addProducts = async (data: any) => {
       data
     );
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       toast.success("Successfully Added Products");
       mutate(`${import.meta.env.VITE_BASE_API}/products`);
     } else {
@@ -65,7 +65,7 @@ export const deleteProduct = async (id: string) => {
       `${import.meta.env.VITE_BASE_API}/products/delete/${id}`
     );
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       toast.success("Successfully Deleted Product");
       mutate(`${import.meta.env.VITE_BASE_API}/products`);
     } else {
