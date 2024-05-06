@@ -1,5 +1,5 @@
 import useSWR, { mutate } from "swr";
-import { fetcher } from "../utils/utils";
+import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IPartner } from "../interfaces/IPartner";
 import axios from "axios";
@@ -27,7 +27,7 @@ export const getAllPartner = () => {
 
 export const addPartner = async (data: any) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance().post(
       `${import.meta.env.VITE_BASE_API}/penitip/add`,
       {
         ...data,
@@ -74,7 +74,7 @@ export const getPartnerById = (id: string) => {
 
 export const editPartner = async (data: any, id: String) => {
   try {
-    const response = await axios.put(
+    const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/penitip/edit/${id}`,
       data,
       {
@@ -98,7 +98,7 @@ export const editPartner = async (data: any, id: String) => {
 
 export const deletePartner = async (id: string) => {
   try {
-    const response = await axios.delete(
+    const response = await axiosInstance().delete(
       `${import.meta.env.VITE_BASE_API}/penitip/delete/${id}`,
       {
         headers: {

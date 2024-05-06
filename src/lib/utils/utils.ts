@@ -13,3 +13,17 @@ export const fetcher = async (url: string) => {
     console.error(error);
   }
 };
+
+export const axiosInstance = () => {
+  const token = `${import.meta.env.VITE_API_TOKEN}`;
+
+  const axiosClient = axios.create({
+    baseURL: `${import.meta.env.VITE_BASE_API}`,
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return axiosClient;
+};

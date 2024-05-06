@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import useSWR, { mutate } from "swr";
-import { fetcher } from "../utils/utils";
+import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IProduct } from "../interfaces/IProducts";
 import axios from "axios";
@@ -25,15 +25,9 @@ export const getAllProcuts = () => {
 
 export const addProducts = async (data: any) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance().post(
       `${import.meta.env.VITE_BASE_API}/products/add`,
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
-      }
+      data
     );
 
     if (response.status === 200) {
@@ -67,7 +61,7 @@ export const getProductsById = (id: string) => {
 
 export const deleteProduct = async (id: string) => {
   try {
-    const response = await axios.delete(
+    const response = await axiosInstance().delete(
       `${import.meta.env.VITE_BASE_API}/products/delete/${id}`,
       {
         headers: {

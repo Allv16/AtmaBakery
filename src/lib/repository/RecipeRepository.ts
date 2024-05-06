@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { fetcher } from "../utils/utils";
+import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IProduct } from "../interfaces/IProducts";
 import axios from "axios";
@@ -24,7 +24,7 @@ export const getOwnProducts = () => {
 
 export const addRecipes = async (data: any) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance().post(
       `${import.meta.env.VITE_BASE_API}/recipes/add`,
       {
         ...data,

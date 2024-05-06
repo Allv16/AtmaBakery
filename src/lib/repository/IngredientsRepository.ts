@@ -44,7 +44,7 @@ export const getIngredientsById = (id: string) => {
 
 export const addIngredients = async (data: any) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance().post(
       `${import.meta.env.VITE_BASE_API}/ingredients/add`,
       {
         ...data,
@@ -70,7 +70,7 @@ export const addIngredients = async (data: any) => {
 
 export const editIngredients = async (data: any, id: String) => {
   try {
-    const response = await axios.put(
+    const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/ingredients/edit/${id}`,
       data,
       {
@@ -94,7 +94,7 @@ export const editIngredients = async (data: any, id: String) => {
 
 export const deleteIngredient = async (id: string) => {
   try {
-    const response = await axios.delete(
+    const response = await axiosInstance().delete(
       `${import.meta.env.VITE_BASE_API}/ingredients/delete/${id}`,
       {
         headers: {

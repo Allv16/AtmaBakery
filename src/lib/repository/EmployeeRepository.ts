@@ -1,5 +1,5 @@
 import useSWR, { mutate } from "swr";
-import { fetcher } from "../utils/utils";
+import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IEmployee } from "../interfaces/IEmployee";
 import axios from "axios";
@@ -44,7 +44,7 @@ export const getKaryawanById = (id: string) => {
 
 export const addEmployee = async (data: any) => {
   try {
-    const response = await axios.post(
+    const response = await axiosInstance().post(
       `${import.meta.env.VITE_BASE_API}/karyawan/add`,
       {
         ...data,
@@ -88,7 +88,7 @@ export const getEmployeeById = (id: string) => {
 
 export const editEmployee = async (data: any, id: String) => {
   try {
-    const response = await axios.put(
+    const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/karyawan/edit/${id}`,
       data,
       {
@@ -112,7 +112,7 @@ export const editEmployee = async (data: any, id: String) => {
 
 export const deleteEmployee = async (id: string) => {
   try {
-    const response = await axios.delete(
+    const response = await axiosInstance().delete(
       `${import.meta.env.VITE_BASE_API}/karyawan/delete/${id}`,
       {
         headers: {
