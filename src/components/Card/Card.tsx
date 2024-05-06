@@ -6,38 +6,42 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 type CardProductProps = {
   product: IProduct;
-}
+};
 
 type CardHampersProps = {
   hampers: IHampers;
 };
 
 export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
 
   const handleDetail = () => {
-    if (location.pathname.includes('admin-products')) {
-      navigate('/detail-products');
+    if (location.pathname.includes("admin-products")) {
+      navigate("/detail-products");
     }
   };
 
   const handleEdit = () => {
-    if (location.pathname.includes('admin-products')) {
-      navigate('/edit-products');
+    if (location.pathname.includes("admin-products")) {
+      navigate("/edit-products");
     }
   };
 
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden cursor-pointer">
-      <img
-        className="h-50 aspect-square object-cover"
-        src={product.foto}
-        alt={product.nama_produk}
-        onClick={handleDetail}
-      />
+      <div className="flex justify-center items-center">
+        <img
+          className="h-50 aspect-square object-cover "
+          src={product.foto}
+          alt={product.nama_produk}
+          onClick={handleDetail}
+        />
+      </div>
       <div className="p-4">
-        <h3 className="text-lg text-black font-medium">{product.nama_produk}</h3>
+        <h3 className="text-lg text-black font-medium">
+          {product.nama_produk}
+        </h3>
         <p className="text-gray-600">{product.harga}</p>
         <hr />
         <div className="flex justify-end p-1">
@@ -87,7 +91,9 @@ export const CardHampers = (props: CardHampersProps) => {
         alt={props.hampers.hampers.nama_produk}
       />
       <div className="p-4">
-        <h3 className="text-lg font-medium">{props.hampers.hampers.nama_produk}</h3>
+        <h3 className="text-lg font-medium">
+          {props.hampers.hampers.nama_produk}
+        </h3>
         <p className="text-gray-600 mb-4">{props.hampers.hampers.harga}</p>
         <hr />
         <div className="flex justify-end p-1">
@@ -136,7 +142,11 @@ export const CardRecipe: React.FC<CardProductProps> = ({ product }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden" onClick={handleDetailRecipe} style={{ cursor: 'pointer' }}>
+    <div
+      className="bg-white shadow-md rounded-lg overflow-hidden"
+      onClick={handleDetailRecipe}
+      style={{ cursor: "pointer" }}
+    >
       <img
         className="w-full h-50 object-cover"
         src={product.foto}
@@ -149,4 +159,3 @@ export const CardRecipe: React.FC<CardProductProps> = ({ product }) => {
     </div>
   );
 };
-
