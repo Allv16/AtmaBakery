@@ -2,7 +2,6 @@ import useSWR, { mutate } from "swr";
 import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IPartner } from "../interfaces/IPartner";
-import axios from "axios";
 
 export const getAllPartner = () => {
   let { data, error, isLoading, isValidating, mutate } = useSWR(
@@ -31,12 +30,6 @@ export const addPartner = async (data: any) => {
       `${import.meta.env.VITE_BASE_API}/penitip/add`,
       {
         ...data,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
       }
     );
 
@@ -76,13 +69,7 @@ export const editPartner = async (data: any, id: String) => {
   try {
     const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/penitip/edit/${id}`,
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
-      }
+      data
     );
 
     if (response.status === 200) {
@@ -99,12 +86,7 @@ export const editPartner = async (data: any, id: String) => {
 export const deletePartner = async (id: string) => {
   try {
     const response = await axiosInstance().delete(
-      `${import.meta.env.VITE_BASE_API}/penitip/delete/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
-      }
+      `${import.meta.env.VITE_BASE_API}/penitip/delete/${id}`
     );
 
     if (response.status === 200) {

@@ -2,7 +2,6 @@ import useSWR from "swr";
 import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IProduct } from "../interfaces/IProducts";
-import axios from "axios";
 
 export const getOwnProducts = () => {
   let { data, error, isLoading, isValidating } = useSWR(
@@ -28,12 +27,6 @@ export const addRecipes = async (data: any) => {
       `${import.meta.env.VITE_BASE_API}/recipes/add`,
       {
         ...data,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
-        },
       }
     );
 
@@ -69,15 +62,9 @@ export const editRecipes = async (id: string, data: any) => {
   try {
     console.log(import.meta.env.VITE_API_KEY);
 
-    const response = await axios.put(
+    const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/recipes/edit/${id}`,
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
-      }
+      data
     );
 
     if (response.status === 200) {

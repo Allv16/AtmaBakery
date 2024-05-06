@@ -2,7 +2,6 @@ import useSWR, { mutate } from "swr";
 import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IEmployee } from "../interfaces/IEmployee";
-import axios from "axios";
 
 export const getAllEmployee = () => {
   let { data, error, isLoading, isValidating, mutate } = useSWR(
@@ -48,12 +47,6 @@ export const addEmployee = async (data: any) => {
       `${import.meta.env.VITE_BASE_API}/karyawan/add`,
       {
         ...data,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
       }
     );
 
@@ -90,13 +83,7 @@ export const editEmployee = async (data: any, id: String) => {
   try {
     const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/karyawan/edit/${id}`,
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
-      }
+      data
     );
 
     if (response.status === 200) {
@@ -113,12 +100,7 @@ export const editEmployee = async (data: any, id: String) => {
 export const deleteEmployee = async (id: string) => {
   try {
     const response = await axiosInstance().delete(
-      `${import.meta.env.VITE_BASE_API}/karyawan/delete/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
-      }
+      `${import.meta.env.VITE_BASE_API}/karyawan/delete/${id}`
     );
 
     if (response.status === 200) {

@@ -1,8 +1,7 @@
 import useSWR, { mutate } from "swr";
-import { fetcher } from "../utils/utils";
+import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IIngredients } from "../interfaces/IIngredients";
-import axios from "axios";
 
 export const getAllIngredients = () => {
   let { data, error, isLoading, isValidating, mutate } = useSWR(
@@ -48,12 +47,6 @@ export const addIngredients = async (data: any) => {
       `${import.meta.env.VITE_BASE_API}/ingredients/add`,
       {
         ...data,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
       }
     );
 
@@ -72,13 +65,7 @@ export const editIngredients = async (data: any, id: String) => {
   try {
     const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/ingredients/edit/${id}`,
-      data,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
-        },
-      }
+      data
     );
 
     if (response.status === 200) {
@@ -95,12 +82,7 @@ export const editIngredients = async (data: any, id: String) => {
 export const deleteIngredient = async (id: string) => {
   try {
     const response = await axiosInstance().delete(
-      `${import.meta.env.VITE_BASE_API}/ingredients/delete/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
-        },
-      }
+      `${import.meta.env.VITE_BASE_API}/ingredients/delete/${id}`
     );
 
     if (response.status === 200) {

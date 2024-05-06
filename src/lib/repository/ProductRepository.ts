@@ -62,13 +62,7 @@ export const getProductsById = (id: string) => {
 export const deleteProduct = async (id: string) => {
   try {
     const response = await axiosInstance().delete(
-      `${import.meta.env.VITE_BASE_API}/products/delete/${id}`,
-      {
-        headers: {
-          Authorization:
-            "Bearer lEOn1TgDZAFIpRQ30ENTl4C8POy87hRCqKfWb8tq7db966c7",
-        },
-      }
+      `${import.meta.env.VITE_BASE_API}/products/delete/${id}`
     );
 
     if (response.status === 200) {
