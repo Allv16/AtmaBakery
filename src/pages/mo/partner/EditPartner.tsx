@@ -4,6 +4,7 @@ import { MOWrapper } from '../../../components/Wrapper';
 import { IPartner } from '../../../lib/interfaces/IPartner';
 import { useParams } from 'react-router-dom';
 import { editPartner, getPartnerById } from '../../../lib/repository/PartnerRepository';
+import { useNavigate } from 'react-router-dom';
 
 type EditPartnerProps = {
     partner: IPartner;
@@ -13,6 +14,8 @@ const EditPartner = (props: EditPartnerProps) => {
     // API CALL
     const { id } = useParams<{ id: string }>();
     const { data, error, isLoading } = getPartnerById(id!);
+    console.log(data);
+    const navigate = useNavigate();
 
     const [input, setInput] = useState<IPartner>(
         {
@@ -31,6 +34,7 @@ const EditPartner = (props: EditPartnerProps) => {
                 alamat_penitip: data.alamat_penitip ?? "",
                 telp_penitip: data.telp_penitip ?? "",
             };
+            console.log(inputField);
             setInput(inputField);
         }
     }, [data]);
@@ -42,6 +46,11 @@ const EditPartner = (props: EditPartnerProps) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await editPartner(input, data.id_penitip);
+        navigate('/mo-partner');
+    };
+
+    const handleCancelClick = () => {
+        navigate('/mo-partner');
     };
 
     return (
@@ -60,7 +69,7 @@ const EditPartner = (props: EditPartnerProps) => {
                             <label className="font-medium text-gray-800 w-full max-w-xs">Partner Name</label>
                             <input
                                 type="text"
-                                placeholder="Enter Partner Name"
+                                placeholder="Enter Employee Name"
                                 className="input w-full max-w-md"
                                 name="nama_penitip"
                                 onChange={handleChange}
@@ -72,7 +81,7 @@ const EditPartner = (props: EditPartnerProps) => {
                             <label className="font-medium text-gray-800 w-full max-w-xs">Partner Address</label>
                             <input
                                 type="text"
-                                placeholder="Enter Partner Address"
+                                placeholder="Enter Employee Name"
                                 className="input w-full max-w-md"
                                 name="alamat_penitip"
                                 onChange={handleChange}
@@ -94,7 +103,9 @@ const EditPartner = (props: EditPartnerProps) => {
                         </div>
 
                         <div className="flex justify-end gap-3 mt-10">
-                            <button className="btn btn-active">Cancel</button>
+                            <button className="btn btn-active" onClick={handleCancelClick}>
+                                Cancel
+                            </button>
                             <button className="btn btn-primary" type="submit">Save Changes</button>
                         </div>
                     </form>

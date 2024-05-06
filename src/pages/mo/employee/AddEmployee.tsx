@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { EmployeeBreadcrumb } from '../../../components/Breadcrumbs/Breadcrumb';
 import { MOWrapper } from '../../../components/Wrapper';
 import { addEmployee } from "../../../lib/repository/EmployeeRepository";
+import { useNavigate } from 'react-router-dom';
 
 const AddEmployee: React.FC = () => {
     const inputField = {
@@ -9,6 +10,8 @@ const AddEmployee: React.FC = () => {
         gaji_karyawan: "",
         bonus_gaji_karyawan: "",
     };
+
+    const navigate = useNavigate();
 
     const [input, setInput] = useState(inputField);
 
@@ -23,6 +26,11 @@ const AddEmployee: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await addEmployee(input);
+        navigate('/mo-employee');
+    };
+
+    const handleCancelClick = () => {
+        navigate('/admin-ingredients');
     };
 
     return (
@@ -46,7 +54,9 @@ const AddEmployee: React.FC = () => {
                     </div>
 
                     <div className="flex justify-end gap-3 mt-10">
-                        <button className="btn btn-active">Cancel</button>
+                        <button className="btn btn-active" onClick={handleCancelClick}>
+                            Cancel
+                        </button>
                         <button className="btn btn-primary" type="submit">Add Employee</button>
                     </div>
                 </form>

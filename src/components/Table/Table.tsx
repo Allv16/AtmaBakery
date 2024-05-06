@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IIngredients } from '../../lib/interfaces/IIngredients';
 import { IEmployee } from '../../lib/interfaces/IEmployee';
@@ -38,15 +38,13 @@ export const IngredientsTable = (props: IngredientsTableProps) => {
                 <td>{item.min_stok}</td>
                 <td>{item.satuan}</td>
                 <td>
-                    <div className="dropdown dropdown-bottom">
+                    <div className="dropdown dropdown-bottom dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-xs">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
                         </div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                             <li>
-                                <Link to={`/edit-ingredients/${item.id_bahan_baku}`}>
-                                    <a>Edit</a>
-                                </Link>
+                                <a onClick={() => handleEditConfirmation(item.id_bahan_baku)}>Edit</a>
                             </li>
                             <li>
                                 <a onClick={() => handleDelete(item.id_bahan_baku)}>Delete</a>
@@ -61,6 +59,19 @@ export const IngredientsTable = (props: IngredientsTableProps) => {
                                     <form method="dialog" className="flex space-between gap-3">
                                         <button id="cancel_delete">Cancel</button>
                                         <button id="confirm_delete" className="btn btn-primary">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
+
+                        <dialog id="edit_modal" className="modal" hidden>
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Confirmation</h3>
+                                <p className="py-4">Are you sure you want to edit this ingredient?</p>
+                                <div className="flex justify-end">
+                                    <form method="dialog" className="flex space-between gap-3">
+                                        <button id="cancel_edit">Cancel</button>
+                                        <button id="confirm_edit" className="btn btn-primary">Edit</button>
                                     </form>
                                 </div>
                             </div>
@@ -89,6 +100,25 @@ export const IngredientsTable = (props: IngredientsTableProps) => {
             });
         }
     };
+
+    const handleEditConfirmation = (id: string) => {
+        const modal = document.getElementById('edit_modal') as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+
+            const confirmEditBtn = document.getElementById('confirm_edit') as HTMLButtonElement;
+            confirmEditBtn.addEventListener('click', () => {
+                navigate(`/edit-ingredients/${id}`);
+                modal.close();
+            });
+
+            const cancelEditBtn = document.getElementById('cancel_edit') as HTMLButtonElement;
+            cancelEditBtn.addEventListener('click', () => {
+                modal.close();
+            });
+        }
+    };
+
 
     const handlePaginationClick = (page: number) => {
         setCurrentPage(page);
@@ -146,14 +176,40 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
                 <td>{item.gaji_karyawan}</td>
                 <td>{item.bonus_gaji_karyawan}</td>
                 <td>
-                    <div className="dropdown dropdown-bottom">
+                    <div className="dropdown dropdown-bottom dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-xs">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
                         </div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a onClick={() => handleEdit(item.id_karyawan)}>Edit</a></li>
+                            <li><a onClick={() => handleEditConfirmation(item.id_karyawan)}>Edit</a></li>
                             <li><a onClick={() => handleDelete(item.id_karyawan)}>Delete</a></li>
                         </ul>
+
+                        <dialog id="my_modal_3" className="modal" hidden>
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Confirmation</h3>
+                                <p className="py-4">Are you sure you want to delete this employee?</p>
+                                <div className="flex justify-end">
+                                    <form method="dialog" className="flex space-between gap-3">
+                                        <button id="cancel_delete">Cancel</button>
+                                        <button id="confirm_delete" className="btn btn-primary">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
+
+                        <dialog id="edit_modal" className="modal" hidden>
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Confirmation</h3>
+                                <p className="py-4">Are you sure you want to edit this employee?</p>
+                                <div className="flex justify-end">
+                                    <form method="dialog" className="flex space-between gap-3">
+                                        <button id="cancel_edit">Cancel</button>
+                                        <button id="confirm_edit" className="btn btn-primary">Edit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
                     </div>
                 </td>
             </tr>
@@ -161,8 +217,22 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
     };
 
     const handleDelete = (id: string) => {
-        deleteEmployee(id);
-        console.log(`Deleting employee with ID ${id}`);
+        const modal = document.getElementById('my_modal_3') as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+
+            const confirmDeleteBtn = document.getElementById('confirm_delete') as HTMLButtonElement;
+            confirmDeleteBtn.addEventListener('click', () => {
+                deleteEmployee(id);
+                console.log(`Deleting employee with ID ${id}`);
+                modal.close();
+            });
+
+            const cancelDeleteBtn = document.getElementById('cancel_delete') as HTMLButtonElement;
+            cancelDeleteBtn.addEventListener('click', () => {
+                modal.close();
+            });
+        }
     };
 
     const handleEdit = (itemId: string) => {
@@ -173,6 +243,23 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
         }
     };
 
+    const handleEditConfirmation = (id: string) => {
+        const modal = document.getElementById('edit_modal') as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+
+            const confirmEditBtn = document.getElementById('confirm_edit') as HTMLButtonElement;
+            confirmEditBtn.addEventListener('click', () => {
+                handleEdit(id);
+                modal.close();
+            });
+
+            const cancelEditBtn = document.getElementById('cancel_edit') as HTMLButtonElement;
+            cancelEditBtn.addEventListener('click', () => {
+                modal.close();
+            });
+        }
+    };
 
     const handlePaginationClick = (page: number) => {
         setCurrentPage(page);
@@ -215,10 +302,11 @@ export const PartnerTable = (props: PartnerTableProps) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
-
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = props.partnerData.slice(indexOfFirstItem, indexOfLastItem);
+
+    const navigate = useNavigate()
 
     const renderTableRows = () => {
         return currentItems.map((item, index) => (
@@ -227,16 +315,42 @@ export const PartnerTable = (props: PartnerTableProps) => {
                 <td>{item.alamat_penitip}</td>
                 <td>{item.telp_penitip}</td>
                 <td>
-                    <div className="dropdown dropdown-end">
+                    <div className="dropdown dropdown-bottom dropdown-end">
                         <div tabIndex={0} role="button" className="btn btn-xs">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
                         </div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <Link to={`/edit-partner/${item.id_penitip}`}>
-                                <li><a>Edit</a></li>
-                            </Link>
+                            <li>
+                                <a onClick={() => handleEditConfirmation(item.id_penitip)}>Edit</a>
+                            </li>
                             <li><a onClick={() => handleDelete(item.id_penitip)}>Delete</a></li>
                         </ul>
+
+                        <dialog id="my_modal_3" className="modal" hidden>
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Confirmation</h3>
+                                <p className="py-4">Are you sure you want to delete this partner?</p>
+                                <div className="flex justify-end">
+                                    <form method="dialog" className="flex space-between gap-3">
+                                        <button id="cancel_delete">Cancel</button>
+                                        <button id="confirm_delete" className="btn btn-primary">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
+
+                        <dialog id="edit_modal" className="modal" hidden>
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Confirmation</h3>
+                                <p className="py-4">Are you sure you want to edit this partner?</p>
+                                <div className="flex justify-end">
+                                    <form method="dialog" className="flex space-between gap-3">
+                                        <button id="cancel_edit">Cancel</button>
+                                        <button id="confirm_edit" className="btn btn-primary">Edit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </dialog>
                     </div>
                 </td>
             </tr>
@@ -244,8 +358,40 @@ export const PartnerTable = (props: PartnerTableProps) => {
     };
 
     const handleDelete = (id: string) => {
-        deletePartner(id);
-        console.log(`Deleting partner with ID ${id}`);
+        const modal = document.getElementById('my_modal_3') as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+
+            const confirmDeleteBtn = document.getElementById('confirm_delete') as HTMLButtonElement;
+            confirmDeleteBtn.addEventListener('click', () => {
+                deletePartner(id);
+                console.log(`Deleting partner with ID ${id}`);
+                modal.close();
+            });
+
+            const cancelDeleteBtn = document.getElementById('cancel_delete') as HTMLButtonElement;
+            cancelDeleteBtn.addEventListener('click', () => {
+                modal.close();
+            });
+        }
+    };
+
+    const handleEditConfirmation = (id: string) => {
+        const modal = document.getElementById('edit_modal') as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+
+            const confirmEditBtn = document.getElementById('confirm_edit') as HTMLButtonElement;
+            confirmEditBtn.addEventListener('click', () => {
+                navigate(`/edit-partner/${id}`);
+                modal.close();
+            });
+
+            const cancelEditBtn = document.getElementById('cancel_edit') as HTMLButtonElement;
+            cancelEditBtn.addEventListener('click', () => {
+                modal.close();
+            });
+        }
     };
 
     const handlePaginationClick = (page: number) => {

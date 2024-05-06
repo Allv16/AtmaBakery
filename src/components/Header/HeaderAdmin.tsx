@@ -8,7 +8,6 @@ const HeaderAdmin = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
-  const [search, setSearch] = useState("");
 
   return (
     <header className="sticky top-0 z-999 flex w-full bg-secondary-white drop-shadow-1">
@@ -26,18 +25,9 @@ const HeaderAdmin = (props: {
             <Menu size={24} />
           </button>
           {/* <!-- Hamburger Toggle BTN --> */}
-
-          <Link className="block flex-shrink-0 lg:hidden" to="/">
-            {/* <img src={Logo} alt="Logo" /> */}
-          </Link>
         </div>
 
         <div className="w-fit">
-          <form action="https://formbold.com/s/unique_form_id" method="POST">
-            <div className="relative">
-              <button className="absolute left-0 top-1/2 -translate-y-1/2"></button>
-            </div>
-          </form>
         </div>
 
         <div className="flex items-center gap-5 gap-7">

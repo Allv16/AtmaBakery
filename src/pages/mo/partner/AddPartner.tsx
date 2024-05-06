@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PartnerBreadcrumb } from '../../../components/Breadcrumbs/Breadcrumb';
 import { MOWrapper } from '../../../components/Wrapper';
 import { addPartner } from '../../../lib/repository/PartnerRepository';
+import { useNavigate } from 'react-router-dom';
 
 const AddPartner: React.FC = () => {
     const inputField = {
@@ -9,6 +10,8 @@ const AddPartner: React.FC = () => {
         alamat_penitip: "",
         telp_penitip: "",
     };
+
+    const navigate = useNavigate();
 
     const [input, setInput] = useState(inputField);
 
@@ -23,6 +26,11 @@ const AddPartner: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await addPartner(input);
+        navigate('/mo-partner');
+    };
+
+    const handleCancelClick = () => {
+        navigate('/mo-partner');
     };
 
     return (
@@ -49,7 +57,9 @@ const AddPartner: React.FC = () => {
                     </div>
 
                     <div className="flex justify-end gap-3 mt-10">
-                        <button className="btn btn-active">Cancel</button>
+                        <button className="btn btn-active" onClick={handleCancelClick}>
+                            Cancel
+                        </button>
                         <button className="btn btn-primary" type="submit">Add Partner</button>
                     </div>
                 </form>

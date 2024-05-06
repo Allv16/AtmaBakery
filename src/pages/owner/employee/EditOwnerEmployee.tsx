@@ -3,7 +3,7 @@ import { OwnerEmployeeBreadcrumb } from '../../../components/Breadcrumbs/Breadcr
 import { OwnerWrapper } from '../../../components/Wrapper';
 import { IEmployee } from '../../../lib/interfaces/IEmployee';
 import { editEmployee, getEmployeeById } from '../../../lib/repository/EmployeeRepository';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 type EditEmployeeProps = {
     employee: IEmployee;
@@ -13,6 +13,7 @@ const EditOwnerEmployee = (props: EditEmployeeProps) => {
     // API CALL
     const { id } = useParams<{ id: string }>();
     const { data, error, isLoading } = getEmployeeById(id!);
+    const navigate = useNavigate();
 
     const [input, setInput] = useState<IEmployee>(
         {
@@ -42,6 +43,11 @@ const EditOwnerEmployee = (props: EditEmployeeProps) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await editEmployee(input, data.id_karyawan);
+        navigate('/owner-employee');
+    };
+
+    const handleCancelClick = () => {
+        navigate('/owner-employee');
     };
 
     return (
@@ -94,7 +100,9 @@ const EditOwnerEmployee = (props: EditEmployeeProps) => {
                         </div>
 
                         <div className="flex justify-end gap-3 mt-10">
-                            <button className="btn btn-active">Cancel</button>
+                            <button className="btn btn-active" onClick={handleCancelClick}>
+                                Cancel
+                            </button>
                             <button className="btn btn-primary" type="submit">Save Changes</button>
                         </div>
                     </form>
