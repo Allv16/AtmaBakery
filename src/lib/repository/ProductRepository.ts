@@ -75,11 +75,10 @@ export const deleteProduct = async (id: string) => {
       toast.success("Successfully Deleted Product");
       mutate(`${import.meta.env.VITE_BASE_API}/products`);
     } else {
-      toast.error("Failed to Delete Partner");
+      toast.error("Failed to Delete Product");
     }
   } catch (error) {
     console.error(error);
-    toast.error("An error occurred while deleting the product");
   }
 };
 

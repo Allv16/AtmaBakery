@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { OwnerWrapper } from '../../../components/Wrapper';
+import { MOWrapper } from '../../../components/Wrapper';
 import { IProfile } from "../../../lib/interfaces/IProfile";
 import { getProfile } from "../../../lib/repository/ProfileRepository";
 import { changePassword } from '../../../lib/repository/ProfileRepository';
-import { useNavigate } from 'react-router-dom';
 
-const OwnerProfile: React.FC = () => {
-
+const MOProfile: React.FC = () => {
     // API CALL
     const { data, error, isLoading } = getProfile();
 
@@ -41,7 +39,7 @@ const OwnerProfile: React.FC = () => {
     };
 
     return (
-        <OwnerWrapper>
+        <MOWrapper>
             <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <h2 className="text-title-xl font-serif font-bold text-black">
                     Profile
@@ -114,7 +112,6 @@ const OwnerProfile: React.FC = () => {
                                             name="old_password"
                                             value={input.old_password}
                                             onChange={handleChange}
-                                            required
                                         />
                                     </div>
 
@@ -130,7 +127,6 @@ const OwnerProfile: React.FC = () => {
                                             name="new_password"
                                             value={input.new_password}
                                             onChange={handleChange}
-                                            required
                                         />
                                     </div>
 
@@ -186,8 +182,8 @@ const OwnerProfile: React.FC = () => {
                     </div>
                 </div>
             )}
-        </OwnerWrapper>
+        </MOWrapper>
     );
 };
 
-export default OwnerProfile;
+export default MOProfile;

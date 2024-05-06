@@ -16,12 +16,6 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleDetail = () => {
-    if (location.pathname.includes("admin-products")) {
-      navigate("/detail-products");
-    }
-  };
-
   const handleEdit = () => {
     if (location.pathname.includes("admin-products")) {
       navigate("/edit-products");
@@ -58,7 +52,6 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
           className="h-50 aspect-square object-cover "
           src={product.foto}
           alt={product.nama_produk}
-          onClick={handleDetail}
         />
       </div>
       <div className="p-4">
