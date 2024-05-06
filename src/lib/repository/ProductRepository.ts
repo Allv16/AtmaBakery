@@ -31,8 +31,7 @@ export const addProducts = async (data: any) => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization:
-            "Bearer 45|cjoNmEBCkM04S4EOFw1dFp8g3pEDZVKg4ectYghfb928477d",
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
         },
       }
     );

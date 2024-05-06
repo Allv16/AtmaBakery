@@ -35,8 +35,7 @@ export const addPartner = async (data: any) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer lEOn1TgDZAFIpRQ30ENTl4C8POy87hRCqKfWb8tq7db966c7",
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
         },
       }
     );
@@ -81,8 +80,7 @@ export const editPartner = async (data: any, id: String) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer lEOn1TgDZAFIpRQ30ENTl4C8POy87hRCqKfWb8tq7db966c7",
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
         },
       }
     );
@@ -104,8 +102,7 @@ export const deletePartner = async (id: string) => {
       `${import.meta.env.VITE_BASE_API}/penitip/delete/${id}`,
       {
         headers: {
-          Authorization:
-            "Bearer lEOn1TgDZAFIpRQ30ENTl4C8POy87hRCqKfWb8tq7db966c7",
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
         },
       }
     );

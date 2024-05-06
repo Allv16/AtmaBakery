@@ -1,7 +1,6 @@
 import useSWR from "swr";
 import { fetcher } from "../utils/utils";
 import { toast } from "sonner";
-import { IRecipe } from "../interfaces/IRecipe";
 import { IProduct } from "../interfaces/IProducts";
 import axios from "axios";
 
@@ -33,8 +32,7 @@ export const addRecipes = async (data: any) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer lEOn1TgDZAFIpRQ30ENTl4C8POy87hRCqKfWb8tq7db966c7",
+          Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
         },
       }
     );
@@ -75,8 +73,7 @@ export const editRecipes = async (id: string, data: any) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer lEOn1TgDZAFIpRQ30ENTl4C8POy87hRCqKfWb8tq7db966c7",
+          Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
         },
       }
     );

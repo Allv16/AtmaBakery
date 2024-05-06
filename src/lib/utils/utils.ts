@@ -5,8 +5,7 @@ export const fetcher = async (url: string) => {
     const response = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer lEOn1TgDZAFIpRQ30ENTl4C8POy87hRCqKfWb8tq7db966c7",
+        Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
       },
     });
     return response.data.data;

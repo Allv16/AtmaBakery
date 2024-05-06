@@ -52,8 +52,7 @@ export const addIngredients = async (data: any) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer lEOn1TgDZAFIpRQ30ENTl4C8POy87hRCqKfWb8tq7db966c7",
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
         },
       }
     );
@@ -77,8 +76,7 @@ export const editIngredients = async (data: any, id: String) => {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer lEOn1TgDZAFIpRQ30ENTl4C8POy87hRCqKfWb8tq7db966c7",
+          Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
         },
       }
     );
@@ -100,8 +98,7 @@ export const deleteIngredient = async (id: string) => {
       `${import.meta.env.VITE_BASE_API}/ingredients/delete/${id}`,
       {
         headers: {
-          Authorization:
-            "Bearer lEOn1TgDZAFIpRQ30ENTl4C8POy87hRCqKfWb8tq7db966c7",
+          Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
         },
       }
     );

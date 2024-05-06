@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { ProductBreadcrumb } from "../../../components/Breadcrumbs/Breadcrumb";
 import { AdminWrapper } from "../../../components/Wrapper";
 import { addProducts } from "../../../lib/repository/ProductRepository";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { IPartner } from "../../../lib/interfaces/IPartner";
 import { getAllPartner } from "../../../lib/repository/PartnerRepository";
 
 const AddConsignment = () => {
@@ -22,7 +20,6 @@ const AddConsignment = () => {
   };
 
   const [input, setInput] = useState(inputField);
-  const [file, setFile] = useState<File | undefined>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
