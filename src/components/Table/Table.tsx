@@ -181,8 +181,15 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
                         </div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a onClick={() => handleEditConfirmation(item.id_karyawan)}>Edit</a></li>
-                            <li><a onClick={() => handleDelete(item.id_karyawan)}>Delete</a></li>
+                            {location.pathname.includes('mo-employee') && (
+                                <>
+                                    <li><a onClick={() => handleEditConfirmation(item.id_karyawan)}>Edit</a></li>
+                                    <li><a onClick={() => handleDelete(item.id_karyawan)}>Delete</a></li>
+                                </>
+                            )}
+                            {location.pathname.includes('owner-employee') && (
+                                <li><a onClick={() => handleEditConfirmation(item.id_karyawan)}>Edit</a></li>
+                            )}
                         </ul>
 
                         <dialog id="my_modal_3" className="modal" hidden>
