@@ -23,3 +23,22 @@ export const getProfile = () => {
     mutate,
   };
 };
+
+export const changePassword = async (data: any) => {
+  try {
+    const response = await axiosInstance().post(
+      `${import.meta.env.VITE_BASE_API}/auth/user/change-password`,
+      {
+        ...data,
+      }
+    );
+
+    if (response.status.toString().startsWith("20")) {
+      toast.success("Successfully Change Password");
+    } else {
+      toast.error("Failed to Change Password");
+    }
+  } catch (error) {
+    toast.error("Current Password doesn't Match the Old Password ");
+  }
+};

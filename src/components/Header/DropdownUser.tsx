@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 import User from '../../assets/images/profile.png';
 
 export const DropdownAdmin = () => {
@@ -9,6 +9,7 @@ export const DropdownAdmin = () => {
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -33,6 +34,10 @@ export const DropdownAdmin = () => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+
+  const handleLogout = () => {
+    navigate('/login');
+  };
 
   return (
     <div className="relative">
@@ -80,7 +85,7 @@ export const DropdownAdmin = () => {
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-8">
           <li>
             <Link
-              to="/profile"
+              to="/admin/profile"
               className="flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
@@ -104,7 +109,7 @@ export const DropdownAdmin = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={handleLogout}>
           <svg
             className="fill-current"
             width="22"
@@ -135,6 +140,7 @@ export const DropdownMO = () => {
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -159,6 +165,10 @@ export const DropdownMO = () => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+
+  const handleLogout = () => {
+    navigate('/login');
+  };
 
   return (
     <div className="relative">
@@ -206,7 +216,7 @@ export const DropdownMO = () => {
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-8">
           <li>
             <Link
-              to="/profile"
+              to="/mo/profile"
               className="flex items-center gap-3 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
@@ -230,7 +240,7 @@ export const DropdownMO = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={handleLogout}>
           <svg
             className="fill-current"
             width="22"
@@ -261,6 +271,7 @@ export const DropdownOwner = () => {
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -285,6 +296,10 @@ export const DropdownOwner = () => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+
+  const handleLogout = () => {
+    navigate('/login');
+  };
 
   return (
     <div className="relative">
@@ -356,7 +371,7 @@ export const DropdownOwner = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={handleLogout}>
           <svg
             className="fill-current"
             width="22"

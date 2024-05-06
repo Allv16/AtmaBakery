@@ -28,8 +28,6 @@ import AddJobTitle from "./pages/mo/jobTitle/AddJobTitle";
 import EditJobTitle from "./pages/mo/jobTitle/EditJobTitle";
 import OwnerEmployee from "./pages/owner/employee/OwnerEmployee";
 import EditOwnerEmployee from "./pages/owner/employee/EditOwnerEmployee";
-
-import DetailProduct from "./pages/admin/products/DetailProduct";
 import DetailRecipe from "./pages/admin/foodstuff/DetailRecipe";
 import AddMyProduct from "./pages/admin/products/AddMyProduct";
 import AddConsignment from "./pages/admin/products/AddConsignment";
@@ -43,6 +41,7 @@ import AddressList from "./pages/customer/profile/AddressList";
 import Login from "./pages/customer/login/Login";
 import Products from "./pages/admin/products/Products";
 import Register from "./pages/customer/register/Register";
+import MOProfile from "./pages/mo/profile/MOProfile";
 
 export const router = createBrowserRouter([
   {
@@ -96,10 +95,6 @@ export const router = createBrowserRouter([
   {
     path: "/edit-products/:id",
     element: <EditProduct />,
-  },
-  {
-    path: "/detail-products",
-    element: <DetailProduct />,
   },
   {
     path: "/admin-ingredients",
@@ -196,6 +191,10 @@ export const router = createBrowserRouter([
   {
     path: "/admin/profile",
     element: <AdminProfile />,
+  },
+  {
+    path: "/mo/profile",
+    element: <MOProfile />,
   },
   {
     path: "/owner/profile",
