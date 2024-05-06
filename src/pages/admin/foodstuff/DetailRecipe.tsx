@@ -31,8 +31,11 @@ const DetailRecipe: React.FC = () => {
     recipeList = recipeData.recipe.map(
       (recipe: any) => recipe.bahan_baku
     ) as IIngredients[];
+    recipeList = recipeList.map((recipe, index) => {
+      recipe.stok = recipeData.recipe[index].jumlah_bahan;
+      return recipe;
+    });
   }
-  console.log(data);
 
   if (data && recipeData) {
     remainingIngredients = data.filter(
@@ -42,8 +45,6 @@ const DetailRecipe: React.FC = () => {
         )
     );
   }
-
-  console.log(remainingIngredients);
 
   return (
     <>
@@ -63,6 +64,7 @@ const DetailRecipe: React.FC = () => {
           <RecipeForm
             ingredientsData={remainingIngredients}
             recipeData={recipeList}
+            idProduk={id!}
           />
         )}
       </AdminWrapper>

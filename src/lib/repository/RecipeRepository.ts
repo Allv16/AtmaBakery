@@ -76,7 +76,7 @@ export const editRecipes = async (id: string, data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer cjoNmEBCkM04S4EOFw1dFp8g3pEDZVKg4ectYghfb928477d",
         },
       }
     );
