@@ -1,5 +1,6 @@
 import React from 'react';
 import { OwnerWrapper } from '../../../components/Wrapper';
+import User from '../../../assets/images/profile.png';
 
 const OwnerProfile: React.FC = () => {
     return (
@@ -115,12 +116,12 @@ const OwnerProfile: React.FC = () => {
                             <form action="#">
                                 <div className="mb-4 flex items-center gap-3">
                                     <div className="h-14 w-14 rounded-full">
-                                        {/* <img src={userThree} alt="User" /> */}
+                                        {/* <img src={User} alt="User" /> */}
                                     </div>
 
                                 </div>
 
-                                <div className="flex justify-end gap-4.5">
+                                <div className="flex justify-end gap-4">
                                     <button
                                         className="flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
                                         type="submit"

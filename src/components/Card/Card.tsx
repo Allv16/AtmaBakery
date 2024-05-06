@@ -3,6 +3,7 @@ import { IProduct } from "../../lib/interfaces/IProducts";
 import { IRecipe } from "../../lib/interfaces/IRecipe";
 import { IHampers } from "../../lib/interfaces/IHampers";
 import { useLocation, useNavigate } from "react-router-dom";
+import { deleteProduct } from "../../lib/repository/ProductRepository";
 
 type CardProductProps = {
   product: IProduct;
@@ -25,6 +26,25 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
   const handleEdit = () => {
     if (location.pathname.includes('admin-products')) {
       navigate('/edit-products');
+    }
+  };
+
+  const handleDelete = (id: string) => {
+    const modal = document.getElementById('my_modal_3') as HTMLDialogElement;
+    if (modal) {
+      modal.showModal();
+
+      const confirmDeleteBtn = document.getElementById('confirm_delete') as HTMLButtonElement;
+      confirmDeleteBtn.addEventListener('click', () => {
+        deleteProduct(id);
+        console.log(`Deleting product with ID ${id}`);
+        modal.close();
+      });
+
+      const cancelDeleteBtn = document.getElementById('cancel_delete') as HTMLButtonElement;
+      cancelDeleteBtn.addEventListener('click', () => {
+        modal.close();
+      });
     }
   };
 
@@ -68,9 +88,22 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
                 <button onClick={handleEdit}>Edit</button>
               </li>
               <li>
-                <a>Delete</a>
+                <a onClick={() => handleDelete(product.id_produk)}>Delete</a>
               </li>
             </ul>
+
+            <dialog id="my_modal_3" className="modal" hidden>
+              <div className="modal-box">
+                <h3 className="font-bold text-lg">Confirmation</h3>
+                <p className="py-4">Are you sure you want to delete this products?</p>
+                <div className="flex justify-end">
+                  <form method="dialog" className="flex space-between gap-3">
+                    <button id="cancel_delete">Cancel</button>
+                    <button id="confirm_delete" className="btn btn-primary">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
           </div>
         </div>
       </div>
