@@ -111,3 +111,19 @@ export const ValidationRegister = async (values: any) => {
 
   return errors;
 };
+
+export const ValidationSendEmail = async (values: any) => {
+  const errors = {
+    email: "",
+  };
+
+  const email_pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (values.email === "") {
+    errors.email = "Email is required!";
+  } else if (!email_pattern.test(values.email)) {
+    errors.email = "Email must be valid!";
+  }
+
+  return errors;
+};

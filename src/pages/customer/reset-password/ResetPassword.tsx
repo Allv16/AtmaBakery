@@ -14,15 +14,15 @@ export default function ResetPassword() {
         </p>
         <div className="form-control w-full mt-9 px-4 md:px-20">
           <Label children="Email Address"></Label>
-          <InputForm type="email" placeholder="Enter your email address" />
+          <InputForm type="email" name="email" placeholder="Enter your email address" />
         </div>
         <div className="form-control w-full mt-9 px-4 md:px-20">
           <Label children="New Password"></Label>
-          <InputForm type="password" placeholder="Enter your new password" />
+          <InputForm type="password" name="password" placeholder="Enter your new password" />
         </div>
         <div className="form-control w-full mt-9 px-4 md:px-20">
           <Label children="Confirm Password"></Label>
-          <InputForm type="password" placeholder="Re-enter your new password" />
+          <InputForm type="password" name="reset-password" placeholder="Re-enter your new password" />
         </div>
         <div className="form-control mt-16 w-full px-4 md:px-20">
           <button className="btn btn-sm btn-primary font font-semibold text-xs md:btn-md md:text-sm xl:text-base">

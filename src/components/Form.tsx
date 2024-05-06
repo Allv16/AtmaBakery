@@ -88,7 +88,7 @@ export const FormLogin = () => {
         {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
         <label className="label-text px-0 text-end pt-2">
           <a
-            href="#"
+            href="/forgot-password"
             className="label-text link link-hover text-xs text-primary xl:text-base"
           >
             Forgot password?
@@ -105,7 +105,7 @@ export const FormLogin = () => {
         <p className="label-text mt-4 text-center text-xs xl:text-base">
           Don't have an account ?{" "}
           <a
-            href="#"
+            href="/register"
             className="label-text link link-hover font-bold text-xs text-primary xl:text-base"
           >
             Sign Up
@@ -286,7 +286,9 @@ export const FormRegister = () => {
         <p className="label-text mt-4 text-center text-xs xl:text-base">
           Already have an account ?{" "}
           <a
-            href="#"
+            href="/login
+            
+            "
             className="label-text link link-hover font-bold text-xs text-primary xl:text-base"
           >
             Sign In
