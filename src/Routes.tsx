@@ -36,6 +36,8 @@ import AddConsignment from "./pages/admin/products/AddConsginment";
 import MaterialPurchase from "./pages/mo/material/MaterialPurchase";
 import OtherExpenses from "./pages/mo/other-expenses/OtherExpenses";
 import Attendance from "./pages/mo/attendance/Attendance";
+import AdminProfile from "./pages/admin/profile/AdminProfile";
+import OwnerProfile from "./pages/owner/profile/OwnerProfile";
 
 export const router = createBrowserRouter([
   {
@@ -181,5 +183,13 @@ export const router = createBrowserRouter([
   {
     path: "/mo-attendance",
     element: <Attendance />,
+  },
+  {
+    path: "/admin/profile",
+    element: <AdminProfile />,
+  },
+  {
+    path: "/owner/profile",
+    element: <OwnerProfile />,
   },
 ]);
