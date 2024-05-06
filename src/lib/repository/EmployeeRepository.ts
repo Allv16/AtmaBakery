@@ -50,7 +50,7 @@ export const addEmployee = async (data: any) => {
       }
     );
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Added Employee");
     } else {
       toast.error("Failed to Add Employee");
@@ -86,7 +86,7 @@ export const editEmployee = async (data: any, id: String) => {
       data
     );
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Edited Employee");
       mutate(`${import.meta.env.VITE_BASE_API}/karyawan`);
     } else {
@@ -103,7 +103,7 @@ export const deleteEmployee = async (id: string) => {
       `${import.meta.env.VITE_BASE_API}/karyawan/delete/${id}`
     );
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Deleted Employee");
       mutate(`${import.meta.env.VITE_BASE_API}/karyawan`);
     } else {

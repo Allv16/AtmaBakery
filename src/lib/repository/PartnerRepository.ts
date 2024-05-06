@@ -33,7 +33,7 @@ export const addPartner = async (data: any) => {
       }
     );
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Added Partner");
     } else {
       toast.error("Failed to Add Partner");
@@ -72,7 +72,7 @@ export const editPartner = async (data: any, id: String) => {
       data
     );
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Edited Partner");
       mutate(`${import.meta.env.VITE_BASE_API}/penitip`);
     } else {
@@ -89,7 +89,7 @@ export const deletePartner = async (id: string) => {
       `${import.meta.env.VITE_BASE_API}/penitip/delete/${id}`
     );
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Deleted Partner");
       mutate(`${import.meta.env.VITE_BASE_API}/penitip`);
     } else {

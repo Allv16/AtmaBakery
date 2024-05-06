@@ -51,7 +51,7 @@ export const addIngredients = async (data: any) => {
     );
     console.log(response);
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Added Ingredients");
       mutate(`${import.meta.env.VITE_BASE_API}/ingredients`);
     } else {

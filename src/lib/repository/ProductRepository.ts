@@ -25,12 +25,18 @@ export const getAllProcuts = () => {
 
 export const addProducts = async (data: any) => {
   try {
-    const response = await axiosInstance().post(
+    const response = await axios.post(
       `${import.meta.env.VITE_BASE_API}/products/add`,
-      data
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+        },
+      }
     );
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Added Products");
       mutate(`${import.meta.env.VITE_BASE_API}/products`);
     } else {
@@ -65,7 +71,7 @@ export const deleteProduct = async (id: string) => {
       `${import.meta.env.VITE_BASE_API}/products/delete/${id}`
     );
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Deleted Product");
       mutate(`${import.meta.env.VITE_BASE_API}/products`);
     } else {

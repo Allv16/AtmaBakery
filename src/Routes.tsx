@@ -101,8 +101,8 @@ export const router = createBrowserRouter([
     element: <AddIngredients />,
   },
   {
-    // path: "/edit-ingredients/:id",
-    // element: <EditIngredients />,
+    path: "/edit-ingredients/:id",
+    element: <EditIngredients />,
   },
   {
     path: "/admin-recipe",

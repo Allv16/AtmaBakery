@@ -30,7 +30,7 @@ export const addRecipes = async (data: any) => {
       }
     );
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Added Recipes");
     } else {
       toast.error("Failed to Add Recipes");
@@ -60,14 +60,12 @@ export const getRecipesById = (id: string) => {
 
 export const editRecipes = async (id: string, data: any) => {
   try {
-    console.log(import.meta.env.VITE_API_KEY);
-
     const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/recipes/edit/${id}`,
       data
     );
 
-    if (response.status === 201) {
+    if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Edited Recipes");
     } else {
       toast.error("Failed to Edit Recipes");
