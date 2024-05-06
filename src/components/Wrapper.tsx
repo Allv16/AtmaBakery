@@ -1,6 +1,13 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
+import HeaderAdmin from "./Header/HeaderAdmin";
+import AdminSidebar from "../components/Sidebar/AdminSidebar";
+import MOSidebar from "../components/Sidebar/MOSidebar";
+import OwnerSidebar from "./Sidebar/OwnerSidebar";
+import HeaderMO from "./Header/HeaderMO";
+import HeaderOwner from "./Header/HeaderOwner";
+import { FooterAdmin } from "./FooterAdmin";
 import Indicator from "./Indicator";
 
 export const NavWrapper = ({ children }: { children: ReactNode }) => {
@@ -13,5 +20,122 @@ export const NavWrapper = ({ children }: { children: ReactNode }) => {
       <Footer />
       <Indicator />
     </>
+  );
+};
+
+export const AdminWrapper = ({ children }: { children: ReactNode }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  return (
+    <div>
+      {/* <!-- ===== Page Wrapper Start ===== --> */}
+      <div className="flex h-screen overflow-hidden">
+        {/* <!-- ===== Sidebar Start ===== --> */}
+        <AdminSidebar
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
+        {/* <!-- ===== Sidebar End ===== --> */}
+
+        {/* <!-- ===== Content Area Start ===== --> */}
+        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden bg-white">
+          {/* <!-- ===== Header Start ===== --> */}
+          <HeaderAdmin
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+          />
+          {/* <!-- ===== Header End ===== --> */}
+
+          {/* <!-- ===== Main Content Start ===== --> */}
+          <main>
+            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+              {children}
+            </div>
+          </main>
+          {/* <!-- ===== Main Content End ===== --> */}
+
+          {/* <!-- ===== Footer Area ===== --> */}
+          <FooterAdmin />
+          {/* <!-- ===== Footer End ===== --> */}
+        </div>
+        {/* <!-- ===== Content Area End ===== --> */}
+      </div>
+      {/* <!-- ===== Page Wrapper End ===== --> */}
+    </div>
+  );
+};
+
+export const MOWrapper = ({ children }: { children: ReactNode }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  return (
+    <div>
+      {/* <!-- ===== Page Wrapper Start ===== --> */}
+      <div className="flex h-screen overflow-hidden">
+        {/* <!-- ===== Sidebar Start ===== --> */}
+        <MOSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        {/* <!-- ===== Sidebar End ===== --> */}
+
+        {/* <!-- ===== Content Area Start ===== --> */}
+        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden bg-white">
+          {/* <!-- ===== Header Start ===== --> */}
+          <HeaderMO sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          {/* <!-- ===== Header End ===== --> */}
+
+          {/* <!-- ===== Main Content Start ===== --> */}
+          <main>
+            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+              {children}
+            </div>
+          </main>
+          {/* <!-- ===== Main Content End ===== --> */}
+
+          {/* <!-- ===== Footer Area ===== --> */}
+          <FooterAdmin />
+          {/* <!-- ===== Footer End ===== --> */}
+        </div>
+        {/* <!-- ===== Content Area End ===== --> */}
+      </div>
+      {/* <!-- ===== Page Wrapper End ===== --> */}
+    </div>
+  );
+};
+
+export const OwnerWrapper = ({ children }: { children: ReactNode }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  return (
+    <div>
+      {/* <!-- ===== Page Wrapper Start ===== --> */}
+      <div className="flex h-screen overflow-hidden">
+        {/* <!-- ===== Sidebar Start ===== --> */}
+        <OwnerSidebar
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+        />
+        {/* <!-- ===== Sidebar End ===== --> */}
+
+        {/* <!-- ===== Content Area Start ===== --> */}
+        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden bg-white">
+          {/* <!-- ===== Header Start ===== --> */}
+          <HeaderOwner
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+          />
+          {/* <!-- ===== Header End ===== --> */}
+
+          {/* <!-- ===== Main Content Start ===== --> */}
+          <main>
+            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+              {children}
+            </div>
+          </main>
+          {/* <!-- ===== Main Content End ===== --> */}
+
+          {/* <!-- ===== Footer Area ===== --> */}
+          <FooterAdmin />
+          {/* <!-- ===== Footer End ===== --> */}
+        </div>
+        {/* <!-- ===== Content Area End ===== --> */}
+      </div>
+      {/* <!-- ===== Page Wrapper End ===== --> */}
+    </div>
   );
 };

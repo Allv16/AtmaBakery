@@ -1,4 +1,3 @@
-import React from "react";
 import { NavWrapper } from "../../../components/Wrapper";
 import Category from "./components/Category";
 

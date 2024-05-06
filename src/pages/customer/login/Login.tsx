@@ -4,7 +4,6 @@ import { NavWrapper } from "../../../components/Wrapper";
 import { useState } from "react";
 
 export default function Login() {
-
   return (
     <NavWrapper>
       <div className="flex h-screen max-w-7xl flex-col-2 px-4 xl:px-0 mx-auto">

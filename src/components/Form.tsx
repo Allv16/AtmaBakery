@@ -28,40 +28,30 @@ export const FormLogin = () => {
   const handleLogin = async () => {
     const loginResponse = await login(input);
     if (loginResponse && loginResponse.status === 200) {
+      switch (loginResponse.data.data.user.id_role) {
+        case 1:
+          navigate("/owner-dashboard");
+          break;
+        case 2:
+          navigate("/admin-dashboard");
+          break;
+        case 3:
+          navigate("/mo-dashboard");
+          break;
+        case 4:
+          navigate("/profile");
+          break;
+        default:
+          navigate("/");
+          break;
+      }
+
       toast.success("Login Success!");
-      navigate("/profile");
     }
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrors(await ValidationLogin(input));
-
-    // if (!errors.username || !errors.password) {
-    //   const loginResponse = await login(input);
-
-    //   if (loginResponse && loginResponse.status === 200) {
-    //     toast.success("Login Success!");
-    //     navigate("/profile");
-    //   }
-    // }
-
-    // switch (loginResponse?.user.id_role) {
-    //   case 1:
-    //     navigate("/profile");
-    //     break;
-    //   case 2:
-    //     navigate("/profile");
-    //     break;
-    //   case 3:
-    //     navigate("/profile");
-    //     break;
-    //   case 4:
-    //     navigate("/profile");
-    //     break;
-    //   default:
-    //     navigate("/home");
-    //     break;
-    // }
   };
 
   useEffect(() => {
