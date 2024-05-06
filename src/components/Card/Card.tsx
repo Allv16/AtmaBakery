@@ -1,48 +1,51 @@
 import React from "react";
 import { IProduct } from "../../lib/interfaces/IProducts";
-import { IRecipe } from "../../lib/interfaces/IRecipe";
 import { IHampers } from "../../lib/interfaces/IHampers";
 import { useLocation, useNavigate } from "react-router-dom";
 import { deleteProduct } from "../../lib/repository/ProductRepository";
 
 type CardProductProps = {
   product: IProduct;
-}
+};
 
 type CardHampersProps = {
   hampers: IHampers;
 };
 
 export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const location = useLocation();
 
   const handleDetail = () => {
-    if (location.pathname.includes('admin-products')) {
-      navigate('/detail-products');
+    if (location.pathname.includes("admin-products")) {
+      navigate("/detail-products");
     }
   };
 
   const handleEdit = () => {
-    if (location.pathname.includes('admin-products')) {
-      navigate('/edit-products');
+    if (location.pathname.includes("admin-products")) {
+      navigate("/edit-products");
     }
   };
 
   const handleDelete = (id: string) => {
-    const modal = document.getElementById('my_modal_3') as HTMLDialogElement;
+    const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
     if (modal) {
       modal.showModal();
 
-      const confirmDeleteBtn = document.getElementById('confirm_delete') as HTMLButtonElement;
-      confirmDeleteBtn.addEventListener('click', () => {
+      const confirmDeleteBtn = document.getElementById(
+        "confirm_delete"
+      ) as HTMLButtonElement;
+      confirmDeleteBtn.addEventListener("click", () => {
         deleteProduct(id);
         console.log(`Deleting product with ID ${id}`);
         modal.close();
       });
 
-      const cancelDeleteBtn = document.getElementById('cancel_delete') as HTMLButtonElement;
-      cancelDeleteBtn.addEventListener('click', () => {
+      const cancelDeleteBtn = document.getElementById(
+        "cancel_delete"
+      ) as HTMLButtonElement;
+      cancelDeleteBtn.addEventListener("click", () => {
         modal.close();
       });
     }
@@ -57,7 +60,9 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
         onClick={handleDetail}
       />
       <div className="p-4">
-        <h3 className="text-lg text-black font-medium">{product.nama_produk}</h3>
+        <h3 className="text-lg text-black font-medium">
+          {product.nama_produk}
+        </h3>
         <p className="text-gray-600">{product.harga}</p>
         <hr />
         <div className="flex justify-end p-1">
@@ -95,11 +100,15 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
             <dialog id="my_modal_3" className="modal" hidden>
               <div className="modal-box">
                 <h3 className="font-bold text-lg">Confirmation</h3>
-                <p className="py-4">Are you sure you want to delete this products?</p>
+                <p className="py-4">
+                  Are you sure you want to delete this products?
+                </p>
                 <div className="flex justify-end">
                   <form method="dialog" className="flex space-between gap-3">
                     <button id="cancel_delete">Cancel</button>
-                    <button id="confirm_delete" className="btn btn-primary">Delete</button>
+                    <button id="confirm_delete" className="btn btn-primary">
+                      Delete
+                    </button>
                   </form>
                 </div>
               </div>
@@ -120,7 +129,9 @@ export const CardHampers = (props: CardHampersProps) => {
         alt={props.hampers.hampers.nama_produk}
       />
       <div className="p-4">
-        <h3 className="text-lg font-medium">{props.hampers.hampers.nama_produk}</h3>
+        <h3 className="text-lg font-medium">
+          {props.hampers.hampers.nama_produk}
+        </h3>
         <p className="text-gray-600 mb-4">{props.hampers.hampers.harga}</p>
         <hr />
         <div className="flex justify-end p-1">
@@ -169,7 +180,11 @@ export const CardRecipe: React.FC<CardProductProps> = ({ product }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden" onClick={handleDetailRecipe} style={{ cursor: 'pointer' }}>
+    <div
+      className="bg-white shadow-md rounded-lg overflow-hidden"
+      onClick={handleDetailRecipe}
+      style={{ cursor: "pointer" }}
+    >
       <img
         className="w-full h-50 object-cover"
         src={product.foto}
@@ -182,4 +197,3 @@ export const CardRecipe: React.FC<CardProductProps> = ({ product }) => {
     </div>
   );
 };
-
