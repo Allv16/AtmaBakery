@@ -1,64 +1,246 @@
 // import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
-import { HampersBreadcrumb } from '../../../components/Breadcrumbs/Breadcrumb';
-import { AdminWrapper } from '../../../components/Wrapper';
+import { Trash2 } from "lucide-react";
+import { HampersBreadcrumb } from "../../../components/Breadcrumbs/Breadcrumb";
+import { AdminWrapper } from "../../../components/Wrapper";
+import {
+  getAllProcuts,
+  uploadPicture,
+} from "../../../lib/repository/ProductRepository";
+import { useEffect, useState } from "react";
+import { IProduct } from "../../../lib/interfaces/IProducts";
+import { addHampers } from "../../../lib/repository/HampersRepository";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const AddHampers: React.FC = () => {
-    return (
-        <AdminWrapper>
-            <HampersBreadcrumb pageName="Add New Hampers" />
-            <div className="bg-white shadow-default p-6 grid grid-cols-1 gap-9 sm:grid-cols-2">
-                <form className="flex flex-col gap-6">
-                    <div className="flex items-center justify-center w-full">
-                        <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-72 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
-                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-cloud-upload"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" /><path d="M12 12v9" /><path d="m16 16-4-4-4 4" /></svg>
-                                <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">Click to upload</span></p>
-                            </div>
-                            <input id="dropzone-file" type="file" className="hidden" />
-                        </label>
-                    </div>
-                </form>
+  const navigate = useNavigate();
+  const { data, error, isLoading } = getAllProcuts();
 
-                <form className="flex flex-col gap-6">
-                    <label className="font-medium text-gray-800">Hampers Name</label>
-                    <input type="text" placeholder="Enter Hampers Name" className="input w-full max-w-md" />
+  const [hampersItems, setHampersItems] = useState<IProduct[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
 
-                    <label className="font-medium text-gray-800">Items</label>
-                    <select className="select w-full max-w-md">
-                        <option value="">Select Items</option>
-                        <option value="Cake">Lapis Legit</option>
-                        <option value="Bread">Roti Sosis</option>
-                        <option value="Drinks">Matcha Creamy Latte</option>
-                    </select>
-                    <select className="select w-full max-w-md">
-                        <option value="">Select Items</option>
-                        <option value="Cake">Lapis Legit</option>
-                        <option value="Bread">Roti Sosis</option>
-                        <option value="Drinks">Matcha Creamy Latte</option>
-                    </select>
+  useEffect(() => {
+    if (data) {
+      setProducts(data);
+    }
+  }, [data]);
 
+  const inputField = {
+    nama_hampers: "",
+    harga: "",
+    deskripsi: "",
+    limit_produksi: "",
+    id_kemasan: 7,
+  };
 
-                    <label className="font-medium text-gray-800">Price</label>
-                    <input type="number" placeholder="Enter Price" className="input w-full max-w-md" />
+  const [input, setInput] = useState(inputField);
 
-                    <label className="font-medium text-gray-800">Stocks</label>
-                    <input type="number" placeholder="Enter Stocks" className="input w-full max-w-md" />
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
 
-                    <label className="font-medium text-gray-800">Minimal Stocks</label>
-                    <input type="number" placeholder="Enter Minimal Stocks" className="input w-full max-w-md" />
+  const addItems = (item: IProduct) => {
+    setHampersItems((prevValues) => [item, ...prevValues!]);
 
-                    <label className="font-medium text-gray-800">Description</label>
-                    <textarea placeholder="Enter Description" className="textarea w-full max-w-md"></textarea>
-
-                    <div className="flex justify-end gap-3 mx-12">
-                        <button className="btn btn-active">Cancel</button>
-                        <button className="btn btn-primary">Add Hampers</button>
-                    </div>
-                </form>
-            </div>
-        </AdminWrapper>
+    setProducts((prevValues) =>
+      prevValues.filter((product) => product.id_produk !== item.id_produk)
     );
+  };
+
+  const removeItems = (item: IProduct) => {
+    setProducts((prevValues) => [item, ...prevValues!]);
+
+    setHampersItems((prevValues) =>
+      prevValues.filter((product) => product.id_produk !== item.id_produk)
+    );
+  };
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const uploadedFile = files[0];
+      setSelectedFile(uploadedFile);
+    }
+  };
+
+  const handleSubmit = async () => {
+    toast.info("Creating Hampers...");
+    const formData = new FormData();
+    formData.append("image", selectedFile as File);
+    const url = await uploadPicture(formData);
+    const newHampers = {
+      nama_hampers: input.nama_hampers,
+      harga: input.harga,
+      limit_produksi: input.limit_produksi,
+      id_kemasan: 7,
+      deskripsi: input.deskripsi,
+      foto: url as string,
+      items: hampersItems.map((item) => item.id_produk),
+    };
+    await addHampers(newHampers);
+    navigate("/admin-hampers");
+  };
+
+  return (
+    <AdminWrapper>
+      <HampersBreadcrumb pageName="Add New Hampers" />
+      <div className="bg-white shadow-default p-6 grid grid-cols-1 gap-9 sm:grid-cols-3">
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center justify-center w-full">
+            <label
+              htmlFor="dropzone-file"
+              className="flex flex-col items-center justify-center w-full h-80 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
+            >
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="lucide lucide-cloud-upload"
+                >
+                  <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+                  <path d="M12 12v9" />
+                  <path d="m16 16-4-4-4 4" />
+                </svg>
+                <p className="mb-2 text-sm text-gray-500">
+                  <span className="font-semibold">
+                    {selectedFile ? selectedFile.name : "Click to upload"}
+                  </span>
+                </p>
+              </div>
+              <input
+                id="dropzone-file"
+                type="file"
+                className="hidden"
+                onChange={handleFileUpload}
+              />
+            </label>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-6">
+          <label className="font-medium text-gray-800">Hampers Name</label>
+          <input
+            type="text"
+            placeholder="Enter Hampers Name"
+            className="input w-full max-w-md"
+            name="nama_hampers"
+            onChange={handleChange}
+          />
+
+          <label className="font-medium text-gray-800">Price</label>
+          <input
+            type="number"
+            placeholder="Enter Price"
+            className="input w-full max-w-md"
+            name="harga"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="flex flex-col gap-6">
+          <label className="font-medium text-gray-800">Production Limit</label>
+          <input
+            type="number"
+            placeholder="Enter Minimal Stocks"
+            className="input w-full max-w-md"
+            name="limit_produksi"
+            onChange={handleChange}
+          />
+
+          <label className="font-medium text-gray-800">Description</label>
+          <input
+            placeholder="Enter Description"
+            className="textarea w-full max-w-md"
+            name="deskripsi"
+            onChange={handleChange}
+          ></input>
+        </div>
+      </div>
+
+      {!isLoading && (
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2">
+          <div className="flex flex-col gap-12">
+            <div className="rounded-sm border border-stroke bg-white shadow-default">
+              <div className="border-b border-stroke py-4 px-7 flex items-center">
+                <h3 className="font-bold text-black">Hampers Items</h3>
+              </div>
+              <div className="h-72 overflow-y-auto">
+                {hampersItems.length === 0 && (
+                  <div className="p-7 py-4">
+                    <h3 className="text-black text-center">
+                      No Hampers Items Added Yet
+                    </h3>
+                  </div>
+                )}
+                {hampersItems &&
+                  hampersItems!.map((product) => (
+                    <div className="px-7 py-4">
+                      <div className="flex justify-between items-center">
+                        <p>{product.nama_produk}</p>
+                        <button
+                          className="btn btn-error btn-sm"
+                          onClick={() => {
+                            removeItems(product);
+                          }}
+                        >
+                          <Trash2 className="text-white" size={14} />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-9">
+            <div className="rounded-sm border border-stroke bg-white shadow-default">
+              <div className="border-b border-stroke py-4 px-7">
+                <h3 className="font-bold text-black">Product List</h3>
+              </div>
+              <form action="#">
+                <div className="p-7 py-4">
+                  <ul className="divide-y divide-gray-200 h-72 overflow-y-auto">
+                    {products!.map((product) => (
+                      <li key={product.id_produk} className="py-2">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h4 className="text-base font-medium">
+                              {product.nama_produk}
+                            </h4>
+                          </div>
+                          <button
+                            className="btn btn-primary btn-sm"
+                            onClick={() => {
+                              addItems(product);
+                            }}
+                          >
+                            Add To Hampers
+                          </button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="flex flex-row-reverse mt-16">
+        <button className="btn btn-primary" onClick={handleSubmit}>
+          Add Hampers
+        </button>
+      </div>
+    </AdminWrapper>
+  );
 };
 
 export default AddHampers;

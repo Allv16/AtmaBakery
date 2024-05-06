@@ -82,3 +82,26 @@ export const deleteProduct = async (id: string) => {
     toast.error("An error occurred while deleting the product");
   }
 };
+
+export const uploadPicture = async (data: any): Promise<any> => {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_API}/product/upload-photo`,
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+        },
+      }
+    );
+
+    if (response.status.toString().startsWith("20")) {
+      return response.data.data.url;
+    } else {
+      toast.error("Failed to Add Products");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
