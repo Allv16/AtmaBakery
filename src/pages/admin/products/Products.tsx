@@ -19,9 +19,9 @@ const Products: React.FC = () => {
 
   const filteredProducts = dataFiltered?.filter((item) => {
     if (selectedTab === "my") {
-      return ["Cake", "Roti", "Minuman"].includes(item.jenis_produk);
+      return item.id_penitip === null;
     } else if (selectedTab === "consignment") {
-      return item.jenis_produk === "Snack";
+      return item.id_penitip !== null;
     }
     return true;
   });

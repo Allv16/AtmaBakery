@@ -39,3 +39,56 @@ export const addHampers = async (data: any) => {
     console.error(error);
   }
 };
+
+export const deleteHampers = async (id: string) => {
+  try {
+    const response = await axiosInstance().delete(
+      `${import.meta.env.VITE_BASE_API}/hampers/delete/${id}`
+    );
+    console.log(response);
+
+    if (response.status.toString().startsWith("20")) {
+      toast.success("Successfully Deleted Hampers");
+      mutate(`${import.meta.env.VITE_BASE_API}/hampers`);
+    } else {
+      toast.error("Failed to Delete Hampers");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getHampersById = (id: string) => {
+  let { data, error, isLoading, isValidating } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/hampers/${id}`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.hampers,
+    error,
+    isLoading,
+    isValidating,
+  };
+};
+
+export const editHampers = async (id: string, data: any) => {
+  try {
+    const response = await axiosInstance().put(
+      `${import.meta.env.VITE_BASE_API}/hampers/edit/${id}`,
+      data
+    );
+    if (response.status.toString().startsWith("20")) {
+      toast.success("Successfully Updated Hampers");
+      mutate(`${import.meta.env.VITE_BASE_API}/hampers`);
+    } else {
+      toast.error("Failed to Update Hampers");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

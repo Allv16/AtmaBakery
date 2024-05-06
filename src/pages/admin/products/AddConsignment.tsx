@@ -36,7 +36,7 @@ const AddConsignment = () => {
     formData.append("nama_produk", input.nama_produk);
     formData.append("harga", input.harga);
     formData.append("limit_produksi", input.limit_produksi);
-    formData.append("jenis_produk", "Snack");
+    formData.append("jenis_produk", input.jenis_produk);
     formData.append("deskripsi", input.deskripsi);
     formData.append("id_penitip", input.id_penitip);
     await addProducts(formData);
@@ -111,6 +111,21 @@ const AddConsignment = () => {
               onChange={handleChange}
               required
             />
+
+            <label className="font-medium text-gray-800">Category</label>
+            <select
+              className="select w-full max-w-md"
+              name="jenis_produk"
+              value={input.jenis_produk}
+              onChange={handleSelectChange}
+              required
+            >
+              <option value="">Select Category</option>
+              <option value="Cake">Cake</option>
+              <option value="Roti">Bread</option>
+              <option value="Minuman">Drinks</option>
+              <option value="Snack">Snack</option>
+            </select>
 
             <label className="font-medium text-gray-800">Partner Name</label>
             <select

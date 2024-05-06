@@ -78,7 +78,7 @@ export const router = createBrowserRouter([
     element: <AddHampers />,
   },
   {
-    path: "/edit-hampers",
+    path: "/edit-hampers/:id",
     element: <EditHampers />,
   },
   {
@@ -94,7 +94,7 @@ export const router = createBrowserRouter([
     element: <AddConsignment />,
   },
   {
-    path: "/edit-products",
+    path: "/edit-products/:id",
     element: <EditProduct />,
   },
   {

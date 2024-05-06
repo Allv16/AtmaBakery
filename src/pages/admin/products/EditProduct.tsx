@@ -1,86 +1,239 @@
-import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
-import { ProductBreadcrumb } from '../../../components/Breadcrumbs/Breadcrumb';
-import { AdminWrapper } from '../../../components/Wrapper';
+import React, { useEffect, useState } from "react";
+import { ProductBreadcrumb } from "../../../components/Breadcrumbs/Breadcrumb";
+import { AdminWrapper } from "../../../components/Wrapper";
+import {
+  addProducts,
+  getProductsById,
+  updateProduct,
+  uploadPicture,
+} from "../../../lib/repository/ProductRepository";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getAllPartner,
+  getPartnerById,
+} from "../../../lib/repository/PartnerRepository";
+import { IPartner } from "../../../lib/interfaces/IPartner";
+import { toast } from "sonner";
 
 const EditProduct: React.FC = () => {
-    const [category, setCategory] = useState('');
-    const [showPriceForm, setShowPriceForm] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
 
-    const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedCategory = event.target.value;
-        setCategory(selectedCategory);
+  const { data, error, isLoading } = getProductsById(id!);
 
-        if (selectedCategory === 'Cake') {
-            setShowPriceForm(true);
-        } else if (selectedCategory === 'Bread' || selectedCategory === 'Drinks') {
-            setShowPriceForm(true);
-        } else {
-            setShowPriceForm(false);
-        }
+  const {
+    data: partnerData,
+    error: partnerError,
+    isLoading: partnerIsLoading,
+  } = getAllPartner();
+
+  const inputField = {
+    nama_produk: "",
+    harga: "",
+    limit_produksi: "",
+    jenis_produk: "",
+    foto: "",
+    deskripsi: "",
+    id_penitip: null as string | null,
+  };
+
+  const [input, setInput] = useState(inputField);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setInput({
+        nama_produk: data.nama_produk,
+        harga: data.harga,
+        deskripsi: data.deskripsi,
+        limit_produksi: data.limit_produksi,
+        jenis_produk: data.jenis_produk,
+        foto: data.foto,
+        id_penitip: data.id_penitip ?? null,
+      });
+    }
+  }, [data]);
+
+  const [file, setFile] = useState<File | undefined>();
+
+  console.log(input);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    toast.info("Updating Product...");
+    let url = input.foto;
+    if (selectedFile !== null) {
+      const formData = new FormData();
+      formData.append("image", selectedFile! as File);
+      url = await uploadPicture(formData);
+    }
+
+    const editedProduct = {
+      nama_produk: input.nama_produk,
+      harga: input.harga,
+      limit_produksi: input.limit_produksi,
+      jenis_produk: input.jenis_produk,
+      deskripsi: input.deskripsi,
+      foto: url,
     };
 
-    return (
-        <AdminWrapper>
-            <ProductBreadcrumb pageName="Edit Product" />
-            <div className="bg-white shadow-default p-6 grid grid-cols-1 gap-9 sm:grid-cols-2">
-                <form className="flex flex-col gap-6">
-                    <div className="flex items-center justify-center w-full">
-                        <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-72 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
-                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-cloud-upload"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" /><path d="M12 12v9" /><path d="m16 16-4-4-4 4" /></svg>
-                                <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">Click to upload</span></p>
-                            </div>
-                            <input id="dropzone-file" type="file" className="hidden" />
-                        </label>
-                    </div>
-                </form>
+    await updateProduct(id!, editedProduct);
+    navigate("/admin-products");
+  };
 
-                <form className="flex flex-col gap-6">
-                    <label className="font-medium text-gray-800">Product Name</label>
-                    <input type="text" placeholder="Enter Product Name" className="input w-full max-w-md" />
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-                    <label className="font-medium text-gray-800">Category</label>
-                    <select className="select w-full max-w-md" onChange={handleCategoryChange} value={category}>
-                        <option value="">Select Category</option>
-                        <option value="Cake">Cake</option>
-                        <option value="Bread">Bread</option>
-                        <option value="Drinks">Drinks</option>
-                    </select>
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const uploadedFile = files[0];
+      setSelectedFile(uploadedFile);
+    }
+  };
 
-                    {showPriceForm && category === 'Cake' && (
-                        <>
-                            <label className="font-medium text-gray-800">Half Pan Price</label>
-                            <input type="number" placeholder="Enter Half Pan Price" className="input w-full max-w-md" />
+  return (
+    <AdminWrapper>
+      <ProductBreadcrumb pageName="Add New Product" />
+      <div className="bg-white shadow-default p-6 grid grid-cols-1 gap-9 sm:grid-cols-2">
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+          <div className="flex items-center justify-center w-full">
+            <label
+              htmlFor="dropzone-file"
+              className="flex flex-col items-center justify-center w-full h-72 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
+            >
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-cloud-upload"
+                >
+                  <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+                  <path d="M12 12v9" />
+                  <path d="m16 16-4-4-4 4" />
+                </svg>
+                <p className="mb-2 text-sm text-gray-500">
+                  <span className="font-semibold">
+                    {selectedFile ? selectedFile.name : "Click to upload"}
+                  </span>
+                </p>
+              </div>
+              <input
+                id="dropzone-file"
+                type="file"
+                className="hidden"
+                onChange={handleFileUpload}
+              />
+            </label>
+          </div>
 
-                            <label className="font-medium text-gray-800">One Pan Price</label>
-                            <input type="number" placeholder="Enter One Pan Price" className="input w-full max-w-md" />
-                        </>
-                    )}
-                    {showPriceForm && (category === 'Bread' || category === 'Drinks') && (
-                        <>
-                            <label className="font-medium text-gray-800">Price</label>
-                            <input type="number" placeholder="Enter Price" className="input w-full max-w-md" />
-                        </>
-                    )}
+          <label className="font-medium text-gray-800">Product Name</label>
+          <input
+            type="text"
+            placeholder="Enter Product Name"
+            className="input w-full max-w-md"
+            name="nama_produk"
+            onChange={handleChange}
+            value={input.nama_produk}
+            required
+          />
 
-                    <label className="font-medium text-gray-800">Stocks</label>
-                    <input type="number" placeholder="Enter Stocks" className="input w-full max-w-md" />
+          <label className="font-medium text-gray-800">Category</label>
+          <select
+            className="select w-full max-w-md"
+            name="jenis_produk"
+            value={input.jenis_produk}
+            onChange={handleSelectChange}
+            required
+          >
+            <option value="">Select Category</option>
+            <option value="Cake">Cake</option>
+            <option value="Roti">Bread</option>
+            <option value="Minuman">Drinks</option>
+            <option value="Snack">Snack</option>
+          </select>
 
-                    <label className="font-medium text-gray-800">Minimal Stocks</label>
-                    <input type="number" placeholder="Enter Minimal Stocks" className="input w-full max-w-md" />
+          <label className="font-medium text-gray-800">Price</label>
+          <input
+            type="number"
+            placeholder="Enter Price"
+            className="input w-full max-w-md"
+            name="harga"
+            onChange={handleChange}
+            value={input.harga}
+            min="0"
+            required
+          />
 
-                    <label className="font-medium text-gray-800">Description</label>
-                    <textarea placeholder="Enter Description" className="textarea w-full max-w-md"></textarea>
+          <label className="font-medium text-gray-800">Production Limit</label>
+          <input
+            type="number"
+            placeholder="Enter Production Limit"
+            className="input w-full max-w-md"
+            name="limit_produksi"
+            onChange={handleChange}
+            value={input.limit_produksi}
+            min="0"
+            required
+          />
+          {input.id_penitip && (
+            <>
+              <label className="font-medium text-gray-800">Partner Name</label>
+              <select
+                className="select w-full max-w-md"
+                name="id_penitip"
+                value={input.id_penitip!}
+                onChange={handleSelectChange}
+                required
+              >
+                <option value="">Select Partner</option>
+                {partnerData && partnerData.length > 0 ? (
+                  partnerData.map((partner: IPartner) => (
+                    <option key={partner.id_penitip} value={partner.id_penitip}>
+                      {partner.nama_penitip}
+                    </option>
+                  ))
+                ) : (
+                  <option value="">No Partners Available</option>
+                )}
+              </select>
+            </>
+          )}
 
-                    <div className="flex justify-end gap-3 mx-12">
-                        <button className="btn btn-active">Cancel</button>
-                        <button className="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </AdminWrapper>
-    );
+          <label className="font-medium text-gray-800">Description</label>
+          <input
+            onChange={handleChange}
+            value={input.deskripsi}
+            placeholder="Enter Description"
+            className="textarea w-full max-w-md"
+            name="deskripsi"
+            required
+          ></input>
+
+          <div className="flex justify-end gap-3 mx-12">
+            <button className="btn btn-active">Cancel</button>
+            <button className="btn btn-primary" type="submit">
+              Edit Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </AdminWrapper>
+  );
 };
 
 export default EditProduct;

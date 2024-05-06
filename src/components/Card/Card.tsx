@@ -3,6 +3,7 @@ import { IProduct } from "../../lib/interfaces/IProducts";
 import { IHampers } from "../../lib/interfaces/IHampers";
 import { useLocation, useNavigate } from "react-router-dom";
 import { deleteProduct } from "../../lib/repository/ProductRepository";
+import { deleteHampers } from "../../lib/repository/HampersRepository";
 
 type CardProductProps = {
   product: IProduct;
@@ -24,7 +25,7 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
 
   const handleEdit = () => {
     if (location.pathname.includes("admin-products")) {
-      navigate("/edit-products");
+      navigate(`/edit-products/${product.id_produk}`);
     }
   };
 
@@ -123,6 +124,35 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
 };
 
 export const CardHampers = (props: CardHampersProps) => {
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    navigate(`/edit-hampers/${props.hampers.hampers.id_produk}`);
+  };
+
+  const handleDelete = (id: string) => {
+    const modal = document.getElementById(
+      "delete_modal_hampers"
+    ) as HTMLDialogElement;
+    if (modal) {
+      modal.showModal();
+
+      const confirmDeleteBtn = document.getElementById(
+        "confirm_delete"
+      ) as HTMLButtonElement;
+      confirmDeleteBtn.addEventListener("click", () => {
+        deleteHampers(id);
+        modal.close();
+      });
+
+      const cancelDeleteBtn = document.getElementById(
+        "cancel_delete"
+      ) as HTMLButtonElement;
+      cancelDeleteBtn.addEventListener("click", () => {
+        modal.close();
+      });
+    }
+  };
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden">
       <img
@@ -161,12 +191,33 @@ export const CardHampers = (props: CardHampersProps) => {
               className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a href="/edit-hampers">Edit</a>
+                <a onClick={() => handleEdit()}>Edit</a>
               </li>
               <li>
-                <a>Delete</a>
+                <a
+                  onClick={() => handleDelete(props.hampers.hampers.id_produk)}
+                >
+                  Delete
+                </a>
               </li>
             </ul>
+
+            <dialog id="delete_modal_hampers" className="modal" hidden>
+              <div className="modal-box">
+                <h3 className="font-bold text-lg">Confirmation</h3>
+                <p className="py-4">
+                  Are you sure you want to delete this products?
+                </p>
+                <div className="flex justify-end">
+                  <form method="dialog" className="flex space-between gap-3">
+                    <button id="cancel_delete">Cancel</button>
+                    <button id="confirm_delete" className="btn btn-primary">
+                      Delete
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </dialog>
           </div>
         </div>
       </div>

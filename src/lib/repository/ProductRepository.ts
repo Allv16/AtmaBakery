@@ -105,3 +105,21 @@ export const uploadPicture = async (data: any): Promise<any> => {
     console.error(error);
   }
 };
+
+export const updateProduct = async (id: string, data: any) => {
+  try {
+    const response = await axiosInstance().put(
+      `${import.meta.env.VITE_BASE_API}/products/edit/${id}`,
+      data
+    );
+
+    if (response.status.toString().startsWith("20")) {
+      toast.success("Successfully Updated Product");
+      mutate(`${import.meta.env.VITE_BASE_API}/products`);
+    } else {
+      toast.error("Failed to Update Product");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
