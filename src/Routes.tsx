@@ -42,6 +42,7 @@ import Login from "./pages/customer/login/Login";
 import Products from "./pages/admin/products/Products";
 import Register from "./pages/customer/register/Register";
 import MOProfile from "./pages/mo/profile/MOProfile";
+import ForgotPassword from "./pages/customer/forgot-password/ForgotPassword";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
   },
   {
     path: "/products",

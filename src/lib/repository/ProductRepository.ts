@@ -24,6 +24,7 @@ export const getAllProcuts = () => {
 };
 
 export const addProducts = async (data: any) => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_BASE_API}/products/add`,
@@ -31,7 +32,7 @@ export const addProducts = async (data: any) => {
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );

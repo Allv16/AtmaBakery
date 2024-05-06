@@ -3,6 +3,9 @@ import { Label } from "../../../components/Label";
 import { NavWrapper } from "../../../components/Wrapper";
 
 export default function Profile() {
+  const token = localStorage.getItem("token");
+  console.log(token);
+
   return (
     <NavWrapper>
       <div className="bg-white w-full flex flex-col gap-5 px-3 md:px-16 lg:px-28 md:flex-row">
@@ -45,17 +48,11 @@ export default function Profile() {
           <div className="p-2 md:p-4 border">
             <div className="w-full px-3 pb-8 sm:max-w-xl sm:rounded-lg">
               <h2 className="pl-2 flex items-center text-2xl font-serif font-semibold sm:text-xl">
-                <a
-                  href="/profile"
-                  className="text-primary"
-                >
+                <a href="/profile" className="text-primary">
                   Personal Profile
                 </a>
                 <span className="mx-2"></span>
-                <a
-                  href="/address-list"
-                  className="text-primary"
-                >
+                <a href="/address-list" className="text-primary">
                   Address List
                 </a>
               </h2>
@@ -70,6 +67,7 @@ export default function Profile() {
                     <div>
                       <Label children="Name" />
                       <InputForm
+                        name="nama"
                         type="text"
                         placeholder="Enter your full name"
                       />
@@ -77,6 +75,7 @@ export default function Profile() {
                     <div className="pt-4">
                       <Label children="Phone Number" />
                       <InputForm
+                        name="no_telp"
                         type="tel"
                         placeholder="Enter your phone number"
                       />
@@ -84,13 +83,18 @@ export default function Profile() {
                     <div className="pt-4">
                       <Label children="Date of Birth" />
                       <InputForm
+                        name="tgl_lahir"
                         type="date"
                         placeholder="Enter your date of birth"
                       />
                     </div>
                     <div className="pt-4">
                       <Label children="Gender" />
-                      <InputForm type="text" placeholder="Enter your gender" />
+                      <InputForm
+                        type="text"
+                        placeholder="Enter your gender"
+                        name="gender"
+                      />
                     </div>
                   </div>
                 </div>

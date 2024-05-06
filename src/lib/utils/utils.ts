@@ -1,11 +1,13 @@
 import axios from "axios";
 
 export const fetcher = async (url: string) => {
+  const token = localStorage.getItem("token");
+
   try {
     const response = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data.data;
@@ -15,7 +17,7 @@ export const fetcher = async (url: string) => {
 };
 
 export const axiosInstance = () => {
-  const token = `${import.meta.env.VITE_API_TOKEN}`;
+  const token = localStorage.getItem("token");
 
   const axiosClient = axios.create({
     baseURL: `${import.meta.env.VITE_BASE_API}`,

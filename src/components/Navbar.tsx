@@ -1,6 +1,8 @@
 import { ShoppingBasket, Menu } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function Navbar() {
+  const navigate = useNavigate();
   return (
     <div className="navbar bg-white my-4 font-serif max-w-7xl mx-auto">
       <div className="navbar-start">
@@ -44,7 +46,12 @@ export function Navbar() {
         </div>
       </div>
       <div className="navbar-center gap-5 xl:gap-10 xl:text-lg">
-        <a className="font-bold text-black hidden lg:block">HOME</a>
+        <a
+          className="font-bold text-black hidden lg:block"
+          onClick={() => navigate("/")}
+        >
+          HOME
+        </a>
         <a className="font-bold text-black hidden lg:block">ABOUT US</a>
         <h1 className="text-4xl lg:text-5xl font-bold text-primary ">
           ATMA KITCHEN
@@ -53,7 +60,10 @@ export function Navbar() {
         <a className="font-bold text-black hidden lg:block">HOW TO ORDER</a>
       </div>
       <div className="navbar-end">
-        <button className="btn btn-primary font-sans hidden lg:block">
+        <button
+          className="btn btn-primary font-sans hidden lg:block"
+          onClick={() => navigate("/login")}
+        >
           Login/SignUp
         </button>
         <button className="btn btn-sm btn-primary font-sans lg:hidden text-xs">

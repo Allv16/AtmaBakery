@@ -9,8 +9,6 @@ export const getProfile = () => {
     fetcher
   );
 
-  console.log(data);
-
   if (!isLoading && error) {
     toast.error("Gagal mengambil data");
   }
