@@ -32,7 +32,7 @@ export const addProducts = async (data: any) => {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization:
-            "Bearer cjoNmEBCkM04S4EOFw1dFp8g3pEDZVKg4ectYghfb928477d",
+            "Bearer 7rG7cwbMXFfDfEvs1P8EcV3USHtuRhC9viEkw5ms1c029a8a",
         },
       }
     );

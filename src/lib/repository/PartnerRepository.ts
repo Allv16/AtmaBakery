@@ -10,6 +10,8 @@ export const getAllPartner = () => {
     fetcher
   );
 
+  console.log(data);
+
   if (!isLoading && error) {
     toast.error("Gagal mengambil data");
   }
@@ -33,7 +35,7 @@ export const addPartner = async (data: any) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer 7rG7cwbMXFfDfEvs1P8EcV3USHtuRhC9viEkw5ms1c029a8a",
         },
       }
     );
@@ -76,7 +78,7 @@ export const editPartner = async (data: any, id: String) => {
         headers: {
           "Content-Type": "application/json",
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer 7rG7cwbMXFfDfEvs1P8EcV3USHtuRhC9viEkw5ms1c029a8a",
         },
       }
     );
@@ -99,7 +101,7 @@ export const deletePartner = async (id: string) => {
       {
         headers: {
           Authorization:
-            "Bearer tthm2HXmOqYTvtqtVkLI0rPdFj11uAepluocVI7Ba8d02f8f",
+            "Bearer 7rG7cwbMXFfDfEvs1P8EcV3USHtuRhC9viEkw5ms1c029a8a",
         },
       }
     );

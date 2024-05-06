@@ -32,7 +32,7 @@ import EditOwnerEmployee from "./pages/owner/employee/EditOwnerEmployee";
 import DetailProduct from "./pages/admin/products/DetailProduct";
 import DetailRecipe from "./pages/admin/foodstuff/DetailRecipe";
 import AddMyProduct from "./pages/admin/products/AddMyProduct";
-import AddConsignment from "./pages/admin/products/AddConsginment";
+import AddConsignment from "./pages/admin/products/AddConsignment";
 import MaterialPurchase from "./pages/mo/material/MaterialPurchase";
 import OtherExpenses from "./pages/mo/other-expenses/OtherExpenses";
 import Attendance from "./pages/mo/attendance/Attendance";

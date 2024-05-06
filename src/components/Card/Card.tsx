@@ -31,7 +31,7 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden cursor-pointer">
       <img
-        className="w-full h-50 object-cover"
+        className="h-50 aspect-square object-cover"
         src={product.foto}
         alt={product.nama_produk}
         onClick={handleDetail}
