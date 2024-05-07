@@ -13,7 +13,7 @@ import { ValidationLogin, ValidationRegister } from "./Validation";
 export const FormLogin = () => {
   const navigate = useNavigate();
   const inputField = {
-    username: " ",
+    username: "",
     password: "",
   };
 
