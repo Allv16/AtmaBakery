@@ -81,142 +81,282 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin-hampers",
-    element: <Hampers />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <Hampers />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/add-hampers",
-    element: <AddHampers />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <AddHampers />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/edit-hampers/:id",
-    element: <EditHampers />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <EditHampers />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/admin-products",
-    element: <AdminProducts />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <AdminProducts />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/add-my-products",
-    element: <AddMyProduct />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <AddMyProduct />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/add-consignment-products",
-    element: <AddConsignment />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <AddConsignment />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/edit-products/:id",
-    element: <EditProduct />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <EditProduct />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/admin-ingredients",
-    element: <Ingredients />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <Ingredients />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/add-ingredients",
-    element: <AddIngredients />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <AddIngredients />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/edit-ingredients/:id",
-    element: <EditIngredients />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <EditIngredients />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/admin-recipe",
-    element: <Recipe />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <Recipe />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/detail-recipe/:id",
-    element: <DetailRecipe />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <DetailRecipe />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/admin-points",
-    element: <PromoPoints />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <PromoPoints />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/add-points",
-    element: <AddPromoPoints />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <AddPromoPoints />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/mo-dashboard",
-    element: <DashboardMO />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <DashboardMO />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/mo-employee",
-    element: <Employee />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <Employee />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/add-employee",
-    element: <AddEmployee />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <AddEmployee />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/edit-employee/:id",
-    element: <EditEmployee />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <EditEmployee />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/mo-partner",
-    element: <Partner />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <Partner />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/add-partner",
-    element: <AddPartner />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <AddPartner />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/edit-partner/:id",
-    element: <EditPartner />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <EditPartner />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/mo-job-title",
-    element: <JobTitle />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <JobTitle />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/add-job-title",
-    element: <AddJobTitle />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <AddJobTitle />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/edit-job-title",
-    element: <EditJobTitle />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <EditJobTitle />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/owner-dashboard",
-    element: <DashboardOwner />,
+    element: (
+      <ProtectedRoutes role_id="1">
+        <DashboardOwner />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/owner-employee",
-    element: <OwnerEmployee />,
+    element: (
+      <ProtectedRoutes role_id="1">
+        <OwnerEmployee />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/edit-owner-employee/:id",
-    element: <EditOwnerEmployee />,
+    element: (
+      <ProtectedRoutes role_id="1">
+        <EditOwnerEmployee />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/mo-material-purchase",
-    element: <MaterialPurchase />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <MaterialPurchase />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/mo-other-expenses",
-    element: <OtherExpenses />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <OtherExpenses />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/mo-attendance",
-    element: <Attendance />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <Attendance />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/admin/profile",
-    element: <AdminProfile />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <AdminProfile />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/mo/profile",
-    element: <MOProfile />,
+    element: (
+      <ProtectedRoutes role_id="3">
+        <MOProfile />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/owner/profile",
-    element: <OwnerProfile />,
+    element: (
+      <ProtectedRoutes role_id="1">
+        <OwnerProfile />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element: (
+      <ProtectedRoutes role_id="4">
+        <Profile />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/address-list",
-    element: <AddressList />,
+    element: (
+      <ProtectedRoutes role_id="4">
+        <AddressList />
+      </ProtectedRoutes>
+    ),
   },
 ]);
