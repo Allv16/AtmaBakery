@@ -50,6 +50,8 @@ export const RecipeForm: React.FC<IngredientsListProps> = (
 
   const handleOnClick = async () => {
     toast.info("Updating Recipe");
+    console.log(values);
+
     await editRecipes(props.idProduk, values);
   };
   return (

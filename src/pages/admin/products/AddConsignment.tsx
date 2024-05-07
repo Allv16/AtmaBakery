@@ -29,8 +29,23 @@ const AddConsignment = () => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleEditConfirmation = () => {
+    const modal = document.getElementById(
+      "confirmation_modal"
+    ) as HTMLDialogElement;
+    if (modal) {
+      modal.showModal();
+
+      const cancelEditBtn = document.getElementById(
+        "cancel_edit"
+      ) as HTMLButtonElement;
+      cancelEditBtn.addEventListener("click", () => {
+        modal.close();
+      });
+    }
+  };
+
+  const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("foto", selectedFile as File);
     formData.append("nama_produk", input.nama_produk);
@@ -64,7 +79,13 @@ const AddConsignment = () => {
         )}
         {error && <div>Error</div>}
         {data && (
-          <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col gap-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleEditConfirmation();
+            }}
+          >
             <div className="flex items-center justify-center w-full">
               <label
                 htmlFor="dropzone-file"
@@ -188,6 +209,25 @@ const AddConsignment = () => {
             </div>
           </form>
         )}
+
+        <dialog id="confirmation_modal" className="modal" hidden>
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Confirmation</h3>
+            <p className="py-4">Are you sure you want to add this product?</p>
+            <div className="flex justify-end">
+              <form method="dialog" className="flex space-between gap-3">
+                <button id="cancel_edit">Cancel</button>
+                <button
+                  id="confirm_edit"
+                  className="btn btn-primary"
+                  onClick={async () => await handleSubmit()}
+                >
+                  Add
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
     </AdminWrapper>
   );
