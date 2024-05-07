@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter, useRoutes } from "react-router-dom";
 import Home from "./pages/customer/home/Home";
 // import Login from "./pages/customer/login/Login";
 // import Products from "./pages/customer/products/Products";
@@ -43,6 +43,8 @@ import Products from "./pages/admin/products/Products";
 import Register from "./pages/customer/register/Register";
 import MOProfile from "./pages/mo/profile/MOProfile";
 import ForgotPassword from "./pages/customer/forgot-password/ForgotPassword";
+import { ReactNode } from "react";
+import ProtectedRoutes from "./lib/utils/protected-routes";
 
 export const router = createBrowserRouter([
   {
@@ -71,7 +73,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin-dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoutes role_id="2">
+        <Dashboard />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/admin-hampers",

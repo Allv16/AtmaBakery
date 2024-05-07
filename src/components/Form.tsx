@@ -29,6 +29,7 @@ export const FormLogin = () => {
     const loginResponse = await login(input);
     if (loginResponse && loginResponse.status === 200) {
       localStorage.setItem("token", loginResponse.data.data.token);
+      localStorage.setItem("role_id", loginResponse.data.data.user.id_role);
       switch (loginResponse.data.data.user.id_role) {
         case 1:
           navigate("/owner-dashboard");
