@@ -272,7 +272,7 @@ const AddHampers: React.FC = () => {
       <dialog id="confirmation_modal" className="modal" hidden>
         <div className="modal-box">
           <h3 className="font-bold text-lg">Confirmation</h3>
-          <p className="py-4">Are you sure you want to add this product?</p>
+          <p className="py-4">Are you sure you want to add this hampers?</p>
           <div className="flex justify-end">
             <form method="dialog" className="flex space-between gap-3">
               <button id="cancel_edit">Cancel</button>
