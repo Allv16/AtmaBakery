@@ -28,6 +28,7 @@ export const FormLogin = () => {
   const handleLogin = async () => {
     const loginResponse = await login(input);
     if (loginResponse && loginResponse.status === 200) {
+      toast.success("Login Success!");
       localStorage.setItem("token", loginResponse.data.data.token);
       localStorage.setItem("role_id", loginResponse.data.data.user.id_role);
       switch (loginResponse.data.data.user.id_role) {
@@ -47,13 +48,15 @@ export const FormLogin = () => {
           navigate("/");
           break;
       }
-
-      toast.success("Login Success!");
     }
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setErrors(await ValidationLogin(input));
+    try {
+      setErrors(await ValidationLogin(input));
+    } catch (error) {
+      toast.error("Login failed, Invalid username or password");
+    }
   };
 
   useEffect(() => {
