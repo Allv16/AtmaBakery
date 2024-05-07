@@ -48,10 +48,24 @@ export const RecipeForm: React.FC<IngredientsListProps> = (
     );
   };
 
-  const handleOnClick = async () => {
-    toast.info("Updating Recipe");
-    await editRecipes(props.idProduk, values);
+  const handleEditConfirmation = () => {
+    const modal = document.getElementById('edit_modal') as HTMLDialogElement;
+    if (modal) {
+      modal.showModal();
+
+      const confirmEditBtn = document.getElementById('confirm_edit') as HTMLButtonElement;
+      confirmEditBtn.addEventListener('click', () => {
+        editRecipes(props.idProduk, values);
+        modal.close();
+      });
+
+      const cancelEditBtn = document.getElementById('cancel_edit') as HTMLButtonElement;
+      cancelEditBtn.addEventListener('click', () => {
+        modal.close();
+      });
+    }
   };
+
   return (
     <div className="grid grid-cols-1 gap-12 sm:grid-cols-2">
       <div className="flex flex-col gap-12">
@@ -60,7 +74,7 @@ export const RecipeForm: React.FC<IngredientsListProps> = (
             <h3 className="font-medium text-black">Recipe</h3>
             <button
               className={`btn btn-sm btn-primary`}
-              onClick={handleOnClick}
+              onClick={handleEditConfirmation}
             >
               Edit Recipe
             </button>
@@ -135,6 +149,19 @@ export const RecipeForm: React.FC<IngredientsListProps> = (
                   </li>
                 ))}
               </ul>
+
+              <dialog id="edit_modal" className="modal" hidden>
+                <div className="modal-box">
+                  <h3 className="font-bold text-lg">Confirmation</h3>
+                  <p className="py-4">Are you sure you want to edit this recipe?</p>
+                  <div className="flex justify-end">
+                    <form method="dialog" className="flex space-between gap-3">
+                      <button id="cancel_edit">Cancel</button>
+                      <button id="confirm_edit" className="btn btn-primary">Edit</button>
+                    </form>
+                  </div>
+                </div>
+              </dialog>
             </div>
           </form>
         </div>

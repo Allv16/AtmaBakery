@@ -94,26 +94,39 @@ const EditHampers: React.FC = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    toast.info("Updating Hampers...");
-    let url = hampersData.foto;
-    if (selectedFile !== null) {
-      const formData = new FormData();
-      formData.append("image", selectedFile! as File);
-      url = await uploadPicture(formData);
-    }
-    const newHampers = {
-      nama_hampers: input.nama_hampers,
-      harga: input.harga,
-      limit_produksi: input.limit_produksi,
-      id_kemasan: 7,
-      deskripsi: input.deskripsi,
-      foto: url,
-      items: hampersItems.map((item) => item.id_produk),
-    };
-    await editHampers(id!, newHampers);
+  const handleEditConfirmation = () => {
+    const modal = document.getElementById('edit_modal') as HTMLDialogElement;
+    if (modal) {
+      modal.showModal();
 
-    navigate("/admin-hampers");
+      const confirmEditBtn = document.getElementById('confirm_edit') as HTMLButtonElement;
+      confirmEditBtn.addEventListener('click', () => {
+        let url = hampersData.foto;
+        if (selectedFile !== null) {
+          const formData = new FormData();
+          formData.append("image", selectedFile! as File);
+          url = uploadPicture(formData);
+        }
+        const newHampers = {
+          nama_hampers: input.nama_hampers,
+          harga: input.harga,
+          limit_produksi: input.limit_produksi,
+          id_kemasan: 7,
+          deskripsi: input.deskripsi,
+          foto: url,
+          items: hampersItems.map((item) => item.id_produk),
+        };
+        editHampers(id!, newHampers);
+
+        navigate("/admin-hampers");
+        modal.close();
+      });
+
+      const cancelEditBtn = document.getElementById('cancel_edit') as HTMLButtonElement;
+      cancelEditBtn.addEventListener('click', () => {
+        modal.close();
+      });
+    }
   };
 
   return (
@@ -268,10 +281,22 @@ const EditHampers: React.FC = () => {
               </form>
             </div>
           </div>
+          <dialog id="edit_modal" className="modal" hidden>
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">Confirmation</h3>
+              <p className="py-4">Are you sure you want to edit this hampers?</p>
+              <div className="flex justify-end">
+                <form method="dialog" className="flex space-between gap-3">
+                  <button id="cancel_edit">Cancel</button>
+                  <button id="confirm_edit" className="btn btn-primary">Edit</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
       )}
       <div className="flex flex-row-reverse mt-16">
-        <button className="btn btn-primary" onClick={handleSubmit}>
+        <button className="btn btn-primary" onClick={handleEditConfirmation}>
           Edit Hampers
         </button>
       </div>
