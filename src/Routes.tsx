@@ -45,6 +45,7 @@ import MOProfile from "./pages/mo/profile/MOProfile";
 import ForgotPassword from "./pages/customer/forgot-password/ForgotPassword";
 import { ReactNode } from "react";
 import ProtectedRoutes from "./lib/utils/protected-routes";
+import OrderHistory from "./pages/customer/profile/OrderHistory";
 
 export const router = createBrowserRouter([
   {
@@ -356,6 +357,15 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="4">
         <AddressList />
+      </ProtectedRoutes>
+    ),
+  },
+
+  {
+    path: "/order-history",
+    element: (
+      <ProtectedRoutes role_id="4">
+        <OrderHistory />
       </ProtectedRoutes>
     ),
   },
