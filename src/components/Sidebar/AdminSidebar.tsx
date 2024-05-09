@@ -309,11 +309,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </h3>
           </div>
           <ul className="mb-6 flex flex-col gap-1.5">
-            {/* <!-- Customers --> */}
+            {/* <!-- Customer --> */}
             <li>
               <NavLink
-                to="/admin-customers"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes('customers') && 'bg-graydark'
+                to="/admin-search-customer"
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes('customer') &&
+                  'bg-graydark'
                   }`}
               >
                 <svg
@@ -326,13 +327,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  className="lucide lucide-user"
-                >
-                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
-                Customers
+                  className="lucide lucide-user-round-search">
+                  <circle cx="10" cy="8" r="5" /><path d="M2 21a8 8 0 0 1 10.434-7.62" /><circle cx="18" cy="18" r="3" /><path d="m22 22-1.9-1.9" /></svg>
+                Customer
               </NavLink>
             </li>
-            {/* <!-- /Customers --> */}
+            {/* <!-- /Customer --> */}
+
           </ul>
         </nav>
       </div>

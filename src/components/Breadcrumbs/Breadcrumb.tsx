@@ -193,3 +193,66 @@ export const OwnerEmployeeBreadcrumb = ({ pageName }: BreadcrumbProps) => {
   );
 };
 
+export const IngredientPurchaseBreadcrumb = ({ pageName }: BreadcrumbProps) => {
+  return (
+    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <h2 className="text-title-xl font-serif font-bold text-black">
+        {pageName}
+      </h2>
+
+      <nav>
+        <ol className="flex items-center gap-2">
+          <li>
+            <Link className="font-medium" to="/mo-ingredient-purchase">
+              Ingredient Purchase /
+            </Link>
+          </li>
+          <li className="font-medium text-blue">{pageName}</li>
+        </ol>
+      </nav>
+    </div>
+  );
+};
+
+export const OtherExpensesBreadcrumb = ({ pageName }: BreadcrumbProps) => {
+  return (
+    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <h2 className="text-title-xl font-serif font-bold text-black">
+        {pageName}
+      </h2>
+
+      <nav>
+        <ol className="flex items-center gap-2">
+          <li>
+            <Link className="font-medium" to="/mo-other-expenses">
+              Other Expenses /
+            </Link>
+          </li>
+          <li className="font-medium text-blue">{pageName}</li>
+        </ol>
+      </nav>
+    </div>
+  );
+};
+
+export const CustomersBreadcrumb = ({ pageName }: BreadcrumbProps) => {
+  return (
+    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <h2 className="text-title-xl font-serif font-bold text-black">
+        {pageName}
+      </h2>
+
+      <nav>
+        <ol className="flex items-center gap-2">
+          <li>
+            <Link className="font-medium" to="/admin-search-customer">
+              Customers /
+            </Link>
+          </li>
+          <li className="font-medium text-blue">{pageName}</li>
+        </ol>
+      </nav>
+    </div>
+  );
+};
+

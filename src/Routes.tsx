@@ -31,7 +31,6 @@ import EditOwnerEmployee from "./pages/owner/employee/EditOwnerEmployee";
 import DetailRecipe from "./pages/admin/foodstuff/DetailRecipe";
 import AddMyProduct from "./pages/admin/products/AddMyProduct";
 import AddConsignment from "./pages/admin/products/AddConsignment";
-import MaterialPurchase from "./pages/mo/material/MaterialPurchase";
 import OtherExpenses from "./pages/mo/other-expenses/OtherExpenses";
 import Attendance from "./pages/mo/attendance/Attendance";
 import AdminProfile from "./pages/admin/profile/AdminProfile";
@@ -45,6 +44,13 @@ import MOProfile from "./pages/mo/profile/MOProfile";
 import ForgotPassword from "./pages/customer/forgot-password/ForgotPassword";
 import { ReactNode } from "react";
 import ProtectedRoutes from "./lib/utils/protected-routes";
+import IngredientPurchase from "./pages/mo/ingredients/IngredientPurchase";
+import AddIngredientPurchase from "./pages/mo/ingredients/AddIngredientPurchase";
+import EditIngredientPurchase from "./pages/mo/ingredients/EditIngredientPurchase";
+import AddOtherExpenses from "./pages/mo/other-expenses/AddExpenses";
+import EditOtherExpenses from "./pages/mo/other-expenses/EditOtherExpenses";
+import CustomerSearch from "./pages/admin/customer-search/CustomerSearch";
+import OrderHistory from "./pages/admin/customer-search/OrderHistory";
 
 export const router = createBrowserRouter([
   {
@@ -296,10 +302,26 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mo-material-purchase",
+    path: "/mo-ingredient-purchase",
     element: (
       <ProtectedRoutes role_id="3">
-        <MaterialPurchase />
+        <IngredientPurchase />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/add-ingredient-purchase",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <AddIngredientPurchase />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/edit-ingredient-purchase/:id",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <EditIngredientPurchase />
       </ProtectedRoutes>
     ),
   },
@@ -308,6 +330,22 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="3">
         <OtherExpenses />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo-add-other-expenses",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <AddOtherExpenses />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo-edit-other-expenses/:id",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <EditOtherExpenses />
       </ProtectedRoutes>
     ),
   },
@@ -356,6 +394,22 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="4">
         <AddressList />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/admin-search-customer",
+    element: (
+      <ProtectedRoutes role_id="2">
+        <CustomerSearch />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/admin-history-customer/:id",
+    element: (
+      <ProtectedRoutes role_id="2">
+        <OrderHistory />
       </ProtectedRoutes>
     ),
   },

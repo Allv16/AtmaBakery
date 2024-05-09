@@ -1,16 +1,16 @@
 import React from 'react';
 import { MOWrapper } from '../../../components/Wrapper';
-import { OtherExpensesTable } from '../../../components/Table/Table';
-import { getAllOtherExpenses } from '../../../lib/repository/OtherExpensesRepository';
-import { IOtherExpenses } from '../../../lib/interfaces/IOtherExpenses';
+import { IngredientPurchaseTable } from '../../../components/Table/Table';
+import { getAllIngredientPurchase } from '../../../lib/repository/IngredientPurchaseRepository';
+import { IIngredientPurchase } from '../../../lib/interfaces/IIngredientPurchase';
 
-const OtherExpenses: React.FC = () => {
+const IngredientPurchase: React.FC = () => {
     // API CALL
-    const { data, error, isLoading } = getAllOtherExpenses();
+    const { data, error, isLoading } = getAllIngredientPurchase();
     const [search, setSearch] = React.useState("");
 
-    const dataFiltered = data?.filter((item: IOtherExpenses) => {
-        return item.nama_pengeluaran.toLowerCase().includes(search.toLowerCase());
+    const dataFiltered = data?.filter((item: IIngredientPurchase) => {
+        return item.bahan_baku.nama_bahan_baku.toLowerCase().includes(search.toLowerCase());
     });
     console.log(search);
 
@@ -19,7 +19,7 @@ const OtherExpenses: React.FC = () => {
             <MOWrapper>
                 <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <h2 className="text-title-xl font-serif font-bold text-black">
-                        Atma Kitchen Other Expenses
+                        Ingredient Purchase
                     </h2>
                 </div>
                 <div className="flex justify-between">
@@ -43,7 +43,7 @@ const OtherExpenses: React.FC = () => {
                             />
                         </svg>
                     </label>
-                    <a href="/mo-add-other-expenses" className="btn btn-primary mb-4">Add New Other Expenses</a>
+                    <a href="/add-ingredient-purchase" className="btn btn-primary mb-4">Add New Purchase</a>
                 </div>
                 {isLoading &&
                     <div className="w-full mt-64 flex justify-center items-center">
@@ -53,7 +53,7 @@ const OtherExpenses: React.FC = () => {
                 {error && <div>Error</div>}
                 {data && (
                     <div className="rounded-sm border border-stroke bg-white shadow-default p-4 overflow-x-auto">
-                        <OtherExpensesTable otherExpensesData={dataFiltered} />
+                        <IngredientPurchaseTable ingredientPurhaseData={dataFiltered} />
                     </div>
                 )}
             </MOWrapper>
@@ -61,4 +61,4 @@ const OtherExpenses: React.FC = () => {
     );
 };
 
-export default OtherExpenses;
+export default IngredientPurchase;

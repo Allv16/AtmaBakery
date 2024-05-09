@@ -1,29 +1,30 @@
 import React from 'react';
-import { MOWrapper } from '../../../components/Wrapper';
-import { OtherExpensesTable } from '../../../components/Table/Table';
-import { getAllOtherExpenses } from '../../../lib/repository/OtherExpensesRepository';
-import { IOtherExpenses } from '../../../lib/interfaces/IOtherExpenses';
+import { AdminWrapper } from '../../../components/Wrapper';
+import { getAllCustomer } from '../../../lib/repository/CustomerRepository';
+import { CustomersTable } from '../../../components/Table/Table';
+import { ICustomer } from '../../../lib/interfaces/ICustomer';
 
-const OtherExpenses: React.FC = () => {
+const CustomerSearch: React.FC = () => {
     // API CALL
-    const { data, error, isLoading } = getAllOtherExpenses();
+    const { data, error, isLoading } = getAllCustomer();
     const [search, setSearch] = React.useState("");
 
-    const dataFiltered = data?.filter((item: IOtherExpenses) => {
-        return item.nama_pengeluaran.toLowerCase().includes(search.toLowerCase());
+    const dataFiltered = data?.filter((item: ICustomer) => {
+        return item.nama_customer.toLowerCase().includes(search.toLowerCase());
     });
     console.log(search);
 
     return (
         <>
-            <MOWrapper>
+            <AdminWrapper>
                 <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <h2 className="text-title-xl font-serif font-bold text-black">
-                        Atma Kitchen Other Expenses
+                        Atma Kitchen Customers
                     </h2>
                 </div>
+
                 <div className="flex justify-between">
-                    <label className="input input-bordered flex items-center gap-2 w-1/3">
+                    <label className="input input-bordered flex items-center gap-2 w-1/3 mb-3">
                         <input
                             type="text"
                             className="grow"
@@ -43,7 +44,6 @@ const OtherExpenses: React.FC = () => {
                             />
                         </svg>
                     </label>
-                    <a href="/mo-add-other-expenses" className="btn btn-primary mb-4">Add New Other Expenses</a>
                 </div>
                 {isLoading &&
                     <div className="w-full mt-64 flex justify-center items-center">
@@ -53,12 +53,12 @@ const OtherExpenses: React.FC = () => {
                 {error && <div>Error</div>}
                 {data && (
                     <div className="rounded-sm border border-stroke bg-white shadow-default p-4 overflow-x-auto">
-                        <OtherExpensesTable otherExpensesData={dataFiltered} />
+                        <CustomersTable customersData={dataFiltered} />
                     </div>
                 )}
-            </MOWrapper>
+            </AdminWrapper>
         </>
     );
 };
 
-export default OtherExpenses;
+export default CustomerSearch;

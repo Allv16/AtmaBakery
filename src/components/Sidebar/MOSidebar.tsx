@@ -236,10 +236,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         </h3>
                     </div>
                     <ul className="mb-6 flex flex-col gap-1.5">
-                        {/* <!-- Material --> */}
+                        {/* <!-- Ingredient --> */}
                         <li>
                             <NavLink
-                                to="/mo-material-purchase"
+                                to="/mo-ingredient-purchase"
                                 className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes('purchase') && 'bg-graydark'
                                     }`}
                             >
@@ -256,10 +256,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                     className="lucide lucide-book-up"
                                 >
                                     <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" /><path d="M12 13V7" /><path d="m9 10 3-3 3 3" /></svg>
-                                Raw Material Purchase
+                                Ingredient Purchase
                             </NavLink>
                         </li>
-                        {/* <!-- /Material --> */}
+                        {/* <!-- /Ingredient --> */}
 
                         {/* <!-- Other --> */}
                         <li>

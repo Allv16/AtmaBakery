@@ -22,10 +22,7 @@ const EditProduct: React.FC = () => {
 
   const { data, error, isLoading } = getProductsById(id!);
 
-  const {
-    data: partnerData,
-    error: partnerError,
-    isLoading: partnerIsLoading,
+  const { data: partnerData, error: partnerError, isLoading: partnerIsLoading,
   } = getAllPartner();
 
   const inputField = {

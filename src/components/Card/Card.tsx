@@ -4,6 +4,7 @@ import { IHampers } from "../../lib/interfaces/IHampers";
 import { useLocation, useNavigate } from "react-router-dom";
 import { deleteProduct } from "../../lib/repository/ProductRepository";
 import { deleteHampers } from "../../lib/repository/HampersRepository";
+import { ITransaction } from "../../lib/interfaces/ITransaction";
 
 type CardProductProps = {
   product: IProduct;
@@ -12,6 +13,10 @@ type CardProductProps = {
 type CardHampersProps = {
   hampers: IHampers;
 };
+
+type CardTransactionProps = {
+  transaction: ITransaction;
+}
 
 export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
   const navigate = useNavigate();
@@ -239,6 +244,50 @@ export const CardRecipe: React.FC<CardProductProps> = ({ product }) => {
       <div className="p-4">
         <h3 className="text-lg font-medium">{product.nama_produk}</h3>
         <p className="text-gray-600 mb-4">{product.deskripsi}</p>
+      </div>
+    </div>
+  );
+};
+
+export const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
+  const navigate = useNavigate();
+
+  return (
+    <div
+      className="bg-white shadow-md rounded-lg overflow-hidden"
+    >
+      <div className="h-40 overflow-auto px-4 pt-4">
+        {transaction.detail_transaksi.map(
+          (transactionDetail) => (
+            <h3 className="text-lg font-medium mb-4">{transactionDetail.produk.nama_produk}</h3>
+          )
+        )}
+      </div>
+      <hr />
+      <div className="p-4">
+        <p className="text-gray-600 mb-4">{transaction.tanggal_nota_dibuat}</p>
+        <p className="text-gray-600 mb-4">{transaction.jenis_pengiriman}</p>
+        {transaction.status_transaksi === 'Diterima' ? (
+          <div className="badge badge-info">
+            {transaction.status_transaksi}
+          </div>
+        ) : transaction.status_transaksi === 'Ditolak' ? (
+          <div className="badge badge-error">
+            {transaction.status_transaksi}
+          </div>
+        ) : transaction.status_transaksi === 'Di Proses' ? (
+          <div className="badge badge-warning">
+            {transaction.status_transaksi}
+          </div>
+        ) : transaction.status_transaksi === 'Selesai' ? (
+          <div className="badge badge-success">
+            {transaction.status_transaksi}
+          </div>
+        ) : (
+          <div className="badge badge-default">
+            {transaction.status_transaksi}
+          </div>
+        )}
       </div>
     </div>
   );

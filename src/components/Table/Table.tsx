@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { IIngredients } from '../../lib/interfaces/IIngredients';
 import { IEmployee } from '../../lib/interfaces/IEmployee';
 import { IPartner } from '../../lib/interfaces/IPartner';
@@ -8,6 +6,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { deleteIngredient } from '../../lib/repository/IngredientsRepository';
 import { deleteEmployee } from '../../lib/repository/EmployeeRepository';
 import { deletePartner } from '../../lib/repository/PartnerRepository';
+import { deleteIngredientPurchase } from '../../lib/repository/IngredientPurchaseRepository';
+import { IIngredientPurchase } from '../../lib/interfaces/IIngredientPurchase';
+import { IOtherExpenses } from '../../lib/interfaces/IOtherExpenses';
+import { deleteOtherExpenses } from '../../lib/repository/OtherExpensesRepository';
+import { ICustomer } from '../../lib/interfaces/ICustomer';
 
 type IngredientsTableProps = {
     ingredientsData: IIngredients[];
@@ -20,6 +23,18 @@ type EmployeeTableProps = {
 type PartnerTableProps = {
     partnerData: IPartner[];
 }
+
+type IngredientPurchaseTableProps = {
+    ingredientPurhaseData: IIngredientPurchase[];
+};
+
+type OtherExpensesTableProps = {
+    otherExpensesData: IOtherExpenses[];
+};
+
+type CustomersTableProps = {
+    customersData: ICustomer[];
+};
 
 export const IngredientsTable = (props: IngredientsTableProps) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -398,6 +413,330 @@ export const PartnerTable = (props: PartnerTableProps) => {
                         <th>Partner Name</th>
                         <th>Partner Address</th>
                         <th>Phone Number</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>{renderTableRows()}</tbody>
+            </table>
+            <div className="join flex justify-center mt-4">{paginationItems}</div>
+        </div>
+    );
+};
+
+export const IngredientPurchaseTable = (props: IngredientPurchaseTableProps) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    const navigate = useNavigate();
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = props.ingredientPurhaseData.slice(indexOfFirstItem, indexOfLastItem);
+
+    const renderTableRows = () => {
+        return currentItems.map((item, index) => {
+            const [date] = item.tanggal_pembelian.split(" ");
+            return (
+                <tr key={index}>
+                    <td>{date}</td>
+                    <td>{item.jumlah_pembelian}</td>
+                    <td>{item.harga_beli}</td>
+                    <td>{item.bahan_baku.nama_bahan_baku}</td>
+                    <td>
+                        <div className="dropdown dropdown-bottom dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-xs">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="lucide lucide-ellipsis"
+                                >
+                                    <circle cx="12" cy="12" r="1" />
+                                    <circle cx="19" cy="12" r="1" />
+                                    <circle cx="5" cy="12" r="1" />
+                                </svg>
+                            </div>
+                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <a onClick={() => handleEdit(item.id_pembelian_bahan_baku)}>Edit</a>
+                                </li>
+                                <li>
+                                    <a onClick={() => handleDelete(item.id_pembelian_bahan_baku)}>Delete</a>
+                                </li>
+                            </ul>
+
+                            <dialog id="my_modal_3" className="modal" hidden>
+                                <div className="modal-box">
+                                    <h3 className="font-bold text-lg">Confirmation</h3>
+                                    <p className="py-4">Are you sure you want to delete this ingredient purchase?</p>
+                                    <div className="flex justify-end">
+                                        <form method="dialog" className="flex space-between gap-3">
+                                            <button id="cancel_delete">Cancel</button>
+                                            <button id="confirm_delete" className="btn btn-primary">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </dialog>
+                        </div>
+                    </td>
+                </tr>
+            );
+        });
+
+    };
+
+    const handleDelete = (id: string) => {
+        const modal = document.getElementById('my_modal_3') as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+
+            const confirmDeleteBtn = document.getElementById('confirm_delete') as HTMLButtonElement;
+            confirmDeleteBtn.addEventListener('click', () => {
+                deleteIngredientPurchase(id);
+                console.log(`Deleting ingredient purhcase with ID ${id}`);
+                modal.close();
+            });
+
+            const cancelDeleteBtn = document.getElementById('cancel_delete') as HTMLButtonElement;
+            cancelDeleteBtn.addEventListener('click', () => {
+                modal.close();
+            });
+        }
+    };
+
+    const handleEdit = (itemId: string) => {
+        if (location.pathname.includes('mo-ingredient-purchase')) {
+            navigate(`/edit-ingredient-purchase/${itemId}`);
+        }
+    };
+
+
+    const handlePaginationClick = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const totalPages = Math.ceil(props.ingredientPurhaseData.length / itemsPerPage);
+    const paginationItems = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+        paginationItems.push(
+            <button
+                key={i}
+                className={`join-item btn btn-sm justify ${currentPage === i ? 'btn-active' : ''}`}
+                onClick={() => handlePaginationClick(i)}
+            >
+                {i}
+            </button>
+        );
+    }
+
+    return (
+        <div className="xl:overflow-x-hidden">
+            <table className="table table-zebra w-full mb-5">
+                <thead>
+                    <tr>
+                        <th>Date Of Purchase</th>
+                        <th>Purchase Quantity</th>
+                        <th>Purchase Price</th>
+                        <th>Ingredient</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>{renderTableRows()}</tbody>
+            </table>
+            <div className="join flex justify-center mt-4">{paginationItems}</div>
+        </div>
+    );
+};
+
+export const OtherExpensesTable = (props: OtherExpensesTableProps) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    const navigate = useNavigate();
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = props.otherExpensesData.slice(indexOfFirstItem, indexOfLastItem);
+
+    const renderTableRows = () => {
+        return currentItems.map((item, index) => {
+            const [date] = item.tanggal_pengeluaran.split(" ");
+
+            return (
+                <tr key={index}>
+                    <td>{item.nama_pengeluaran}</td>
+                    <td>{date}</td>
+                    <td>{item.total_pengeluaran}</td>
+                    <td>
+                        <div className="dropdown dropdown-bottom dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-xs">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                            </div>
+                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                    <a onClick={() => handleEdit(item.id_pengeluaran_lain_lain)}>Edit</a>
+                                </li>
+                                <li>
+                                    <a onClick={() => handleDelete(item.id_pengeluaran_lain_lain)}>Delete</a>
+                                </li>
+                            </ul>
+
+                            <dialog id="my_modal_3" className="modal" hidden>
+                                <div className="modal-box">
+                                    <h3 className="font-bold text-lg">Confirmation</h3>
+                                    <p className="py-4">Are you sure you want to delete this other expense?</p>
+                                    <div className="flex justify-end">
+                                        <form method="dialog" className="flex space-between gap-3">
+                                            <button id="cancel_delete">Cancel</button>
+                                            <button id="confirm_delete" className="btn btn-primary">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </dialog>
+                        </div>
+                    </td>
+                </tr>
+            )
+        }
+
+        );
+    };
+
+    const handleDelete = (id: string) => {
+        const modal = document.getElementById('my_modal_3') as HTMLDialogElement;
+        if (modal) {
+            modal.showModal();
+
+            const confirmDeleteBtn = document.getElementById('confirm_delete') as HTMLButtonElement;
+            confirmDeleteBtn.addEventListener('click', () => {
+                deleteOtherExpenses(id);
+                console.log(`Deleting other expense with ID ${id}`);
+                modal.close();
+            });
+
+            const cancelDeleteBtn = document.getElementById('cancel_delete') as HTMLButtonElement;
+            cancelDeleteBtn.addEventListener('click', () => {
+                modal.close();
+            });
+        }
+    };
+
+    const handleEdit = (itemId: string) => {
+        if (location.pathname.includes('mo-other-expenses')) {
+            navigate(`/mo-edit-other-expenses/${itemId}`);
+        }
+    };
+
+
+    const handlePaginationClick = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const totalPages = Math.ceil(props.otherExpensesData.length / itemsPerPage);
+    const paginationItems = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+        paginationItems.push(
+            <button
+                key={i}
+                className={`join-item btn btn-sm justify ${currentPage === i ? 'btn-active' : ''}`}
+                onClick={() => handlePaginationClick(i)}
+            >
+                {i}
+            </button>
+        );
+    }
+
+    return (
+        <div className="xl:overflow-x-hidden">
+            <table className="table table-zebra w-full mb-5">
+                <thead>
+                    <tr>
+                        <th>Expense Name</th>
+                        <th>Date</th>
+                        <th>Total Other Expenses</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>{renderTableRows()}</tbody>
+            </table>
+            <div className="join flex justify-center mt-4">{paginationItems}</div>
+        </div>
+    );
+};
+
+export const CustomersTable = (props: CustomersTableProps) => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+    const navigate = useNavigate();
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = props.customersData.slice(indexOfFirstItem, indexOfLastItem);
+
+    const renderTableRows = () => {
+        return currentItems.map((item, index) => (
+            <tr key={index}>
+                <td>{item.nama_customer}</td>
+                <td>{item.tanggal_lahir}</td>
+                <td>{item.no_telp}</td>
+                <td>{item.poin}</td>
+                <td>
+                    <div className="dropdown dropdown-bottom dropdown-end">
+                        <div tabIndex={0} role="button" className="btn btn-xs">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-ellipsis"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>
+                        </div>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                            <li>
+                                <a onClick={() => handleHistory(item.id_customer)}>See History Order</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        ));
+    };
+
+    const handleHistory = (itemId: string) => {
+        if (location.pathname.includes('admin-search-customer')) {
+            navigate(`/admin-history-customer/${itemId}`);
+        }
+    };
+
+
+    const handlePaginationClick = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const totalPages = Math.ceil(props.customersData.length / itemsPerPage);
+    const paginationItems = [];
+
+    for (let i = 1; i <= totalPages; i++) {
+        paginationItems.push(
+            <button
+                key={i}
+                className={`join-item btn btn-sm justify ${currentPage === i ? 'btn-active' : ''}`}
+                onClick={() => handlePaginationClick(i)}
+            >
+                {i}
+            </button>
+        );
+    }
+
+    return (
+        <div className="xl:overflow-x-hidden">
+            <table className="table table-zebra w-full mb-5">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Birth of Date</th>
+                        <th>Phone Number</th>
+                        <th>Poin</th>
                         <th>Action</th>
                     </tr>
                 </thead>
