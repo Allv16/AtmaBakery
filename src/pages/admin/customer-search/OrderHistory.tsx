@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { CardTransaction } from '../../../components/Card/Card';
 import { ITransaction } from '../../../lib/interfaces/ITransaction';
 
-const OrderHistory: React.FC = () => {
+const OrderHistoryAdmin: React.FC = () => {
     // API CALL
     const { id } = useParams<{ id: string }>();
     const { data, error, isLoading } = getAllTransactionByIdCustomer(id!);
@@ -69,4 +69,4 @@ const OrderHistory: React.FC = () => {
     );
 };
 
-export default OrderHistory;
+export default OrderHistoryAdmin;

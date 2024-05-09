@@ -50,7 +50,8 @@ import EditIngredientPurchase from "./pages/mo/ingredients/EditIngredientPurchas
 import AddOtherExpenses from "./pages/mo/other-expenses/AddExpenses";
 import EditOtherExpenses from "./pages/mo/other-expenses/EditOtherExpenses";
 import CustomerSearch from "./pages/admin/customer-search/CustomerSearch";
-import OrderHistory from "./pages/admin/customer-search/OrderHistory";
+import OrderHistoryAdmin from "./pages/admin/customer-search/OrderHistory";
+import OrderHistory from "./pages/customer/profile/OrderHistory";
 
 export const router = createBrowserRouter([
   {
@@ -409,6 +410,14 @@ export const router = createBrowserRouter([
     path: "/admin-history-customer/:id",
     element: (
       <ProtectedRoutes role_id="2">
+        <OrderHistoryAdmin />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/order-history",
+    element: (
+      <ProtectedRoutes role_id="4">
         <OrderHistory />
       </ProtectedRoutes>
     ),

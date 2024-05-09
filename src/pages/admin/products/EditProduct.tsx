@@ -63,8 +63,23 @@ const EditProduct: React.FC = () => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleEditConfirmation = () => {
+    const modal = document.getElementById(
+      "confirmation_modal"
+    ) as HTMLDialogElement;
+    if (modal) {
+      modal.showModal();
+
+      const cancelEditBtn = document.getElementById(
+        "cancel_edit"
+      ) as HTMLButtonElement;
+      cancelEditBtn.addEventListener("click", () => {
+        modal.close();
+      });
+    }
+  };
+
+  const handleSubmit = async () => {
     toast.info("Updating Product...");
     let url = input.foto;
     if (selectedFile !== null) {
@@ -100,7 +115,13 @@ const EditProduct: React.FC = () => {
     <AdminWrapper>
       <ProductBreadcrumb pageName="Add New Product" />
       <div className="bg-white shadow-default p-6 grid grid-cols-1 gap-9 sm:grid-cols-2">
-        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col gap-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleEditConfirmation();
+          }}
+        >
           <div className="flex items-center justify-center w-full">
             <label
               htmlFor="dropzone-file"
@@ -228,6 +249,25 @@ const EditProduct: React.FC = () => {
             </button>
           </div>
         </form>
+
+        <dialog id="confirmation_modal" className="modal" hidden>
+          <div className="modal-box">
+            <h3 className="font-bold text-lg">Confirmation</h3>
+            <p className="py-4">Are you sure you want to edit this product?</p>
+            <div className="flex justify-end">
+              <form method="dialog" className="flex space-between gap-3">
+                <button id="cancel_edit">Cancel</button>
+                <button
+                  id="confirm_edit"
+                  className="btn btn-primary"
+                  onClick={async () => await handleSubmit()}
+                >
+                  Edit
+                </button>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
     </AdminWrapper>
   );
