@@ -82,7 +82,7 @@ const AddOtherExpenses: React.FC = () => {
                     </div>
 
                     <div className="flex flex-wrap items-center justify-center gap-6">
-                        <label className="font-medium text-gray-800 w-full max-w-xs">Phone Number</label>
+                        <label className="font-medium text-gray-800 w-full max-w-xs">Total</label>
                         <input type="number" placeholder="Enter Total Other Expense" className="input w-full max-w-md" name="total_pengeluaran"
                             onChange={handleChange} min="0" required />
                     </div>

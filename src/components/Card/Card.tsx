@@ -276,7 +276,7 @@ export const CardTransaction: React.FC<CardTransactionProps> = ({ transaction })
           <div className="badge badge-error">
             {transaction.status_transaksi}
           </div>
-        ) : transaction.status_transaksi === 'Di Proses' ? (
+        ) : transaction.status_transaksi === 'Diproses' ? (
           <div className="badge badge-warning">
             {transaction.status_transaksi}
           </div>
@@ -301,7 +301,7 @@ export const CardHistory = ({ history }: { history: IHistory }) => {
       <div className="card-body border relative">
         <div className="relative">
           <p className="inline-block">{formattedDate}</p>
-          <span className={`absolute top-0 right-0 px-2 py-1 rounded ${history.status_transaksi === 'Selesai' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
+          <span className={`absolute top-0 right-0 px-2 py-1 rounded ${history.status_transaksi === 'Selesai' ? 'bg-green-500 text-white' : history.status_transaksi === 'Diproses' ? 'bg-yellow-500 text-black' : 'bg-red-500 text-white'}`}>
             {history.status_transaksi}
           </span>
 

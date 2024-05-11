@@ -166,11 +166,11 @@ export default function OrderHistory() {
                 </div>
                 {isSearch
                   ? dataSearch.map((history) => (
-                      <CardHistory history={history} />
-                    ))
+                    <CardHistory history={history} />
+                  ))
                   : inputHistory.map((history) => (
-                      <CardHistory history={history} />
-                    ))}
+                    <CardHistory history={history} />
+                  ))}
               </div>
             </div>
           </div>
