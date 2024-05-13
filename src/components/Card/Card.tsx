@@ -5,7 +5,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { deleteProduct } from "../../lib/repository/ProductRepository";
 import { deleteHampers } from "../../lib/repository/HampersRepository";
 import { ITransaction } from "../../lib/interfaces/ITransaction";
-import { IHistory } from "../../lib/interfaces/IHistory";
+import { currencyConverter, dateConverter } from "../../lib/utils/converter";
+import { TransactionStatusBadge } from "../Badge";
+import { Box, Truck } from "lucide-react";
+import { ProductWithImageList } from "../List/List";
 
 type CardProductProps = {
   product: IProduct;
@@ -17,7 +20,7 @@ type CardHampersProps = {
 
 type CardTransactionProps = {
   transaction: ITransaction;
-}
+};
 
 export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
   const navigate = useNavigate();
@@ -250,37 +253,35 @@ export const CardRecipe: React.FC<CardProductProps> = ({ product }) => {
   );
 };
 
-export const CardTransaction: React.FC<CardTransactionProps> = ({ transaction }) => {
+export const CardTransaction: React.FC<CardTransactionProps> = ({
+  transaction,
+}) => {
   const navigate = useNavigate();
 
   return (
-    <div
-      className="bg-white shadow-md rounded-lg overflow-hidden"
-    >
+    <div className="bg-white shadow-md rounded-lg overflow-hidden">
       <div className="h-40 overflow-auto px-4 pt-4">
-        {transaction.detail_transaksi.map(
-          (transactionDetail) => (
-            <h3 className="text-lg font-medium mb-4">{transactionDetail.produk.nama_produk}</h3>
-          )
-        )}
+        {transaction.detail_transaksi.map((transactionDetail) => (
+          <h3 className="text-lg font-medium mb-4">
+            {transactionDetail.produk.nama_produk}
+          </h3>
+        ))}
       </div>
       <hr />
       <div className="p-4">
         <p className="text-gray-600 mb-4">{transaction.tanggal_nota_dibuat}</p>
         <p className="text-gray-600 mb-4">{transaction.jenis_pengiriman}</p>
-        {transaction.status_transaksi === 'Diterima' ? (
-          <div className="badge badge-info">
-            {transaction.status_transaksi}
-          </div>
-        ) : transaction.status_transaksi === 'Ditolak' ? (
+        {transaction.status_transaksi === "Diterima" ? (
+          <div className="badge badge-info">{transaction.status_transaksi}</div>
+        ) : transaction.status_transaksi === "Ditolak" ? (
           <div className="badge badge-error">
             {transaction.status_transaksi}
           </div>
-        ) : transaction.status_transaksi === 'Diproses' ? (
+        ) : transaction.status_transaksi === "Diproses" ? (
           <div className="badge badge-warning">
             {transaction.status_transaksi}
           </div>
-        ) : transaction.status_transaksi === 'Selesai' ? (
+        ) : transaction.status_transaksi === "Selesai" ? (
           <div className="badge badge-success">
             {transaction.status_transaksi}
           </div>
@@ -293,44 +294,54 @@ export const CardTransaction: React.FC<CardTransactionProps> = ({ transaction })
     </div>
   );
 };
-export const CardHistory = ({ history }: { history: IHistory }) => {
-  const tanggal = history.tanggal_diterima.split(" ")[0] || history.tanggal_ditolak.split(" ")[0];
-  const formattedDate = new Date(tanggal).toLocaleDateString('en-GB');
+export const CardHistory = (props: CardTransactionProps) => {
   return (
     <div className="card mt-5 w-full bg-base-100 relative">
-      <div className="card-body border relative">
-        <div className="relative">
-          <p className="inline-block">{formattedDate}</p>
-          <span className={`absolute top-0 right-0 px-2 py-1 rounded ${history.status_transaksi === 'Selesai' ? 'bg-green-500 text-white' : history.status_transaksi === 'Diproses' ? 'bg-yellow-500 text-black' : 'bg-red-500 text-white'}`}>
-            {history.status_transaksi}
-          </span>
-
+      <div className="card-body border p-4">
+        <div className="flex gap-2 items-center">
+          <TransactionStatusBadge status="Completed" />
+          <p className="text-gray-500">
+            {dateConverter(props.transaction.tanggal_nota_dibuat)}
+          </p>
+          <p className="text-right text-gray-500">
+            {props.transaction.id_transaksi}
+          </p>
         </div>
-        <hr className="my-4 border-t-2 border-gray-300" />
+        <hr className="my-1 border-t-[1px] border-primary" />
         <div className="flex items-center">
-          {/* <img
-            src="path/to/small_box_image.png"
-            alt="Small Box"
-            className="w-8 h-8 mr-2"
-          /> */}
-          <div>
-            <h2 className="text-xl font-bold">Order History</h2>
-            <p className="mb-2">{`Jumlah Item: ${history.detail_transaksi?.length}`}</p>
-            {history.detail_transaksi?.map((item) => (
-              <p>{"- "}{item.produk.nama_produk}</p>
-            ))}
+          <div className="flex items-center">
+            <Box size={16} className="text-primary mr-1" />
+            <p className="">
+              {props.transaction.detail_transaksi.length} items |
+            </p>
+          </div>
+          <div className="flex items-center ml-1">
+            <Truck size={16} className="text-secondary mr-1" />
+            <p>{props.transaction.jenis_pengiriman}</p>
           </div>
         </div>
+        <div>
+          {props.transaction.detail_transaksi?.slice(0, 3).map((item) => (
+            <ProductWithImageList detailTransaction={item} />
+          ))}
+        </div>
+        {props.transaction.detail_transaksi.length > 3 && (
+          <p className="text-center text-sm text-gray-500">
+            And {props.transaction.detail_transaksi.length - 3} others..
+          </p>
+        )}
         <div className="mt-4 flex justify-between items-center">
           <div>
-            <p>Total Purchases:</p>
-            <h2 className="text-xl font-bold">{`Rp. ${history.total}`}</h2>
+            <p className="text-gray-500 text-sm">Total Purchases</p>
+            <h2 className="text-xl font-bold">
+              {currencyConverter(props.transaction.pembayaran.total_pembayaran)}
+            </h2>
           </div>
-          <button className="bg-amber-200 text-yellow-800 px-4 py-2 rounded">
+          <button className="btn btn-sm btn-primary px-6 rounded-sm">
             Details
           </button>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };

@@ -132,3 +132,10 @@ export const deleteEmployee = async (id: string) => {
     toast.error("An error occurred while deleting the employee");
   }
 };
+
+export const getProfile = async () => {
+  const response = await axios.get(
+    `${import.meta.env.VITE_BASE_API}/auth/profile`
+  );
+  return response.data.data;
+};

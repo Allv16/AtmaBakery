@@ -26,7 +26,6 @@ export default function Profile() {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       const inputField: IProfileCustomer = {
         id_user: data.id_user ?? "",
         id_customer: data.id_customer ?? "",
@@ -80,9 +79,6 @@ export default function Profile() {
       });
     }
   };
-
-  console.log(input);
-  // console.log(data);
 
   return (
     <NavWrapper>

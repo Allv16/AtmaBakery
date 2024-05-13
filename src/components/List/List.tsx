@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { IRoles } from "../../lib/interfaces/IRoles";
 import { IIngredients } from "../../lib/interfaces/IIngredients";
+import { ITransaction } from "../../lib/interfaces/ITransaction";
+import { ITransactionDetails } from "../../lib/interfaces/ITransactionDetails";
+import { currencyConverter } from "../../lib/utils/converter";
 
 type RolesListProps = {
   rolesData: IRoles[];
@@ -56,6 +59,33 @@ export const JobTitleList: React.FC<RolesListProps> = ({ rolesData }) => {
             </li>
           ))}
         </ul>
+      </div>
+    </div>
+  );
+};
+
+type ProductWithImageListProps = {
+  detailTransaction: ITransactionDetails;
+};
+
+export const ProductWithImageList = ({
+  detailTransaction,
+}: ProductWithImageListProps) => {
+  return (
+    <div className="flex">
+      <img
+        className="w-20 h-20 object-cover rounded-md mr-4"
+        src={detailTransaction.produk.foto}
+        alt={detailTransaction.produk.nama_produk}
+      />
+      <div className="flex flex-col my-auto">
+        <h6 className="font-bold text-xl">
+          {detailTransaction.produk.nama_produk}
+        </h6>
+        <p className="text-gray-500">
+          {detailTransaction.jumlah_item} pcs x{" "}
+          {currencyConverter(detailTransaction.harga_satuan)}
+        </p>
       </div>
     </div>
   );

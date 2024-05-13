@@ -16,6 +16,6 @@ export type ITransaction = {
   total: number;
   jenis_pengiriman: string;
   status_transaksi: string;
-  payment: IPayment;
+  pembayaran: IPayment;
   detail_transaksi: ITransactionDetails[];
 };

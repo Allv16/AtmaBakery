@@ -2,6 +2,7 @@ import { Label } from "./Label";
 import { InputForm } from "./Input";
 import { useEffect, useState } from "react";
 import {
+  getProfile,
   isEmailVerified,
   login,
   register,
@@ -42,6 +43,10 @@ export const FormLogin = () => {
           navigate("/mo-dashboard");
           break;
         case 4:
+          localStorage.setItem(
+            "customer_id",
+            JSON.stringify(loginResponse.data.data.user)
+          );
           navigate("/profile");
           break;
         default:

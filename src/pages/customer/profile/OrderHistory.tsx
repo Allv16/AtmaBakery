@@ -1,89 +1,26 @@
-import { InputForm } from "../../../components/Input";
-import { Label } from "../../../components/Label";
 import { NavWrapper } from "../../../components/Wrapper";
 import { CardHistory } from "../../../components/Card/Card";
-import { getProfileCustomer } from "../../../lib/repository/ProfileRepository";
-import { IProfileCustomer } from "../../../lib/interfaces/IProfileCustomer";
-import { useEffect, useState } from "react";
-import { getAllProcuts } from "../../../lib/repository/ProductRepository";
-import { getHistoryTransaction } from "../../../lib/repository/TransaksiRepository";
-import { IHistory } from "../../../lib/interfaces/IHistory";
-import React from "react";
+import { getAllTransactionByIdCustomer } from "../../../lib/repository/TransactionRepository";
+import { ICustomer } from "../../../lib/interfaces/ICustomer";
+import { useState } from "react";
+import { ITransaction } from "../../../lib/interfaces/ITransaction";
+import { ITransactionDetails } from "../../../lib/interfaces/ITransactionDetails";
+import { Search } from "lucide-react";
 
 export default function OrderHistory() {
-  const { data, error, isLoading } = getProfileCustomer();
-
-  const [input, setInput] = useState<IProfileCustomer>({
-    id_user: "",
-    id_customer: "",
-    nama_customer: "",
-    no_telp: 0,
-    tanggal_lahir: "",
-    jenis_kelamin: "",
-    poin: 0,
-  });
-
-  const [inputHistory, setInputHistory] = useState<IHistory[]>([]);
-
-  const { dataHistory, errorHistory, isLoadingHistory } = getHistoryTransaction(
-    input.id_customer
+  const customer = JSON.parse(localStorage.getItem("customer_id") || "{}")
+    .customer as ICustomer;
+  const { data, error, isLoading } = getAllTransactionByIdCustomer(
+    customer.id_customer
   );
 
-  const [isSearch, setIsSearch] = useState(false);
+  const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    if (data) {
-      const inputField: IProfileCustomer = {
-        id_user: data.id_user ?? "",
-        id_customer: data.id_customer ?? "",
-        nama_customer: data.nama_customer ?? "",
-        no_telp: data.no_telp ?? 0,
-        tanggal_lahir: data.tanggal_lahir ?? "",
-        jenis_kelamin: data.jenis_kelamin ?? "",
-        poin: data.poin ?? 0,
-      };
-      setInput(inputField);
-    }
-    if (dataHistory) {
-      dataHistory.map((item) => {
-        let inputField: IHistory = {
-          id_transaksi: item.id_transaksi ?? "",
-          tanggal_diterima: item.tanggal_diterima ?? "",
-          tanggal_ditolak: item.tanggal_ditolak ?? "",
-          total: item.total ?? 0,
-          status_transaksi: item.status_transaksi ?? "",
-          detail_transaksi: item.detail_transaksi ?? [],
-        };
-        setInputHistory((prev) => [...prev, inputField]);
-      });
-    }
-  }, [data, dataHistory]);
-
-  const [search, setSearch] = React.useState("");
-
-  const [dataSearch, setDataSearch] = useState<IHistory[]>([]);
-
-  function filterData(name: string) {
-    let dataFiltered = dataHistory?.filter((item: IHistory) => {
-      return item.detail_transaksi?.some((item) => {
-        return item.produk.nama_produk
-          .toLowerCase()
-          .includes(name.toLowerCase());
-      });
-    });
-
-    return dataFiltered;
-  }
-
-  function handleSearch(e: any) {
-    e.preventDefault();
-    if (search === "") {
-      setIsSearch(false);
-    } else {
-      setIsSearch(true);
-      setDataSearch(filterData(search));
-    }
-  }
+  const dataFiltered = data?.filter((item: ITransaction) => {
+    return item.detail_transaksi.some((detail: ITransactionDetails) =>
+      detail.produk.nama_produk.toLowerCase().includes(search.toLowerCase())
+    );
+  });
 
   return (
     <NavWrapper>
@@ -93,10 +30,10 @@ export default function OrderHistory() {
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
                 <h2 className="pl-3 text-xl font-semibold">
-                  {input.nama_customer}
+                  {customer.nama_customer}
                 </h2>
                 <h6 className="pl-3 text-sm font-semibold">
-                  {input.poin}
+                  {customer.poin}
                   {" point"}
                 </h6>
               </div>
@@ -129,48 +66,31 @@ export default function OrderHistory() {
               </h2>
               <div className="grid max-w-2xl mx-auto mt-8">
                 <div className="flex items-center">
-                  <label htmlFor="simple-search" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative w-full">
+                  <label className="input input-bordered flex items-center gap-2">
                     <input
                       type="text"
-                      id="simple-search"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-3 p-2.5"
-                      placeholder="Search address..."
-                      required
+                      className="grow"
+                      placeholder="Search"
                       onChange={(e) => setSearch(e.target.value)}
                     />
-                  </div>
-                  <button
-                    onClick={handleSearch}
-                    className="p-2.5 ms-2 text-sm font-medium text-white bg-primary rounded-lg border border-primary hover:bg-primary-dark focus:ring-4 focus:outline-none focus:ring-primary-light"
-                  >
-                    <svg
-                      className="w-4 h-4"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                      />
-                    </svg>
-                    <span className="sr-only">Search</span>
-                  </button>
+                    <Search size={16} />
+                  </label>
                 </div>
-                {isSearch
-                  ? dataSearch.map((history) => (
-                    <CardHistory history={history} />
+                {isLoading ? (
+                  <div className="w-full flex justify-center items-center mt-16">
+                    <span className="loading loading-dots loading-sm" />
+                  </div>
+                ) : dataFiltered.length > 0 ? (
+                  dataFiltered.map((item) => (
+                    <CardHistory transaction={item} key={item.id_transaksi} />
                   ))
-                  : inputHistory.map((history) => (
-                    <CardHistory history={history} />
-                  ))}
+                ) : (
+                  <div className="w-full flex justify-center items-center mt-16">
+                    <span className="text-lg font-medium">
+                      No transaction found.
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
