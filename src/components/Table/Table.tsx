@@ -183,12 +183,12 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                             {location.pathname.includes('mo-employee') && (
                                 <>
-                                    <li><a onClick={() => handleEditConfirmation(item.id_karyawan)}>Edit</a></li>
+                                    <li><a onClick={() => handleEdit(item.id_karyawan)}>Edit</a></li>
                                     <li><a onClick={() => handleDelete(item.id_karyawan)}>Delete</a></li>
                                 </>
                             )}
                             {location.pathname.includes('owner-employee') && (
-                                <li><a onClick={() => handleEditConfirmation(item.id_karyawan)}>Edit</a></li>
+                                <li><a onClick={() => handleEdit(item.id_karyawan)}>Edit</a></li>
                             )}
                         </ul>
 
@@ -247,24 +247,6 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
             navigate(`/edit-employee/${itemId}`);
         } else if (location.pathname.includes('owner-employee')) {
             navigate(`/edit-owner-employee/${itemId}`);
-        }
-    };
-
-    const handleEditConfirmation = (id: string) => {
-        const modal = document.getElementById('edit_modal') as HTMLDialogElement;
-        if (modal) {
-            modal.showModal();
-
-            const confirmEditBtn = document.getElementById('confirm_edit') as HTMLButtonElement;
-            confirmEditBtn.addEventListener('click', () => {
-                handleEdit(id);
-                modal.close();
-            });
-
-            const cancelEditBtn = document.getElementById('cancel_edit') as HTMLButtonElement;
-            cancelEditBtn.addEventListener('click', () => {
-                modal.close();
-            });
         }
     };
 
@@ -328,7 +310,7 @@ export const PartnerTable = (props: PartnerTableProps) => {
                         </div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                             <li>
-                                <a onClick={() => handleEditConfirmation(item.id_penitip)}>Edit</a>
+                                <a onClick={() => handleEdit(item.id_penitip)}>Edit</a>
                             </li>
                             <li><a onClick={() => handleDelete(item.id_penitip)}>Delete</a></li>
                         </ul>
@@ -383,21 +365,9 @@ export const PartnerTable = (props: PartnerTableProps) => {
         }
     };
 
-    const handleEditConfirmation = (id: string) => {
-        const modal = document.getElementById('edit_modal') as HTMLDialogElement;
-        if (modal) {
-            modal.showModal();
-
-            const confirmEditBtn = document.getElementById('confirm_edit') as HTMLButtonElement;
-            confirmEditBtn.addEventListener('click', () => {
-                navigate(`/edit-partner/${id}`);
-                modal.close();
-            });
-
-            const cancelEditBtn = document.getElementById('cancel_edit') as HTMLButtonElement;
-            cancelEditBtn.addEventListener('click', () => {
-                modal.close();
-            });
+    const handleEdit = (itemId: string) => {
+        if (location.pathname.includes('mo-partner')) {
+            navigate(`/edit-partner/${itemId}`);
         }
     };
 
