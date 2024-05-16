@@ -86,6 +86,16 @@ export default function Profile() {
 
   return (
     <NavWrapper>
+      <style>{`
+        .hover-up {
+          transition: transform 0.1s ease-in-out;
+        }
+
+        .hover-up:hover {
+          transform: translateY(-3px);
+        }
+      `}</style>
+
       {isLoading && (
         <div className="w-full mt-64 flex justify-center items-center">
           <span className="loading loading-dots loading-md"></span>
@@ -94,39 +104,46 @@ export default function Profile() {
       {error && <div>Error</div>}
 
       <div className="bg-white h-screen mx-auto flex flex-col-2 gap-10 px-3 md:flex-row">
-        <aside className="hidden py-4 md:w-1/3 lg:w-1/4 md:block">
-          <div className="flex flex-col p-4 text-sm border-r border-indigo-100 top-12 border">
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col">
-                <h2 className="pl-3 text-xl font-semibold">
-                  {input.nama_customer}
-                </h2>
-                <h6 className="pl-3 text-sm font-semibold">
-                  {input.poin}
-                  {" point"}
-                </h6>
-              </div>
-            </div>
-            <a
-              href="/profile"
-              className="flex items-center px-3 py-2.5 font-bold bg-white text-lg"
-            >
-              Settings
-            </a>
-            <a
-              href="#"
-              className="flex items-center px-3 py-2.5 font-semibold text-lg"
-            >
-              Order
-            </a>
-            <a
-              href="/order-history"
-              className="flex items-center px-3 py-2.5 font-semibold text-lg"
-            >
-              History
-            </a>
-          </div>
-        </aside>
+      <aside className="hidden py-4 md:w-1/3 lg:w-1/4 md:block">
+  <div className="flex flex-col p-4 text-sm border-r border-indigo-100 top-12 border">
+    <div className="flex items-center justify-between">
+      <div className="flex flex-col">
+        <h2 className="pl-3 text-xl font-semibold">
+          {input.nama_customer}
+        </h2>
+        <h6 className="pl-3 text-sm font-semibold">
+          {input.poin}
+          {" point"}
+        </h6>
+      </div>
+    </div>
+    <a
+      href="/profile"
+      className="flex items-center px-3 py-2.5 font-semibold bg-white text-lg hover-up"
+    >
+      Settings
+    </a>
+    <a
+      href="#"
+      className="flex items-center px-3 py-2.5 font-semibold text-lg hover-up"
+    >
+      Order
+    </a>
+    <a
+      href="/order-history"
+      className="flex items-center px-3 py-2.5 font-semibold text-lg hover-up"
+    >
+      History
+    </a>
+    <a
+      href="/login"
+      className="flex items-center px-3 py-2.5 font-semibold text-lg text-red-700 hover-up"
+    >
+      Logout
+    </a>
+  </div>
+</aside>
+
         <main className="w-full min-h-screen py-4 md:w-2/3 lg:w-3/4">
           <div className="p-2 md:p-4 border">
             <div className="w-full mx px-3 pb-8 sm:rounded-lg">

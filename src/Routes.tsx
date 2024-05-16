@@ -46,6 +46,8 @@ import ForgotPassword from "./pages/customer/forgot-password/ForgotPassword";
 import { ReactNode } from "react";
 import ProtectedRoutes from "./lib/utils/protected-routes";
 import OrderHistory from "./pages/customer/profile/OrderHistory";
+import ListProduct from "./pages/customer/products/ListProduct";
+import DetailProduct from "./pages/customer/products/DetailProduct";
 
 export const router = createBrowserRouter([
   {
@@ -67,6 +69,14 @@ export const router = createBrowserRouter([
   {
     path: "/products",
     element: <Products />,
+  },
+  {
+    path: "/list-products",
+    element: <ListProduct />,
+  },
+  {
+    path: "/detail-product",
+    element: <DetailProduct />,
   },
   {
     path: "/about",

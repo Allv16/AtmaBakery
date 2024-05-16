@@ -246,17 +246,24 @@ export const CardRecipe: React.FC<CardProductProps> = ({ product }) => {
 };
 
 export const CardHistory = ({ history }: { history: IHistory }) => {
-  const tanggal = history.tanggal_diterima.split(" ")[0] || history.tanggal_ditolak.split(" ")[0];
-const formattedDate = new Date(tanggal).toLocaleDateString('en-GB');
+  const tanggal =
+    history.tanggal_diterima.split(" ")[0] ||
+    history.tanggal_ditolak.split(" ")[0];
+  const formattedDate = new Date(tanggal).toLocaleDateString("en-GB");
   return (
     <div className="card mt-5 w-full bg-base-100 relative">
       <div className="card-body border relative">
         <div className="relative">
-        <p className="inline-block">{formattedDate}</p>
-        <span className={`absolute top-0 right-0 px-2 py-1 rounded ${history.status_transaksi === 'Selesai' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
-  {history.status_transaksi}
-</span>
-
+          <p className="inline-block">{formattedDate}</p>
+          <span
+            className={`absolute top-0 right-0 px-2 py-1 rounded ${
+              history.status_transaksi === "Selesai"
+                ? "bg-green-500 text-white"
+                : "bg-red-500 text-white"
+            }`}
+          >
+            {history.status_transaksi}
+          </span>
         </div>
         <hr className="my-4 border-t-2 border-gray-300" />
         <div className="flex items-center">
@@ -269,7 +276,10 @@ const formattedDate = new Date(tanggal).toLocaleDateString('en-GB');
             <h2 className="text-xl font-bold">Order History</h2>
             <p className="mb-2">{`Jumlah Item: ${history.detail_transaksi?.length}`}</p>
             {history.detail_transaksi?.map((item) => (
-              <p>{"- "}{item.produk.nama_produk}</p>
+              <p>
+                {"- "}
+                {item.produk.nama_produk}
+              </p>
             ))}
           </div>
         </div>
