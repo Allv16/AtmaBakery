@@ -1,6 +1,4 @@
-import React from "react";
-
-import { MoveRight, MoveLeft } from "lucide-react";
+import { MoveLeft, MoveRight } from "lucide-react";
 
 type CarouselProps = {
   images: string[];

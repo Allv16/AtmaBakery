@@ -4,24 +4,25 @@ import { RecipeForm } from "../../../components/Form/Form";
 import { AdminWrapper } from "../../../components/Wrapper";
 // import RecipeForm from '../../../components/RecipeForm';
 // import { getRecipesById } from '../../../lib/repository/RecipeRepository';
-import { getAllIngredients } from "../../../lib/repository/IngredientsRepository";
-import { getRecipesById } from "../../../lib/repository/RecipeRepository";
 import { IIngredients } from "../../../lib/interfaces/IIngredients";
+import { getAllIngredients } from "../../../lib/repository/IngredientsRepository";
 import { getProductsById } from "../../../lib/repository/ProductRepository";
+import { getRecipesById } from "../../../lib/repository/RecipeRepository";
 
 const DetailRecipe: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   //API CALL
   const {
     data: productData,
-    error: productError,
+    // error: productError,
     isLoading: prodcutIsLoading,
   } = getProductsById(id!);
   const { data, error, isLoading } = getAllIngredients();
   const {
     data: recipeData,
-    error: recipeError,
+    // error: recipeError,
     isLoading: recipeIsLoading,
+    isValidating: recipeIsValidating,
   } = getRecipesById(id!);
 
   let recipeList: IIngredients[] = [];
@@ -46,6 +47,8 @@ const DetailRecipe: React.FC = () => {
     );
   }
 
+  console.log(recipeIsValidating);
+
   return (
     <>
       <AdminWrapper>
@@ -60,7 +63,7 @@ const DetailRecipe: React.FC = () => {
           </div>
         )}
         {error && <div>Error</div>}
-        {!isLoading && !recipeIsLoading && (
+        {!isLoading && !recipeIsLoading && !recipeIsValidating && (
           <RecipeForm
             ingredientsData={remainingIngredients}
             recipeData={recipeList}

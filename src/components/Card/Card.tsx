@@ -27,8 +27,8 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
   const location = useLocation();
 
   const handleEdit = () => {
-    if (location.pathname.includes("admin-products")) {
-      navigate(`/edit-products/${product.id_produk}`);
+    if (location.pathname.includes("admin/products")) {
+      navigate(`/admin/products/edit/${product.id_produk}`);
     }
   };
 
@@ -68,7 +68,7 @@ export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
         <h3 className="text-lg text-black font-medium">
           {product.nama_produk}
         </h3>
-        <p className="text-gray-600">{product.harga}</p>
+        <p className="text-gray-600">{currencyConverter(product.harga)}</p>
         <hr />
         <div className="flex justify-end p-1">
           <div className="dropdown dropdown-top dropdown-end">
@@ -129,7 +129,7 @@ export const CardHampers = (props: CardHampersProps) => {
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    navigate(`/edit-hampers/${props.hampers.hampers.id_produk}`);
+    navigate(`/admin/hampers/edit/${props.hampers.hampers.id_produk}`);
   };
 
   const handleDelete = (id: string) => {
@@ -166,7 +166,9 @@ export const CardHampers = (props: CardHampersProps) => {
         <h3 className="text-lg font-medium">
           {props.hampers.hampers.nama_produk}
         </h3>
-        <p className="text-gray-600 mb-4">{props.hampers.hampers.harga}</p>
+        <p className="text-gray-600 mb-4">
+          {currencyConverter(props.hampers.hampers.harga)}
+        </p>
         <hr />
         <div className="flex justify-end p-1">
           <div className="dropdown dropdown-top dropdown-end">
@@ -231,7 +233,7 @@ export const CardRecipe: React.FC<CardProductProps> = ({ product }) => {
   const navigate = useNavigate();
 
   const handleDetailRecipe = () => {
-    navigate(`/detail-recipe/${product.id_produk}`);
+    navigate(`/admin/recipe/details/${product.id_produk}`);
   };
 
   return (
@@ -256,8 +258,6 @@ export const CardRecipe: React.FC<CardProductProps> = ({ product }) => {
 export const CardTransaction: React.FC<CardTransactionProps> = ({
   transaction,
 }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="bg-white shadow-md rounded-lg overflow-hidden">
       <div className="h-40 overflow-auto px-4 pt-4">

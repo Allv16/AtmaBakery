@@ -1,34 +1,28 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import { ProductBreadcrumb } from "../../../components/Breadcrumbs/Breadcrumb";
 import { AdminWrapper } from "../../../components/Wrapper";
+import { IPartner } from "../../../lib/interfaces/IPartner";
+import { getAllPartner } from "../../../lib/repository/PartnerRepository";
 import {
-  addProducts,
   getProductsById,
   updateProduct,
   uploadPicture,
 } from "../../../lib/repository/ProductRepository";
-import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  getAllPartner,
-  getPartnerById,
-} from "../../../lib/repository/PartnerRepository";
-import { IPartner } from "../../../lib/interfaces/IPartner";
-import { toast } from "sonner";
 
 const EditProduct: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
-  const { data, error, isLoading } = getProductsById(id!);
+  const { data, isLoading } = getProductsById(id!);
 
-  const { data: partnerData, error: partnerError, isLoading: partnerIsLoading,
-  } = getAllPartner();
+  const { data: partnerData } = getAllPartner();
 
   const inputField = {
     nama_produk: "",
-    harga: "",
-    limit_produksi: "",
+    harga: 0,
+    limit_produksi: 0,
     jenis_produk: "",
     foto: "",
     deskripsi: "",
@@ -50,8 +44,6 @@ const EditProduct: React.FC = () => {
       });
     }
   }, [data]);
-
-  const [file, setFile] = useState<File | undefined>();
 
   console.log(input);
 

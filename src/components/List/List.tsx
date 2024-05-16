@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import { Hash, PersonStanding, User } from "lucide-react";
 import { IRoles } from "../../lib/interfaces/IRoles";
-import { IIngredients } from "../../lib/interfaces/IIngredients";
 import { ITransaction } from "../../lib/interfaces/ITransaction";
 import { ITransactionDetails } from "../../lib/interfaces/ITransactionDetails";
 import { currencyConverter } from "../../lib/utils/converter";
 
 type RolesListProps = {
   rolesData: IRoles[];
-};
-
-type ListWithAddButtonProps = {
-  data: IIngredients[];
 };
 
 export const JobTitleList: React.FC<RolesListProps> = ({ rolesData }) => {
@@ -48,7 +43,7 @@ export const JobTitleList: React.FC<RolesListProps> = ({ rolesData }) => {
                     className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
                   >
                     <li>
-                      <a href="/edit-job-title">Edit</a>
+                      <a href="/mo/job-title/edit">Edit</a>
                     </li>
                     <li>
                       <a>Delete</a>

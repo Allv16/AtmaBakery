@@ -40,11 +40,11 @@ const EditEmployee = () => {
   const handleSubmit = async () => {
     // e.preventDefault();
     await editEmployee(input, data.id_karyawan);
-    navigate("/mo-employee");
+    navigate("/mo/employee");
   };
 
   const handleEditConfirmation = () => {
-    const modal = document.getElementById('edit_modal') as HTMLDialogElement;
+    const modal = document.getElementById("edit_modal") as HTMLDialogElement;
     if (modal) {
       modal.showModal();
 
@@ -54,15 +54,17 @@ const EditEmployee = () => {
       //   modal.close();
       // });
 
-      const cancelEditBtn = document.getElementById('cancel_edit') as HTMLButtonElement;
-      cancelEditBtn.addEventListener('click', () => {
+      const cancelEditBtn = document.getElementById(
+        "cancel_edit"
+      ) as HTMLButtonElement;
+      cancelEditBtn.addEventListener("click", () => {
         modal.close();
       });
     }
   };
 
   const handleCancelClick = () => {
-    navigate("/mo-employee");
+    navigate("/mo/employee");
   };
 
   return (
@@ -76,10 +78,13 @@ const EditEmployee = () => {
       {error && <div>Error</div>}
       {data && (
         <div className="bg-white shadow-default p-6">
-          <form className="flex flex-col gap-6" onSubmit={(e) => {
-            e.preventDefault()
-            handleEditConfirmation()
-          }}>
+          <form
+            className="flex flex-col gap-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleEditConfirmation();
+            }}
+          >
             <div className="flex flex-wrap items-center justify-center gap-6">
               <label className="font-medium text-gray-800 w-full max-w-xs">
                 Employee Name
@@ -137,11 +142,19 @@ const EditEmployee = () => {
           <dialog id="edit_modal" className="modal" hidden>
             <div className="modal-box">
               <h3 className="font-bold text-lg">Confirmation</h3>
-              <p className="py-4">Are you sure you want to edit this employee?</p>
+              <p className="py-4">
+                Are you sure you want to edit this employee?
+              </p>
               <div className="flex justify-end">
                 <form method="dialog" className="flex space-between gap-3">
                   <button id="cancel_edit">Cancel</button>
-                  <button id="confirm_edit" className="btn btn-primary" onClick={() => handleSubmit()}>Edit</button>
+                  <button
+                    id="confirm_edit"
+                    className="btn btn-primary"
+                    onClick={() => handleSubmit()}
+                  >
+                    Edit
+                  </button>
                 </form>
               </div>
             </div>

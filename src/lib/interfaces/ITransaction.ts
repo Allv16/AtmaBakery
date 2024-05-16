@@ -1,3 +1,5 @@
+import { ICustomer } from "./ICustomer";
+import { IDelivery } from "./IDelivery";
 import { IPayment } from "./IPayment";
 import { ITransactionDetails } from "./ITransactionDetails";
 
@@ -17,5 +19,7 @@ export type ITransaction = {
   jenis_pengiriman: string;
   status_transaksi: string;
   pembayaran: IPayment;
+  customer: ICustomer;
   detail_transaksi: ITransactionDetails[];
+  pengiriman: IDelivery;
 };

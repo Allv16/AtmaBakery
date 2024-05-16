@@ -1,14 +1,11 @@
-import { Link } from "react-router-dom";
 import DropdownNotification from "./DropdownNotification";
 import { Menu } from "lucide-react";
 import { DropdownAdmin } from "./DropdownUser";
-import { useState } from "react";
 
 const HeaderAdmin = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
-
   return (
     <header className="sticky top-0 z-999 flex w-full bg-secondary-white drop-shadow-1">
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
@@ -27,11 +24,10 @@ const HeaderAdmin = (props: {
           {/* <!-- Hamburger Toggle BTN --> */}
         </div>
 
-        <div className="w-fit">
-        </div>
+        <div className="w-fit"></div>
 
-        <div className="flex items-center gap-5 gap-7">
-          <ul className="flex items-center gap-2 gap-4">
+        <div className="flex items-center gap-5">
+          <ul className="flex items-center gap-2">
             <DropdownNotification />
             <DropdownAdmin />
           </ul>

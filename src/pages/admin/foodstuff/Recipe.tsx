@@ -6,7 +6,7 @@ import { IProduct } from "../../../lib/interfaces/IProducts";
 
 const Recipe: React.FC = () => {
   //API CALL
-  const { data, error, isLoading } = getOwnProducts();
+  const { data, error, isLoading, isValidating } = getOwnProducts();
 
   const [search, setSearch] = React.useState("");
 
@@ -50,7 +50,7 @@ const Recipe: React.FC = () => {
           </div>
         )}
         {error && <div>Error</div>}
-        {dataFiltered && (
+        {dataFiltered && !isValidating && (
           <div className="rounded-sm border border-stroke bg-white shadow-default">
             <div className="flex flex-wrap items-center">
               {dataFiltered.map((product) => (

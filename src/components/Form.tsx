@@ -1,12 +1,7 @@
 import { Label } from "./Label";
 import { InputForm } from "./Input";
 import { useEffect, useState } from "react";
-import {
-  getProfile,
-  isEmailVerified,
-  login,
-  register,
-} from "../lib/repository/AuthRepository";
+import { login, register } from "../lib/repository/AuthRepository";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { ValidationLogin, ValidationRegister } from "./Validation";
@@ -34,13 +29,13 @@ export const FormLogin = () => {
       localStorage.setItem("role_id", loginResponse.data.data.user.id_role);
       switch (loginResponse.data.data.user.id_role) {
         case 1:
-          navigate("/owner-dashboard");
+          navigate("/owner/dashboard");
           break;
         case 2:
-          navigate("/admin-dashboard");
+          navigate("/admin/dashboard");
           break;
         case 3:
-          navigate("/mo-dashboard");
+          navigate("/mo/dashboard");
           break;
         case 4:
           localStorage.setItem(

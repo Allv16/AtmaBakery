@@ -3,6 +3,7 @@ import { AdminWrapper } from "../../../components/Wrapper";
 import { IngredientsTable } from "../../../components/Table/Table";
 import { getAllIngredients } from "../../../lib/repository/IngredientsRepository";
 import { IIngredients } from "../../../lib/interfaces/IIngredients";
+import { useNavigate } from "react-router-dom";
 
 const Ingredients: React.FC = () => {
   //API CALL
@@ -12,6 +13,8 @@ const Ingredients: React.FC = () => {
   const dataFiltered = data?.filter((item: IIngredients) => {
     return item.nama_bahan_baku.toLowerCase().includes(search.toLowerCase());
   });
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -42,7 +45,10 @@ const Ingredients: React.FC = () => {
               />
             </svg>
           </label>
-          <a href="/add-ingredients" className="btn btn-primary mb-4">
+          <a
+            className="btn btn-primary mb-4"
+            onClick={() => navigate("/admin/ingredients/add")}
+          >
             Add New Ingredients
           </a>
         </div>

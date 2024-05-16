@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { ProductBreadcrumb } from "../../../components/Breadcrumbs/Breadcrumb";
 import { AdminWrapper } from "../../../components/Wrapper";
 import { addProducts } from "../../../lib/repository/ProductRepository";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddMyProduct: React.FC = () => {
@@ -18,7 +17,6 @@ const AddMyProduct: React.FC = () => {
   };
 
   const [input, setInput] = useState(inputField);
-  const [file, setFile] = useState<File | undefined>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });

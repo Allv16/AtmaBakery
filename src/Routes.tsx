@@ -52,6 +52,7 @@ import EditOtherExpenses from "./pages/mo/other-expenses/EditOtherExpenses";
 import CustomerSearch from "./pages/admin/customer-search/CustomerSearch";
 import OrderHistoryAdmin from "./pages/admin/customer-search/OrderHistory";
 import OrderHistory from "./pages/customer/profile/OrderHistory";
+import { Cart } from "./pages/customer/cart/Cart";
 
 export const router = createBrowserRouter([
   {
@@ -78,8 +79,18 @@ export const router = createBrowserRouter([
     path: "/about",
     element: <About />,
   },
+
+  /*
+
+
+
+
+
+
+  */
+  //Admin
   {
-    path: "/admin-dashboard",
+    path: "/admin/dashboard",
     element: (
       <ProtectedRoutes role_id="2">
         <Dashboard />
@@ -87,7 +98,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin-hampers",
+    path: "/admin/hampers",
     element: (
       <ProtectedRoutes role_id="2">
         <Hampers />
@@ -95,7 +106,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/add-hampers",
+    path: "admin/hampers/add",
     element: (
       <ProtectedRoutes role_id="2">
         <AddHampers />
@@ -103,7 +114,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/edit-hampers/:id",
+    path: "admin/hampers/edit/:id",
     element: (
       <ProtectedRoutes role_id="2">
         <EditHampers />
@@ -111,7 +122,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin-products",
+    path: "/admin/products",
     element: (
       <ProtectedRoutes role_id="2">
         <AdminProducts />
@@ -119,7 +130,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/add-my-products",
+    path: "/admin/products/add",
     element: (
       <ProtectedRoutes role_id="2">
         <AddMyProduct />
@@ -127,7 +138,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/add-consignment-products",
+    path: "/admin/consignment/add",
     element: (
       <ProtectedRoutes role_id="2">
         <AddConsignment />
@@ -135,7 +146,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/edit-products/:id",
+    path: "/admin/products/edit/:id",
     element: (
       <ProtectedRoutes role_id="2">
         <EditProduct />
@@ -143,7 +154,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin-ingredients",
+    path: "/admin/ingredients",
     element: (
       <ProtectedRoutes role_id="2">
         <Ingredients />
@@ -151,7 +162,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/add-ingredients",
+    path: "/admin/ingredients/add",
     element: (
       <ProtectedRoutes role_id="2">
         <AddIngredients />
@@ -159,7 +170,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/edit-ingredients/:id",
+    path: "/admin/ingredients/edit/:id",
     element: (
       <ProtectedRoutes role_id="2">
         <EditIngredients />
@@ -167,7 +178,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin-recipe",
+    path: "/admin/recipe",
     element: (
       <ProtectedRoutes role_id="2">
         <Recipe />
@@ -175,7 +186,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/detail-recipe/:id",
+    path: "/admin/recipe/details/:id",
     element: (
       <ProtectedRoutes role_id="2">
         <DetailRecipe />
@@ -191,15 +202,39 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/add-points",
+    path: "/admin/customer",
     element: (
       <ProtectedRoutes role_id="2">
-        <AddPromoPoints />
+        <CustomerSearch />
       </ProtectedRoutes>
     ),
   },
   {
-    path: "/mo-dashboard",
+    path: "/admin/customer/order-history/:id",
+    element: (
+      <ProtectedRoutes role_id="2">
+        <OrderHistoryAdmin />
+      </ProtectedRoutes>
+    ),
+  },
+
+  /*
+ 
+  
+
+
+
+
+
+
+
+
+
+  */
+
+  //Manager Operasional
+  {
+    path: "/mo/dashboard",
     element: (
       <ProtectedRoutes role_id="3">
         <DashboardMO />
@@ -207,7 +242,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mo-employee",
+    path: "/mo/employee",
     element: (
       <ProtectedRoutes role_id="3">
         <Employee />
@@ -215,7 +250,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/add-employee",
+    path: "/mo/employee/add",
     element: (
       <ProtectedRoutes role_id="3">
         <AddEmployee />
@@ -223,7 +258,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/edit-employee/:id",
+    path: "/mo/employee/edit/:id",
     element: (
       <ProtectedRoutes role_id="3">
         <EditEmployee />
@@ -231,7 +266,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mo-partner",
+    path: "/mo/partner",
     element: (
       <ProtectedRoutes role_id="3">
         <Partner />
@@ -239,7 +274,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/add-partner",
+    path: "/mo/partner/add",
     element: (
       <ProtectedRoutes role_id="3">
         <AddPartner />
@@ -247,7 +282,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/edit-partner/:id",
+    path: "/mo/partner/edit/:id",
     element: (
       <ProtectedRoutes role_id="3">
         <EditPartner />
@@ -255,7 +290,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mo-job-title",
+    path: "/mo/job-title",
     element: (
       <ProtectedRoutes role_id="3">
         <JobTitle />
@@ -263,7 +298,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/add-job-title",
+    path: "/mo/job-title/add",
     element: (
       <ProtectedRoutes role_id="3">
         <AddJobTitle />
@@ -271,7 +306,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/edit-job-title",
+    path: "/mo/job-title/edit",
     element: (
       <ProtectedRoutes role_id="3">
         <EditJobTitle />
@@ -279,31 +314,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/owner-dashboard",
-    element: (
-      <ProtectedRoutes role_id="1">
-        <DashboardOwner />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: "/owner-employee",
-    element: (
-      <ProtectedRoutes role_id="1">
-        <OwnerEmployee />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: "/edit-owner-employee/:id",
-    element: (
-      <ProtectedRoutes role_id="1">
-        <EditOwnerEmployee />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: "/mo-ingredient-purchase",
+    path: "/mo/ingredient-purchase",
     element: (
       <ProtectedRoutes role_id="3">
         <IngredientPurchase />
@@ -311,7 +322,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/add-ingredient-purchase",
+    path: "/mo/ingredient-purchase/add",
     element: (
       <ProtectedRoutes role_id="3">
         <AddIngredientPurchase />
@@ -319,7 +330,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/edit-ingredient-purchase/:id",
+    path: "/mo/ingredient-purchase/edit/:id",
     element: (
       <ProtectedRoutes role_id="3">
         <EditIngredientPurchase />
@@ -327,7 +338,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mo-other-expenses",
+    path: "/mo/other-expenses",
     element: (
       <ProtectedRoutes role_id="3">
         <OtherExpenses />
@@ -335,7 +346,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mo-add-other-expenses",
+    path: "/mo/other-expenses/add",
     element: (
       <ProtectedRoutes role_id="3">
         <AddOtherExpenses />
@@ -343,18 +354,10 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mo-edit-other-expenses/:id",
+    path: "/mo/other-expenses/edit/:id",
     element: (
       <ProtectedRoutes role_id="3">
         <EditOtherExpenses />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: "/mo-attendance",
-    element: (
-      <ProtectedRoutes role_id="3">
-        <Attendance />
       </ProtectedRoutes>
     ),
   },
@@ -374,6 +377,44 @@ export const router = createBrowserRouter([
       </ProtectedRoutes>
     ),
   },
+  /*
+ 
+  
+
+
+
+
+
+
+  
+
+
+  */
+  //Owner
+  {
+    path: "/owner/dashboard",
+    element: (
+      <ProtectedRoutes role_id="1">
+        <DashboardOwner />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/owner/employees",
+    element: (
+      <ProtectedRoutes role_id="1">
+        <OwnerEmployee />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/owner/employee/edit/:id",
+    element: (
+      <ProtectedRoutes role_id="1">
+        <EditOwnerEmployee />
+      </ProtectedRoutes>
+    ),
+  },
   {
     path: "/owner/profile",
     element: (
@@ -382,6 +423,17 @@ export const router = createBrowserRouter([
       </ProtectedRoutes>
     ),
   },
+
+  /*
+
+
+
+
+
+
+
+  */
+  //Customer
   {
     path: "/profile",
     element: (
@@ -399,26 +451,18 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin-search-customer",
-    element: (
-      <ProtectedRoutes role_id="2">
-        <CustomerSearch />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: "/admin-history-customer/:id",
-    element: (
-      <ProtectedRoutes role_id="2">
-        <OrderHistoryAdmin />
-      </ProtectedRoutes>
-    ),
-  },
-  {
     path: "/order-history",
     element: (
       <ProtectedRoutes role_id="4">
         <OrderHistory />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/u/cart",
+    element: (
+      <ProtectedRoutes role_id="4">
+        <Cart />
       </ProtectedRoutes>
     ),
   },

@@ -7,7 +7,6 @@ import {
   editProfile,
   getProfileCustomer,
 } from "../../../lib/repository/ProfileRepository";
-import { changePassword } from "../../../lib/repository/ProfileRepository";
 
 export default function Profile() {
   // API CALL

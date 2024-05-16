@@ -1,21 +1,21 @@
 // import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
 import { Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import { HampersBreadcrumb } from "../../../components/Breadcrumbs/Breadcrumb";
 import { AdminWrapper } from "../../../components/Wrapper";
+import { IProduct } from "../../../lib/interfaces/IProducts";
+import { addHampers } from "../../../lib/repository/HampersRepository";
 import {
   getAllProcuts,
   uploadPicture,
 } from "../../../lib/repository/ProductRepository";
-import { useEffect, useState } from "react";
-import { IProduct } from "../../../lib/interfaces/IProducts";
-import { addHampers } from "../../../lib/repository/HampersRepository";
-import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
 
 const AddHampers: React.FC = () => {
   const navigate = useNavigate();
-  const { data, error, isLoading } = getAllProcuts();
+  const { data, isLoading } = getAllProcuts();
 
   const [hampersItems, setHampersItems] = useState<IProduct[]>([]);
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -97,7 +97,7 @@ const AddHampers: React.FC = () => {
       items: hampersItems.map((item) => item.id_produk),
     };
     await addHampers(newHampers);
-    navigate("/admin-hampers");
+    navigate("/admin/hampers");
   };
 
   return (
@@ -214,14 +214,14 @@ const AddHampers: React.FC = () => {
                       <div className="px-7 py-4">
                         <div className="flex justify-between items-center">
                           <p>{product.nama_produk}</p>
-                          <button
+                          <a
                             className="btn btn-error btn-sm"
                             onClick={() => {
                               removeItems(product);
                             }}
                           >
                             <Trash2 className="text-white" size={14} />
-                          </button>
+                          </a>
                         </div>
                       </div>
                     ))}

@@ -25,13 +25,13 @@ const AddIngredients: React.FC = () => {
   const handleSubmit = async () => {
     // e.preventDefault();
     await addIngredients(input);
-    navigate("/admin-ingredients");
+    navigate("/admin/ingredients");
   };
 
   const navigate = useNavigate();
 
   const handleCancelClick = () => {
-    navigate("/admin-ingredients");
+    navigate("/admin/ingredients");
   };
 
   const handleAddConfirmation = () => {
@@ -39,13 +39,13 @@ const AddIngredients: React.FC = () => {
     if (modal) {
       modal.showModal();
 
-    //   const confirmEditBtn = document.getElementById(
-    //     "confirm_edit"
-    //   ) as HTMLButtonElement;
-    //   confirmEditBtn.addEventListener("click", async () => {
-    //     await handleSubmit();
-    //     modal.close();
-    //   });
+      //   const confirmEditBtn = document.getElementById(
+      //     "confirm_edit"
+      //   ) as HTMLButtonElement;
+      //   confirmEditBtn.addEventListener("click", async () => {
+      //     await handleSubmit();
+      //     modal.close();
+      //   });
 
       const cancelEditBtn = document.getElementById(
         "cancel_edit"
@@ -62,8 +62,9 @@ const AddIngredients: React.FC = () => {
       <div className="bg-white shadow-default p-6">
         <form
           className="flex flex-col gap-6"
-          onSubmit={(e) => {e.preventDefault()
-            handleAddConfirmation()
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleAddConfirmation();
           }}
         >
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -134,10 +135,7 @@ const AddIngredients: React.FC = () => {
             <button className="btn btn-active" onClick={handleCancelClick}>
               Cancel
             </button>
-            <button
-              className="btn btn-primary"
-              type="submit"
-            >
+            <button className="btn btn-primary" type="submit">
               Add Ingredients
             </button>
           </div>
@@ -152,7 +150,11 @@ const AddIngredients: React.FC = () => {
             <div className="flex justify-end">
               <form method="dialog" className="flex space-between gap-3">
                 <button id="cancel_edit">Cancel</button>
-                <button id="confirm_edit" className="btn btn-primary" onClick={() => handleSubmit()}>
+                <button
+                  id="confirm_edit"
+                  className="btn btn-primary"
+                  onClick={() => handleSubmit()}
+                >
                   Add
                 </button>
               </form>

@@ -45,13 +45,13 @@ const EditIngredients = () => {
   const handleSubmit = async () => {
     // e.preventDefault();
     await editIngredients(input, data.id_bahan_baku);
-    navigate("/admin-ingredients");
+    navigate("/admin/ingredients");
   };
 
   const navigate = useNavigate();
 
   const handleCancelClick = () => {
-    navigate("/admin-ingredients");
+    navigate("/admin/ingredients");
   };
 
   const handleEditConfirmation = () => {
@@ -59,13 +59,13 @@ const EditIngredients = () => {
     if (modal) {
       modal.showModal();
 
-    //   const confirmEditBtn = document.getElementById(
-    //     "confirm_edit"
-    //   ) as HTMLButtonElement;
-    //   confirmEditBtn.addEventListener("click", async () => {
-    //     await handleSubmit();
-    //     modal.close();
-    //   });
+      //   const confirmEditBtn = document.getElementById(
+      //     "confirm_edit"
+      //   ) as HTMLButtonElement;
+      //   confirmEditBtn.addEventListener("click", async () => {
+      //     await handleSubmit();
+      //     modal.close();
+      //   });
 
       const cancelEditBtn = document.getElementById(
         "cancel_edit"
@@ -89,8 +89,9 @@ const EditIngredients = () => {
         <div className="bg-white shadow-default p-6">
           <form
             className="flex flex-col gap-6"
-            onSubmit={(e) => {e.preventDefault()
-                handleEditConfirmation()
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleEditConfirmation();
             }}
           >
             <div className="flex flex-wrap items-center justify-center gap-6">
@@ -161,11 +162,7 @@ const EditIngredients = () => {
               <button className="btn btn-active" onClick={handleCancelClick}>
                 Cancel
               </button>
-              <button
-                className="btn btn-primary"
-                type="submit"
-               
-              >
+              <button className="btn btn-primary" type="submit">
                 Save Changes
               </button>
             </div>
@@ -180,7 +177,11 @@ const EditIngredients = () => {
               <div className="flex justify-end">
                 <form method="dialog" className="flex space-between gap-3">
                   <button id="cancel_edit">Cancel</button>
-                  <button id="confirm_edit" className="btn btn-primary" onClick={() => handleSubmit()}>
+                  <button
+                    id="confirm_edit"
+                    className="btn btn-primary"
+                    onClick={() => handleSubmit()}
+                  >
                     Edit
                   </button>
                 </form>

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { AdminWrapper } from "../../../components/Wrapper";
 import { Link } from "react-router-dom";
-import { getAllProcuts } from "../../../lib/repository/ProductRepository";
 import { CardProduct } from "../../../components/Card/Card";
+import { AdminWrapper } from "../../../components/Wrapper";
 import { IProduct } from "../../../lib/interfaces/IProducts";
+import { getAllProcuts } from "../../../lib/repository/ProductRepository";
 
 const Products: React.FC = () => {
   //API CALL
-  const { data, error, isLoading, isValidating } = getAllProcuts();
+  const { data, error, isLoading } = getAllProcuts();
 
   const [search, setSearch] = React.useState("");
 
@@ -30,7 +30,7 @@ const Products: React.FC = () => {
     if (selectedTab === "my") {
       return (
         <div className="flex justify-center mt-8 mb-4">
-          <Link to="/add-my-products">
+          <Link to="/admin/products/add">
             <button className="btn btn-primary">Add My Product</button>
           </Link>
         </div>
@@ -38,7 +38,7 @@ const Products: React.FC = () => {
     } else if (selectedTab === "consignment") {
       return (
         <div className="flex justify-center mt-8 mb-4">
-          <Link to="/add-consignment-products">
+          <Link to="/admin/consignment/add">
             <button className="btn btn-primary">Add Consignment Product</button>
           </Link>
         </div>

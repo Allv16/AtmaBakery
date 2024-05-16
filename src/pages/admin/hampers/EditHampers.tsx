@@ -1,19 +1,18 @@
 import { Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import { HampersBreadcrumb } from "../../../components/Breadcrumbs/Breadcrumb";
 import { AdminWrapper } from "../../../components/Wrapper";
+import { IProduct } from "../../../lib/interfaces/IProducts";
+import {
+  editHampers,
+  getHampersById,
+} from "../../../lib/repository/HampersRepository";
 import {
   getAllProcuts,
   uploadPicture,
 } from "../../../lib/repository/ProductRepository";
-import { useEffect, useState } from "react";
-import { IProduct } from "../../../lib/interfaces/IProducts";
-import {
-  addHampers,
-  editHampers,
-  getHampersById,
-} from "../../../lib/repository/HampersRepository";
-import { toast } from "sonner";
-import { useNavigate, useParams } from "react-router-dom";
 
 const EditHampers: React.FC = () => {
   const navigate = useNavigate();
@@ -21,11 +20,11 @@ const EditHampers: React.FC = () => {
 
   const {
     data: hampersData,
-    error: hampersError,
+    // error: hampersError,
     isLoading: hampersLoading,
   } = getHampersById(id!);
 
-  const { data, error, isLoading } = getAllProcuts();
+  const { data, isLoading } = getAllProcuts();
 
   const [hampersItems, setHampersItems] = useState<IProduct[]>([]);
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -129,7 +128,7 @@ const EditHampers: React.FC = () => {
     };
     await editHampers(id!, newHampers);
 
-    navigate("/admin-hampers");
+    navigate("/admin/hampers");
   };
 
   return (
@@ -250,14 +249,14 @@ const EditHampers: React.FC = () => {
                       <div className="px-7 py-4">
                         <div className="flex justify-between items-center">
                           <p>{product.nama_produk}</p>
-                          <button
+                          <a
                             className="btn btn-error btn-sm"
                             onClick={() => {
                               removeItems(product);
                             }}
                           >
                             <Trash2 className="text-white" size={14} />
-                          </button>
+                          </a>
                         </div>
                       </div>
                     ))}

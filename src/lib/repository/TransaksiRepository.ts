@@ -1,8 +1,7 @@
-import useSWR, { mutate } from "swr";
-import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
+import useSWR from "swr";
 import { IHistory } from "../interfaces/IHistory";
-import axios from "axios";
+import { fetcher } from "../utils/utils";
 
 export const getHistoryTransaction = (id_customer: string) => {
   let { data, error, isLoading, isValidating } = useSWR(

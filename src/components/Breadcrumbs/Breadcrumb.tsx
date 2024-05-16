@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 interface BreadcrumbProps {
   pageName: string;
@@ -119,7 +119,7 @@ export const EmployeeBreadcrumb = ({ pageName }: BreadcrumbProps) => {
       <nav>
         <ol className="flex items-center gap-2">
           <li>
-            <Link className="font-medium" to="/mo-employee">
+            <Link className="font-medium" to="/mo/employee">
               Employee /
             </Link>
           </li>
@@ -140,7 +140,7 @@ export const PartnerBreadcrumb = ({ pageName }: BreadcrumbProps) => {
       <nav>
         <ol className="flex items-center gap-2">
           <li>
-            <Link className="font-medium" to="/mo-partner">
+            <Link className="font-medium" to="/mo/partner">
               Partner /
             </Link>
           </li>
@@ -161,7 +161,7 @@ export const JobBreadcrumb = ({ pageName }: BreadcrumbProps) => {
       <nav>
         <ol className="flex items-center gap-2">
           <li>
-            <Link className="font-medium" to="/mo-job-title">
+            <Link className="font-medium" to="/mo/job-title">
               Job Title /
             </Link>
           </li>
@@ -182,7 +182,7 @@ export const OwnerEmployeeBreadcrumb = ({ pageName }: BreadcrumbProps) => {
       <nav>
         <ol className="flex items-center gap-2">
           <li>
-            <Link className="font-medium" to="/owner-employee">
+            <Link className="font-medium" to="/owner/employees">
               Employee /
             </Link>
           </li>
@@ -203,7 +203,7 @@ export const IngredientPurchaseBreadcrumb = ({ pageName }: BreadcrumbProps) => {
       <nav>
         <ol className="flex items-center gap-2">
           <li>
-            <Link className="font-medium" to="/mo-ingredient-purchase">
+            <Link className="font-medium" to="/mo/ingredient-purchase">
               Ingredient Purchase /
             </Link>
           </li>
@@ -224,7 +224,7 @@ export const OtherExpensesBreadcrumb = ({ pageName }: BreadcrumbProps) => {
       <nav>
         <ol className="flex items-center gap-2">
           <li>
-            <Link className="font-medium" to="/mo-other-expenses">
+            <Link className="font-medium" to="/mo/other-expenses">
               Other Expenses /
             </Link>
           </li>
@@ -245,7 +245,7 @@ export const CustomersBreadcrumb = ({ pageName }: BreadcrumbProps) => {
       <nav>
         <ol className="flex items-center gap-2">
           <li>
-            <Link className="font-medium" to="/admin-search-customer">
+            <Link className="font-medium" to="/admin/customer">
               Customers /
             </Link>
           </li>
@@ -255,4 +255,3 @@ export const CustomersBreadcrumb = ({ pageName }: BreadcrumbProps) => {
     </div>
   );
 };
-

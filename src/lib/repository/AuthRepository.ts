@@ -1,9 +1,6 @@
-import useSWR, { mutate } from "swr";
-import { fetcher } from "../utils/utils";
-import { toast } from "sonner";
-import { IUser } from "../interfaces/IUsers";
 import axios, { AxiosResponse } from "axios";
-import { ILoginResponse } from "../interfaces/ILoginResponse";
+import { toast } from "sonner";
+import { mutate } from "swr";
 
 export const login = async (data: any): Promise<AxiosResponse<any, any>> => {
   var response;

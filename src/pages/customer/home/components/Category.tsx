@@ -1,4 +1,3 @@
-import React from "react";
 import placehoder from "../../../../assets/images/products/imgPlaceholder.png";
 import CategoryItem from "./CategoryItem";
 

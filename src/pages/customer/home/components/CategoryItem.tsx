@@ -1,5 +1,3 @@
-import React from "react";
-
 type CategoryItemProps = {
   title: string;
   description: string;
