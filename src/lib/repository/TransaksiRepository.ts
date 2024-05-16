@@ -12,6 +12,8 @@ export const getHistoryTransaction = (id_customer: string) => {
   if (!isLoading && error) {
     toast.error("Gagal mengambil data");
   }
+
+  console.log(data);
   return {
     dataHistory: data as IHistory[],
     errorHistory: error,

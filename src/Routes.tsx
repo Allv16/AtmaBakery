@@ -53,6 +53,8 @@ import CustomerSearch from "./pages/admin/customer-search/CustomerSearch";
 import OrderHistoryAdmin from "./pages/admin/customer-search/OrderHistory";
 import OrderHistory from "./pages/customer/profile/OrderHistory";
 import { Cart } from "./pages/customer/cart/Cart";
+import ListProduct from "./pages/customer/products/ListProduct";
+import DetailProduct from "./pages/customer/products/DetailProduct";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +76,14 @@ export const router = createBrowserRouter([
   {
     path: "/products",
     element: <Products />,
+  },
+  {
+    path: "/list-products",
+    element: <ListProduct />,
+  },
+  {
+    path: "/detail-product",
+    element: <DetailProduct />,
   },
   {
     path: "/about",
