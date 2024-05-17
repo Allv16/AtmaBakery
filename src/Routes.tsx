@@ -52,6 +52,8 @@ import EditOtherExpenses from "./pages/mo/other-expenses/EditOtherExpenses";
 import CustomerSearch from "./pages/admin/customer-search/CustomerSearch";
 import OrderHistoryAdmin from "./pages/admin/customer-search/OrderHistory";
 import OrderHistory from "./pages/customer/profile/OrderHistory";
+import HowToOrder from "./pages/customer/how-to-order/HowToOrder";
+import Invoice from "./pages/customer/invoice/Invoice";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +79,18 @@ export const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/how-to-order",
+    element: <HowToOrder />,
+  },
+  {
+    path: "/invoice-payment",
+    element: (
+      <ProtectedRoutes role_id="4">
+        <Invoice />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: "/admin-dashboard",

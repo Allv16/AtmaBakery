@@ -15,10 +15,11 @@ export const NavWrapper = ({ children }: { children: ReactNode }) => {
     <>
       <div className="max-w-max mx-auto font-mulish">
         <Navbar />
+
         {children}
+
       </div>
       <Footer />
-      <Indicator />
     </>
   );
 };
