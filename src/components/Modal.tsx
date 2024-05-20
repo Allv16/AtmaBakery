@@ -4,6 +4,8 @@ import { currencyConverter, dateConverter } from "../lib/utils/converter";
 import { updateDeliveryRange } from "../lib/repository/TransactionRepository";
 import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
+import { payTransaction } from "../lib/repository/PaymentRepository";
+import { IPayment } from "../lib/interfaces/IPayment";
 
 type InputRangeModalProps = {
   data: ITransaction;
@@ -106,9 +108,8 @@ export const InputRangeModal = ({ data }: InputRangeModalProps) => {
         </div>
 
         <label
-          className={`input input-bordered ${
-            isError && `border-error`
-          } flex items-center gap-2`}
+          className={`input input-bordered ${isError && `border-error`
+            } flex items-center gap-2`}
         >
           <input
             type="number"
@@ -155,6 +156,57 @@ export const ConfirmationModal = ({ onClick }: ConfirmationModalProps) => {
           </form>
           <button className="btn btn-primary w-1/2" onClick={() => onClick()}>
             Continue
+          </button>
+        </div>
+      </div>
+    </dialog>
+  );
+};
+
+type PayModalProps = {
+  data: IPayment;
+};
+
+export const PayModal: React.FC<PayModalProps> = ({ data }) => {
+  const inputField = {
+    bukti_pembayaran: "",
+  };
+
+  const [input, setInput] = useState(inputField);
+
+  const handleSubmit = async () => {
+    const dialog = document.getElementById("pay_modal")! as HTMLDialogElement;
+    const formData = new FormData();
+    formData.append("bukti_pembayaran", selectedFile as File);
+    await payTransaction(formData, data.id_pembayaran);
+    dialog.close();
+  };
+
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const uploadedFile = files[0];
+      setSelectedFile(uploadedFile);
+    }
+  };
+
+  return (
+    <dialog id="pay_modal" className="modal">
+      <div className="modal-box w-1/4">
+        <h3 className="font-bold text-lg mb-4 text-center">Upload Transfer Receipt</h3>
+        <p className="text-center">
+          <input type="file" className="file-input file-input-bordered file-input-primary w-full max-w-xs" name="bukti_pembayaran"
+            onChange={handleFileUpload}
+            required />
+        </p>
+        <div className="flex justify-between mx-16 mt-4">
+          <form method="dialog">
+            <button className="btn bg-gray-100">Cancel</button>
+          </form>
+          <button className="btn btn-primary w-1/2" onClick={() => handleSubmit()}>
+            Pay
           </button>
         </div>
       </div>

@@ -45,16 +45,10 @@ export default function OrderHistory() {
               Settings
             </a>
             <a
-              href="#"
-              className="flex items-center px-3 py-2.5 font-semibold text-lg"
-            >
-              Order
-            </a>
-            <a
               href="/order-history"
               className="flex items-center px-3 py-2.5 font-semibold text-lg"
             >
-              History
+              Transactions
             </a>
           </div>
         </aside>
@@ -62,7 +56,7 @@ export default function OrderHistory() {
           <div className="p-2 md:p-4 border">
             <div className="w-full mx px-3 pb-8 sm:rounded-lg">
               <h2 className="pl-2 flex items-center text-2xl font-serif font-semibold">
-                Order History
+                Transactions
               </h2>
               <div className="grid max-w-2xl mx-auto mt-8">
                 <div className="flex items-center">
