@@ -9,6 +9,8 @@ import { currencyConverter, dateConverter } from "../../lib/utils/converter";
 import { TransactionStatusBadge } from "../Badge";
 import { Box, Truck } from "lucide-react";
 import { ProductWithImageList } from "../List/List";
+import { IHistory } from "../../lib/interfaces/IHistory";
+import { IPayment } from "../../lib/interfaces/IPayment";
 
 type CardProductProps = {
   product: IProduct;
@@ -20,6 +22,10 @@ type CardHampersProps = {
 
 type CardTransactionProps = {
   transaction: ITransaction;
+};
+
+type CardPaymentProps = {
+  payment: IPayment;
 };
 
 export const CardProduct: React.FC<CardProductProps> = ({ product }) => {

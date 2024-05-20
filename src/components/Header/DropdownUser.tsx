@@ -11,6 +11,19 @@ export const DropdownAdmin = () => {
   const dropdown = useRef<any>(null);
   const navigate = useNavigate();
 
+  const [profileUrl, setProfileUrl] = useState(localStorage.getItem("profile_url"));
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("profile_url");
+    localStorage.removeItem("token");
+
+    setProfileUrl(null);
+    setToken(null);
+
+    navigate("/login");
+  };
+
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
       if (!dropdown.current) return;
@@ -34,10 +47,6 @@ export const DropdownAdmin = () => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
-
-  const handleLogout = () => {
-    navigate('/login');
-  };
 
   return (
     <div className="relative">
@@ -141,6 +150,18 @@ export const DropdownMO = () => {
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
   const navigate = useNavigate();
+  const [profileUrl, setProfileUrl] = useState(localStorage.getItem("profile_url"));
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("profile_url");
+    localStorage.removeItem("token");
+
+    setProfileUrl(null);
+    setToken(null);
+
+    navigate("/login");
+  };
 
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -165,10 +186,6 @@ export const DropdownMO = () => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
-
-  const handleLogout = () => {
-    navigate('/login');
-  };
 
   return (
     <div className="relative">
@@ -243,6 +260,7 @@ export const DropdownMO = () => {
         <button className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={handleLogout}>
           <svg
             className="fill-current"
+
             width="22"
             height="22"
             viewBox="0 0 22 22"
@@ -272,6 +290,18 @@ export const DropdownOwner = () => {
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
   const navigate = useNavigate();
+  const [profileUrl, setProfileUrl] = useState(localStorage.getItem("profile_url"));
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("profile_url");
+    localStorage.removeItem("token");
+
+    setProfileUrl(null);
+    setToken(null);
+
+    navigate("/login");
+  };
 
   useEffect(() => {
     const clickHandler = ({ target }: MouseEvent) => {
@@ -296,10 +326,6 @@ export const DropdownOwner = () => {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
-
-  const handleLogout = () => {
-    navigate('/login');
-  };
 
   return (
     <div className="relative">

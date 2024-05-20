@@ -24,7 +24,7 @@ export default function OrderHistory() {
 
   return (
     <NavWrapper>
-      <div className="bg-white mx-auto flex flex-col-2 gap-10 px-3 md:flex-row">
+      <div className="bg-white mx-auto flex flex-col-2 gap-10 px-3 py-20 md:flex-row">
         <aside className="hidden py-4 md:w-1/3 lg:w-1/4 md:block">
           <div className="flex flex-col p-4 text-sm border-r border-indigo-100 top-12 border">
             <div className="flex items-center justify-between">

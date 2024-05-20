@@ -55,6 +55,9 @@ import OrderHistory from "./pages/customer/profile/OrderHistory";
 import { Cart } from "./pages/customer/cart/Cart";
 import ListProduct from "./pages/customer/products/ListProduct";
 import DetailProduct from "./pages/customer/products/DetailProduct";
+import HowToOrder from "./pages/customer/how-to-order/HowToOrder";
+import Invoice from "./pages/customer/invoice/Invoice";
+import UnpaidOrderList from "./pages/customer/profile/UnpaidOrderList";
 
 export const router = createBrowserRouter([
   {
@@ -88,6 +91,10 @@ export const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/how-to-order",
+    element: <HowToOrder />,
   },
 
   /*
