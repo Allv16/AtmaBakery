@@ -8,7 +8,7 @@ const Invoice: React.FC = () => {
 
     return (
         <NavWrapper>
-            <div className="max-w-7xl mx-auto my-20 px-4 bg-white rounded shadow-sm" id="invoice">
+            <div className="max-w-7xl py-10 mx-auto my-20 px-4 bg-white rounded shadow-sm" id="invoice">
                 <div className="grid grid-cols-2 items-center">
                     <div>
                         {/* Company logo */}

@@ -1,11 +1,7 @@
 import { Label } from "./Label";
 import { InputForm } from "./Input";
 import { useEffect, useState } from "react";
-import {
-  isEmailVerified,
-  login,
-  register,
-} from "../lib/repository/AuthRepository";
+import { login, register } from "../lib/repository/AuthRepository";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { ValidationLogin, ValidationRegister } from "./Validation";
@@ -31,17 +27,22 @@ export const FormLogin = () => {
       toast.success("Login Success!");
       localStorage.setItem("token", loginResponse.data.data.token);
       localStorage.setItem("role_id", loginResponse.data.data.user.id_role);
+      localStorage.setItem("profile_url", loginResponse.data.data.user.url_foto);
       switch (loginResponse.data.data.user.id_role) {
         case 1:
-          navigate("/owner-dashboard");
+          navigate("/owner/dashboard");
           break;
         case 2:
-          navigate("/admin-dashboard");
+          navigate("/admin/dashboard");
           break;
         case 3:
-          navigate("/mo-dashboard");
+          navigate("/mo/dashboard");
           break;
         case 4:
+          localStorage.setItem(
+            "customer_id",
+            JSON.stringify(loginResponse.data.data.user)
+          );
           navigate("/profile");
           break;
         default:

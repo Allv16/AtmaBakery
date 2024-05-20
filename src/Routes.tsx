@@ -54,6 +54,7 @@ import OrderHistoryAdmin from "./pages/admin/customer-search/OrderHistory";
 import OrderHistory from "./pages/customer/profile/OrderHistory";
 import HowToOrder from "./pages/customer/how-to-order/HowToOrder";
 import Invoice from "./pages/customer/invoice/Invoice";
+import UnpaidOrderList from "./pages/customer/profile/UnpaidOrderList";
 
 export const router = createBrowserRouter([
   {
@@ -93,7 +94,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/admin-dashboard",
+    path: "/admin/dashboard",
     element: (
       <ProtectedRoutes role_id="2">
         <Dashboard />
@@ -213,7 +214,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mo-dashboard",
+    path: "/mo/dashboard",
     element: (
       <ProtectedRoutes role_id="3">
         <DashboardMO />
@@ -433,6 +434,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="4">
         <OrderHistory />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/unpaid-order-list",
+    element: (
+      <ProtectedRoutes role_id="4">
+        <UnpaidOrderList />
       </ProtectedRoutes>
     ),
   },

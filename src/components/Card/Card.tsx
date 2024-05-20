@@ -6,6 +6,7 @@ import { deleteProduct } from "../../lib/repository/ProductRepository";
 import { deleteHampers } from "../../lib/repository/HampersRepository";
 import { ITransaction } from "../../lib/interfaces/ITransaction";
 import { IHistory } from "../../lib/interfaces/IHistory";
+import { IPayment } from "../../lib/interfaces/IPayment";
 
 type CardProductProps = {
   product: IProduct;
@@ -17,6 +18,10 @@ type CardHampersProps = {
 
 type CardTransactionProps = {
   transaction: ITransaction;
+}
+
+type CardPaymentProps = {
+  payment: IPayment;
 }
 
 export const CardProduct: React.FC<CardProductProps> = ({ product }) => {
@@ -293,18 +298,102 @@ export const CardTransaction: React.FC<CardTransactionProps> = ({ transaction })
     </div>
   );
 };
-export const CardHistory = ({ history }: { history: IHistory }) => {
+
+export const CardHistory = ({ history, payment }: { history: IHistory, payment: IPayment }) => {
   const tanggal = history.tanggal_diterima.split(" ")[0] || history.tanggal_ditolak.split(" ")[0];
   const formattedDate = new Date(tanggal).toLocaleDateString('en-GB');
+
+  const location = useLocation();
+
+  const getStatusBadge = () => {
+    if (location.pathname === '/order-history') {
+      return (
+        <span className={`absolute top-0 right-0 px-2 py-1 rounded ${history.status_transaksi === 'Selesai' ? 'bg-green-500 text-white' : history.status_transaksi === 'Diproses' ? 'bg-yellow-500 text-black' : 'bg-red-500 text-white'}`}>
+          {history.status_transaksi}
+        </span>
+      );
+    } else if (location.pathname === '/unpaid-order-list') {
+      return (
+        <span className="absolute top-0 right-0 px-2 py-1 rounded bg-red-500 text-white">
+          Unpaid
+        </span>
+      );
+    }
+    return null;
+  };
+
+  const getButton = () => {
+    if (location.pathname === '/order-history') {
+      return (
+        <button className="bg-amber-200 text-yellow-800 px-4 py-2 rounded">
+          Details
+        </button>
+      );
+    } else if (location.pathname === '/unpaid-order-list') {
+      return (
+        <button className="bg-primary text-white px-4 py-2 rounded" onClick={(e) => {
+          e.preventDefault()
+          handlePayConfirmation()
+        }}>
+          Pay
+        </button>
+      );
+    }
+    return null;
+  };
+
+  const handlePayConfirmation = () => {
+    const modal = document.getElementById("pay_modal") as HTMLDialogElement;
+    if (modal) {
+      modal.showModal();
+
+      //   const confirmEditBtn = document.getElementById(
+      //     "confirm_edit"
+      //   ) as HTMLButtonElement;
+      //   confirmEditBtn.addEventListener("click", async () => {
+      //     await handleSubmit();
+      //     modal.close();
+      //   });
+
+      const cancelEditBtn = document.getElementById(
+        "cancel_edit"
+      ) as HTMLButtonElement;
+      cancelEditBtn.addEventListener("click", () => {
+        modal.close();
+      });
+    }
+  };
+
+  const handleUploadReceiptConfirmation = () => {
+    const modal = document.getElementById("upload_modal") as HTMLDialogElement;
+    if (modal) {
+      modal.showModal();
+
+      //   const confirmEditBtn = document.getElementById(
+      //     "confirm_edit"
+      //   ) as HTMLButtonElement;
+      //   confirmEditBtn.addEventListener("click", async () => {
+      //     await handleSubmit();
+      //     modal.close();
+      //   });
+
+      const cancelEditBtn = document.getElementById(
+        "cancel_edit"
+      ) as HTMLButtonElement;
+      cancelEditBtn.addEventListener("click", () => {
+        modal.close();
+      });
+    }
+  };
+
   return (
     <div className="card mt-5 w-full bg-base-100 relative">
       <div className="card-body border relative">
         <div className="relative">
           <p className="inline-block">{formattedDate}</p>
-          <span className={`absolute top-0 right-0 px-2 py-1 rounded ${history.status_transaksi === 'Selesai' ? 'bg-green-500 text-white' : history.status_transaksi === 'Diproses' ? 'bg-yellow-500 text-black' : 'bg-red-500 text-white'}`}>
-            {history.status_transaksi}
-          </span>
-
+          <div>
+            {getStatusBadge()}
+          </div>
         </div>
         <hr className="my-4 border-t-2 border-gray-300" />
         <div className="flex items-center">
@@ -314,7 +403,7 @@ export const CardHistory = ({ history }: { history: IHistory }) => {
             className="w-8 h-8 mr-2"
           /> */}
           <div>
-            <h2 className="text-xl font-bold">Order History</h2>
+            <h2 className="text-xl font-bold">Details Order</h2>
             <p className="mb-2">{`Jumlah Item: ${history.detail_transaksi?.length}`}</p>
             {history.detail_transaksi?.map((item) => (
               <p>{"- "}{item.produk.nama_produk}</p>
@@ -326,11 +415,40 @@ export const CardHistory = ({ history }: { history: IHistory }) => {
             <p>Total Purchases:</p>
             <h2 className="text-xl font-bold">{`Rp. ${history.total}`}</h2>
           </div>
-          <button className="bg-amber-200 text-yellow-800 px-4 py-2 rounded">
-            Details
-          </button>
+          <div>
+            {getButton()}
+          </div>
         </div>
       </div >
+
+      {/* Modal */}
+      <dialog id="pay_modal" className="modal" hidden>
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Payment Confirmation</h3>
+          <p className="py-4">Are You Sure You Want to Pay This Order?</p>
+          <div className="flex justify-end">
+            <form method="dialog" className="flex space-between gap-3" >
+              <button id="cancel_edit" className="btn">Cancel</button>
+              <button id="confirm_edit" className="btn btn-primary" onClick={handleUploadReceiptConfirmation}>Pay</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* Upload Payment */}
+      <dialog id="upload_modal" className="modal" hidden>
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Payment Confirmation</h3>
+          <input type="file" className="border rounded p-2" />
+          <div className="flex justify-end mt-5">
+            <form method="dialog" className="flex space-between gap-3">
+              <button id="cancel_edit" className="btn">Cancel</button>
+              <button id="confirm_edit" className="btn btn-primary">Upload</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div >
   );
 };
+

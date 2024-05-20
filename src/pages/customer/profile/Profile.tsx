@@ -7,7 +7,6 @@ import {
   editProfile,
   getProfileCustomer,
 } from "../../../lib/repository/ProfileRepository";
-import { changePassword } from "../../../lib/repository/ProfileRepository";
 
 export default function Profile() {
   // API CALL
@@ -26,7 +25,6 @@ export default function Profile() {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       const inputField: IProfileCustomer = {
         id_user: data.id_user ?? "",
         id_customer: data.id_customer ?? "",
@@ -81,11 +79,18 @@ export default function Profile() {
     }
   };
 
-  console.log(input);
-  // console.log(data);
-
   return (
     <NavWrapper>
+      <style>{`
+        .hover-up {
+          transition: transform 0.1s ease-in-out;
+        }
+
+        .hover-up:hover {
+          transform: translateY(-3px);
+        }
+      `}</style>
+
       {isLoading && (
         <div className="w-full mt-64 flex justify-center items-center">
           <span className="loading loading-dots loading-md"></span>
@@ -93,7 +98,7 @@ export default function Profile() {
       )}
       {error && <div>Error</div>}
 
-      <div className="bg-white h-screen mx-auto flex flex-col-2 gap-10 px-3 md:flex-row">
+      <div className="bg-white h-screen mx-auto flex flex-col-2 gap-10 px-3 md:flex-row mt-20">
         <aside className="hidden py-4 md:w-1/3 lg:w-1/4 md:block">
           <div className="flex flex-col p-4 text-sm border-r border-indigo-100 top-12 border">
             <div className="flex items-center justify-between">
@@ -109,24 +114,25 @@ export default function Profile() {
             </div>
             <a
               href="/profile"
-              className="flex items-center px-3 py-2.5 font-bold bg-white text-lg"
+              className="flex items-center px-3 py-2.5 font-semibold bg-white text-lg hover-up"
             >
               Settings
             </a>
             <a
-              href="#"
-              className="flex items-center px-3 py-2.5 font-semibold text-lg"
+              href="/unpaid-order-list"
+              className="flex items-center px-3 py-2.5 font-semibold text-lg hover-up"
             >
               Order
             </a>
             <a
               href="/order-history"
-              className="flex items-center px-3 py-2.5 font-semibold text-lg"
+              className="flex items-center px-3 py-2.5 font-semibold text-lg hover-up"
             >
               History
             </a>
           </div>
         </aside>
+
         <main className="w-full min-h-screen py-4 md:w-2/3 lg:w-3/4">
           <div className="p-2 md:p-4 border">
             <div className="w-full mx px-3 pb-8 sm:rounded-lg">
