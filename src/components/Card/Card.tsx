@@ -13,7 +13,6 @@ import { IHistory } from "../../lib/interfaces/IHistory";
 import { IPayment } from "../../lib/interfaces/IPayment";
 import { PayModal } from "../Modal";
 
-
 type CardProductProps = {
   product: IProduct;
 };
@@ -299,18 +298,17 @@ export const CardTransaction: React.FC<CardTransactionProps> = ({
   );
 };
 
-
 export const CardHistory = (props: CardTransactionProps) => {
   const handleOpenModal = () => {
     const dialog = document.getElementById("pay_modal")! as HTMLDialogElement;
     dialog.showModal();
-  }
+  };
 
   return (
     <div className="card mt-5 w-full bg-base-100 relative">
       <div className="card-body border p-4">
         <div className="flex gap-2 items-center">
-          <TransactionStatusBadge status="Completed" />
+          <TransactionStatusBadge status={props.transaction.status_transaksi} />
           <p className="text-gray-500">
             {dateConverter(props.transaction.tanggal_nota_dibuat)}
           </p>
@@ -348,7 +346,10 @@ export const CardHistory = (props: CardTransactionProps) => {
               {currencyConverter(props.transaction.pembayaran.total_pembayaran)}
             </h2>
           </div>
-          <button className="btn btn-sm btn-primary px-6 rounded-sm" onClick={() => handleOpenModal()}>
+          <button
+            className="btn btn-sm btn-primary px-6 rounded-sm"
+            onClick={() => handleOpenModal()}
+          >
             Details
           </button>
         </div>

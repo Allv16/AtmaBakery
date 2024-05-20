@@ -108,8 +108,9 @@ export const InputRangeModal = ({ data }: InputRangeModalProps) => {
         </div>
 
         <label
-          className={`input input-bordered ${isError && `border-error`
-            } flex items-center gap-2`}
+          className={`input input-bordered ${
+            isError && `border-error`
+          } flex items-center gap-2`}
         >
           <input
             type="number"
@@ -176,13 +177,26 @@ export const PayModal: React.FC<PayModalProps> = ({ data }) => {
 
   const handleSubmit = async () => {
     const dialog = document.getElementById("pay_modal")! as HTMLDialogElement;
+    const dialog2 = document.getElementById(
+      "confirmation_modal"
+    )! as HTMLDialogElement;
     const formData = new FormData();
     formData.append("bukti_pembayaran", selectedFile as File);
     await payTransaction(formData, data.id_pembayaran);
+    dialog2.close();
     dialog.close();
   };
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleModalConfirmation = () => {
+    setTimeout(() => {
+      const dialog = document.getElementById(
+        "confirmation_modal"
+      )! as HTMLDialogElement;
+      dialog.showModal();
+    }, 300); //
+  };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -193,23 +207,35 @@ export const PayModal: React.FC<PayModalProps> = ({ data }) => {
   };
 
   return (
-    <dialog id="pay_modal" className="modal">
-      <div className="modal-box w-1/4">
-        <h3 className="font-bold text-lg mb-4 text-center">Upload Transfer Receipt</h3>
-        <p className="text-center">
-          <input type="file" className="file-input file-input-bordered file-input-primary w-full max-w-xs" name="bukti_pembayaran"
-            onChange={handleFileUpload}
-            required />
-        </p>
-        <div className="flex justify-between mx-16 mt-4">
-          <form method="dialog">
-            <button className="btn bg-gray-100">Cancel</button>
-          </form>
-          <button className="btn btn-primary w-1/2" onClick={() => handleSubmit()}>
-            Pay
-          </button>
+    <>
+      <dialog id="pay_modal" className="modal">
+        <div className="modal-box w-1/4">
+          <h3 className="font-bold text-lg mb-4 text-center">
+            Upload Transfer Receipt
+          </h3>
+          <p className="text-center">
+            <input
+              type="file"
+              className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+              name="bukti_pembayaran"
+              onChange={handleFileUpload}
+              required
+            />
+          </p>
+          <div className="flex justify-between mx-16 mt-4">
+            <form method="dialog">
+              <button className="btn bg-gray-100">Cancel</button>
+            </form>
+            <button
+              className="btn btn-primary w-1/2"
+              onClick={() => handleModalConfirmation()}
+            >
+              Pay
+            </button>
+          </div>
         </div>
-      </div>
-    </dialog>
+      </dialog>
+      <ConfirmationModal onClick={handleSubmit} />
+    </>
   );
 };

@@ -15,9 +15,9 @@ export function TransactionStatusBadge({ status }: BadgeProps) {
         {status}
       </span>
     );
-  else if (status === "Inputing Range")
+  else
     return (
-      <span className="badge bg-orange-200 text-orange-950 rounded-sm px-1 font-medium text-xs">
+      <span className="badge bg-secondary-light text-secondary rounded-sm px-1 font-medium text-xs">
         {status}
       </span>
     );
