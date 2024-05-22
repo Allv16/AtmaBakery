@@ -1,4 +1,10 @@
-import { ChevronRight, CircleMinus, CirclePlus, Trash2 } from "lucide-react";
+import {
+  Check,
+  ChevronRight,
+  CircleMinus,
+  CirclePlus,
+  Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ICart } from "../../lib/interfaces/ICart";
@@ -1077,6 +1083,53 @@ export const CartTable = ({
                 >
                   <CirclePlus className="text-primary" />
                 </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+type AdminOnProcessTableProps = {
+  data: ITransaction[];
+  onClick: (index: number) => void;
+};
+
+export const AdminOnProcessTable = ({
+  data,
+  onClick,
+}: AdminOnProcessTableProps) => {
+  return (
+    <div className="overflow-x-hidden">
+      <table className="table">
+        {/* head */}
+        <thead className="bg-secondary-light font-bold text-sm text-black">
+          <tr>
+            <th>#</th>
+            <th>Order Date</th>
+            <th>Due Date</th>
+            <th>Customer</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr>
+              <th>{item.id_transaksi}</th>
+              <td>{dateConverterSimple(item.tanggal_nota_dibuat)}</td>
+              <td>{dateConverterSimple(item.tanggal_ambil)}</td>
+              <td>{item.customer.nama_customer}</td>
+              <td>{currencyConverter(item.total)}</td>
+              <td>
+                <a
+                  className="btn btn-circle btn-sm bg-primary-lighter"
+                  onClick={() => onClick(index)}
+                >
+                  <Check size={14} className="text-primary" />
+                </a>
               </td>
             </tr>
           ))}

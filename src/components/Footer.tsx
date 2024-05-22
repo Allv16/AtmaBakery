@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer className="footer p-10 bg-footer text-white font-sans px-4 xl:px-32 py-16">
+    <footer className="footer p-10 bg-footer text-white font-sans px-4 xl:px-32 py-16 -min-h-screen">
       <nav className="flex flex-col h-full justify-between mx-auto ">
         <div className="text-center mx-auto">
           <h5 className="text-2xl font-serif font-bold">ATMA KITCHEN</h5>

@@ -1,8 +1,6 @@
-import useSWR, { mutate } from "swr";
-import { axiosInstance, fetcher } from "../utils/utils";
-import { toast } from "sonner";
-import { IPayment } from "../interfaces/IPayment";
 import axios from "axios";
+import { toast } from "sonner";
+import { mutate } from "swr";
 
 export const payTransaction = async (data: any, id: string) => {
   const token = localStorage.getItem("token");
@@ -26,5 +24,29 @@ export const payTransaction = async (data: any, id: string) => {
     }
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const confirmTransaction = async (data: any, id: string) => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.put(
+      `${import.meta.env.VITE_BASE_API}/pembayaran/konfirm/${id}`,
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status.toString().startsWith("20")) {
+      toast.success("Successfully Confirm Payment This Order");
+    } else {
+      toast.error("Failed to Payment This Order");
+    }
+  } catch (error) {
+    toast.error("Error", (error as any).response.data);
   }
 };
