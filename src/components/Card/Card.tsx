@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import { IProduct } from "../../lib/interfaces/IProducts";
-import { IHampers } from "../../lib/interfaces/IHampers";
+import { Box, Truck } from "lucide-react";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { deleteProduct } from "../../lib/repository/ProductRepository";
-import { deleteHampers } from "../../lib/repository/HampersRepository";
+import { IHampers } from "../../lib/interfaces/IHampers";
+import { IProduct } from "../../lib/interfaces/IProducts";
 import { ITransaction } from "../../lib/interfaces/ITransaction";
+import { deleteHampers } from "../../lib/repository/HampersRepository";
+import { deleteProduct } from "../../lib/repository/ProductRepository";
 import { currencyConverter, dateConverter } from "../../lib/utils/converter";
 import { TransactionStatusBadge } from "../Badge";
-import { Box, Truck } from "lucide-react";
 import { ProductWithImageList } from "../List/List";
-import { IHistory } from "../../lib/interfaces/IHistory";
-import { IPayment } from "../../lib/interfaces/IPayment";
 import { PayModal } from "../Modal";
 
 type CardProductProps = {
