@@ -18,7 +18,6 @@ import Invoice from "../invoice/Invoice";
 import { useRef } from "react";
 import ReactToPrint, { useReactToPrint } from "react-to-print";
 
-
 type CardProductProps = {
   product: IProduct;
 };
@@ -369,7 +368,9 @@ export const OrderDetailsCard = (props: CardTransactionProps) => {
   const navigate = useNavigate();
 
   const handleOpenModal = () => {
-    const dialog = document.getElementById("pay_modal") as HTMLDialogElement | null;
+    const dialog = document.getElementById(
+      "pay_modal"
+    ) as HTMLDialogElement | null;
 
     if (dialog) {
       dialog.showModal();
@@ -392,7 +393,7 @@ export const OrderDetailsCard = (props: CardTransactionProps) => {
   const componentRef = useRef<HTMLDivElement>(null);
 
   const handlePrint = useReactToPrint({
-    content: () => componentRef.current
+    content: () => componentRef.current,
   });
 
   return (
@@ -404,11 +405,15 @@ export const OrderDetailsCard = (props: CardTransactionProps) => {
         <hr className="my-1 border-t-[1px]" />
         <div className="flex justify-between items-center">
           <p className="text-left text-gray-500">Order ID</p>
-          <p className="text-right text-gray-500">{props.transaction.id_transaksi}</p>
+          <p className="text-right text-gray-500">
+            {props.transaction.id_transaksi}
+          </p>
         </div>
         <div className="flex justify-between items-center">
           <p className="text-left text-gray-500">Order Date</p>
-          <p className="text-right text-gray-500">{props.transaction.tanggal_nota_dibuat}</p>
+          <p className="text-right text-gray-500">
+            {props.transaction.tanggal_nota_dibuat}
+          </p>
         </div>
         <div className="flex items-center mt-4">
           <h3 className="text-lg font-bold">Product Details</h3>
@@ -422,7 +427,9 @@ export const OrderDetailsCard = (props: CardTransactionProps) => {
           <h3 className="text-lg font-bold">Point</h3>
           <div className="flex justify-between items-center">
             <p className="text-left text-gray-500">Points Earned</p>
-            <p className="text-right text-gray-500">{props.transaction.poin_diperoleh}</p>
+            <p className="text-right text-gray-500">
+              {props.transaction.poin_diperoleh}
+            </p>
           </div>
         </div>
         {props.transaction && props.transaction.pengiriman && (
@@ -430,15 +437,21 @@ export const OrderDetailsCard = (props: CardTransactionProps) => {
             <h3 className="text-lg font-bold">Delivery Information</h3>
             <div className="flex justify-between items-center">
               <p className="text-left text-gray-500">Courier Name</p>
-              <p className="text-right text-gray-500">{props.transaction.pengiriman.kurir}</p>
+              <p className="text-right text-gray-500">
+                {props.transaction.pengiriman.kurir}
+              </p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-left text-gray-500">Destination Address</p>
-              <p className="text-right text-gray-500">{props.transaction.pengiriman.alamat_tujuan}</p>
+              <p className="text-right text-gray-500">
+                {props.transaction.pengiriman.alamat_tujuan}
+              </p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-left text-gray-500">Distance</p>
-              <p className="text-right text-gray-500">{props.transaction.pengiriman.jarak_pengiriman} Km</p>
+              <p className="text-right text-gray-500">
+                {props.transaction.pengiriman.jarak_pengiriman} Km
+              </p>
             </div>
           </div>
         )}
@@ -446,87 +459,107 @@ export const OrderDetailsCard = (props: CardTransactionProps) => {
           <h3 className="text-lg font-bold">Payment Details</h3>
           <div className="flex justify-between items-center">
             <p className="text-left text-gray-500">Payment Method</p>
-            <p className="text-right text-gray-500">{props.transaction.pembayaran.jenis_pembayaran}</p>
+            <p className="text-right text-gray-500">
+              {props.transaction.pembayaran.jenis_pembayaran}
+            </p>
           </div>
           <div className="flex justify-between items-center">
             <p className="text-left text-gray-500">Total Order</p>
-            <p className="text-right text-gray-500">{props.transaction.total}</p>
+            <p className="text-right text-gray-500">
+              {props.transaction.total}
+            </p>
           </div>
           {props.transaction && props.transaction.pengiriman && (
             <div className="flex justify-between items-center">
               <p className="text-left text-gray-500">Delivery Cost</p>
-              <p className="text-right text-gray-500">{props.transaction.pengiriman.biaya_pengiriman}</p>
+              <p className="text-right text-gray-500">
+                {props.transaction.pengiriman.biaya_pengiriman}
+              </p>
             </div>
           )}
           <div className="flex justify-between items-center">
             <p className="text-left text-gray-500">Poin Used</p>
-            <p className="text-right text-gray-500">{props.transaction.poin_digunakan}</p>
+            <p className="text-right text-gray-500">
+              {props.transaction.poin_digunakan}
+            </p>
           </div>
           <hr className="my-1 border-t-[1px]" />
           <div className="flex justify-between items-center">
             <p className="text-left  font-bold">Total</p>
-            <p className="text-right text-gray-500">{props.transaction.pembayaran.total_pembayaran}</p>
+            <p className="text-right text-gray-500">
+              {props.transaction.pembayaran.total_pembayaran}
+            </p>
           </div>
-          {props.transaction && props.transaction.pembayaran.bukti_pembayaran && (
-            <div className="flex justify-between items-center">
-              <p className="text-left text-gray-500">Tip</p>
-              <p className="text-right text-gray-500">{props.transaction.pembayaran.tip}</p>
-            </div>
-          )}
+          {props.transaction &&
+            props.transaction.pembayaran.bukti_pembayaran && (
+              <div className="flex justify-between items-center">
+                <p className="text-left text-gray-500">Tip</p>
+                <p className="text-right text-gray-500">
+                  {props.transaction.pembayaran.tip}
+                </p>
+              </div>
+            )}
         </div>
         <div className="mt-4 flex justify-between items-center">
-          {props.transaction && props.transaction.pembayaran.bukti_pembayaran === null && (
-            <div>
-              <button className="btn btn-sm btn-primary flex items-center" onClick={handleOpenModal}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-badge-dollar-sign"
+          {props.transaction &&
+            props.transaction.pembayaran.bukti_pembayaran === null && (
+              <div>
+                <button
+                  className="btn btn-sm btn-primary flex items-center"
+                  onClick={handleOpenModal}
                 >
-                  <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
-                  <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
-                  <path d="M12 18V6" />
-                </svg>
-                Pay Bills
-              </button>
-            </div>
-          )}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-badge-dollar-sign"
+                  >
+                    <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                    <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                    <path d="M12 18V6" />
+                  </svg>
+                  Pay Bills
+                </button>
+              </div>
+            )}
           <div>
             <ReactToPrint
-              trigger={() => <button className="btn btn-sm btn-primary flex items-center"> <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-printer mr-2"
-              >
-                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
-                <rect x="6" y="14" width="12" height="8" rx="1" />
-              </svg>
-                Print Invoice
-              </button>}
+              trigger={() => (
+                <button className="btn btn-sm btn-primary flex items-center">
+                  {" "}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-printer mr-2"
+                  >
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                    <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
+                    <rect x="6" y="14" width="12" height="8" rx="1" />
+                  </svg>
+                  Print Invoice
+                </button>
+              )}
               content={() => componentRef.current}
             />
-
           </div>
         </div>
       </div>
       <PayModal data={props.transaction.pembayaran} />
 
-      <div className="">
+      <div className="hidden">
         <Invoice ref={componentRef} data={props.transaction} />
       </div>
     </div>

@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
-import { ITransaction } from "../lib/interfaces/ITransaction";
-import { currencyConverter, dateConverter } from "../lib/utils/converter";
-import { updateDeliveryRange } from "../lib/repository/TransactionRepository";
-import { useNavigate } from "react-router-dom";
 import { mutate } from "swr";
-import { payTransaction } from "../lib/repository/PaymentRepository";
 import { IPayment } from "../lib/interfaces/IPayment";
+import { ITransaction } from "../lib/interfaces/ITransaction";
+import { payTransaction } from "../lib/repository/PaymentRepository";
+import { updateDeliveryRange } from "../lib/repository/TransactionRepository";
+import { currencyConverter, dateConverter } from "../lib/utils/converter";
+import { useNavigate } from "react-router-dom";
 
 type InputRangeModalProps = {
   data: ITransaction;
 };
 
 export const InputRangeModal = ({ data }: InputRangeModalProps) => {
-  const navigate = useNavigate();
-
   const [range, setRange] = useState<number | null>(null);
 
   const [fee, setFee] = useState<number>(10000);
@@ -108,8 +106,9 @@ export const InputRangeModal = ({ data }: InputRangeModalProps) => {
         </div>
 
         <label
-          className={`input input-bordered ${isError && `border-error`
-            } flex items-center gap-2`}
+          className={`input input-bordered ${
+            isError && `border-error`
+          } flex items-center gap-2`}
         >
           <input
             type="number"
@@ -168,12 +167,7 @@ type PayModalProps = {
 };
 
 export const PayModal: React.FC<PayModalProps> = ({ data }) => {
-  const inputField = {
-    bukti_pembayaran: "",
-  };
-
-  const [input, setInput] = useState(inputField);
-
+  const navigate = useNavigate();
   const handleSubmit = async () => {
     const dialog = document.getElementById("pay_modal")! as HTMLDialogElement;
     const dialog2 = document.getElementById(
@@ -184,6 +178,9 @@ export const PayModal: React.FC<PayModalProps> = ({ data }) => {
     await payTransaction(formData, data.id_pembayaran);
     dialog2.close();
     dialog.close();
+    setTimeout(() => {
+      navigate("/order-history");
+    }, 300);
   };
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

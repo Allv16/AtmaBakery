@@ -1,26 +1,23 @@
-import useSWR, { mutate } from "swr";
-import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
-import { IPayment } from "../interfaces/IPayment";
-import axios from "axios";
+import { mutate } from "swr";
+import { ICustomer } from "../interfaces/ICustomer";
+import { axiosInstance } from "../utils/utils";
 
 export const payTransaction = async (data: any, id: string) => {
-  const token = localStorage.getItem("token");
+  const customer = JSON.parse(localStorage.getItem("customer_id") || "{}")
+    .customer as ICustomer;
+
   try {
-    const response = await axios.post(
+    const response = await axiosInstance().post(
       `${import.meta.env.VITE_BASE_API}/pembayaran/bayar/${id}`,
-      data,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      data
     );
 
     if (response.status.toString().startsWith("20")) {
+      mutate(
+        `${import.meta.env.VITE_BASE_API}/transaksi/${customer.id_customer}`
+      );
       toast.success("Successfully Payment This Order");
-      mutate(`${import.meta.env.VITE_BASE_API}/transaksi`);
     } else {
       toast.error("Failed to Payment This Order");
     }
