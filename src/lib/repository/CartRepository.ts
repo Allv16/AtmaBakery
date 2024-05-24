@@ -79,3 +79,31 @@ export const deleteCart = async (id: number, date: string) => {
     toast.error("Failed to Edit Employee");
   }
 };
+
+export const addCart = async (
+  product_id: string,
+  qty: number,
+  date: string
+) => {
+  const customer = JSON.parse(localStorage.getItem("customer_id") || "{}")
+    .customer as ICustomer;
+  const data = {
+    id_customer: customer.id_customer,
+    id_produk: product_id,
+    jumlah_item_keranjang: qty,
+    tanggal_keranjang: date,
+  };
+  try {
+    const response = await axiosInstance().post(
+      `${import.meta.env.VITE_BASE_API}/keranjang`,
+      data
+    );
+    if (response.status.toString().startsWith("20")) {
+      toast.success("Successfully Added Cart");
+    } else {
+      toast.error("Failed to Add Cart");
+    }
+  } catch (error) {
+    toast.error("Error", (error as any).response.data);
+  }
+};

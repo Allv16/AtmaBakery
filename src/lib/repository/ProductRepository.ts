@@ -5,11 +5,11 @@ import { toast } from "sonner";
 import { IProduct } from "../interfaces/IProducts";
 import axios from "axios";
 
-export const getAllProcuts = () => {
-  let { data, error, isLoading, isValidating } = useSWR(
-    `${import.meta.env.VITE_BASE_API}/products`,
-    fetcher
-  );
+export const getAllProcuts = (date?: string) => {
+  const endpoint = date
+    ? `${import.meta.env.VITE_BASE_API}/products?date=${date}`
+    : `${import.meta.env.VITE_BASE_API}/products`;
+  let { data, error, isLoading, isValidating } = useSWR(endpoint, fetcher);
 
   if (!isLoading && error) {
     toast.error("Gagal mengambil data");
@@ -48,11 +48,12 @@ export const addProducts = async (data: any) => {
   }
 };
 
-export const getProductsById = (id: string) => {
-  let { data, error, isLoading, isValidating } = useSWR(
-    `${import.meta.env.VITE_BASE_API}/products/${id}`,
-    fetcher
-  );
+export const getProductsById = (id: string, date?: string) => {
+  const endpoint = date
+    ? `${import.meta.env.VITE_BASE_API}/products/${id}?date=${date}`
+    : `${import.meta.env.VITE_BASE_API}/products/${id}`;
+
+  let { data, error, isLoading, isValidating } = useSWR(endpoint, fetcher);
 
   if (!isLoading && error) {
     toast.error("Gagal mengambil data");
@@ -122,4 +123,116 @@ export const updateProduct = async (id: string, data: any) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const getRandomProducts = () => {
+  const endpoint = `${import.meta.env.VITE_BASE_API}/products/random`;
+  let { data, error, isLoading, isValidating } = useSWR(endpoint, fetcher);
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.products as IProduct[],
+    error,
+    isLoading,
+    isValidating,
+  };
+};
+
+export const getCakesProducts = () => {
+  const endpoint = `${import.meta.env.VITE_BASE_API}/products/cakes`;
+  let { data, error, isLoading, isValidating } = useSWR(endpoint, fetcher);
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.products as IProduct[],
+    error,
+    isLoading,
+    isValidating,
+  };
+};
+
+export const getRotiProducts = () => {
+  const endpoint = `${import.meta.env.VITE_BASE_API}/products/roti`;
+  let { data, error, isLoading, isValidating } = useSWR(endpoint, fetcher);
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.products as IProduct[],
+    error,
+    isLoading,
+    isValidating,
+  };
+};
+
+export const getMinumanProducts = () => {
+  const endpoint = `${import.meta.env.VITE_BASE_API}/products/minuman`;
+  let { data, error, isLoading, isValidating } = useSWR(endpoint, fetcher);
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.products as IProduct[],
+    error,
+    isLoading,
+    isValidating,
+  };
+};
+
+export const getHampersProducts = () => {
+  const endpoint = `${import.meta.env.VITE_BASE_API}/products/hampers`;
+  let { data, error, isLoading, isValidating } = useSWR(endpoint, fetcher);
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.products as IProduct[],
+    error,
+    isLoading,
+    isValidating,
+  };
+};
+
+export const getSnackProducts = () => {
+  const endpoint = `${import.meta.env.VITE_BASE_API}/products/snack`;
+  let { data, error, isLoading, isValidating } = useSWR(endpoint, fetcher);
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.products as IProduct[],
+    error,
+    isLoading,
+    isValidating,
+  };
+};
+
+export const getTopProducts = () => {
+  const endpoint = `${import.meta.env.VITE_BASE_API}/products/getTopProduct`;
+  let { data, error, isLoading, isValidating } = useSWR(endpoint, fetcher);
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data produk teratas");
+  }
+
+  return {
+    data: data?.products as IProduct[],
+    error,
+    isLoading,
+    isValidating,
+  };
 };
