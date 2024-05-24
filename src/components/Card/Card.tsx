@@ -343,7 +343,7 @@ export const CardHistory = (props: CardTransactionProps) => {
           <div>
             <p className="text-gray-500 text-sm">Total Purchases</p>
             <h2 className="text-xl font-bold">
-              {currencyConverter(props.transaction.pembayaran.total_pembayaran)}
+              {currencyConverter(props.transaction.total)}
             </h2>
           </div>
           <button

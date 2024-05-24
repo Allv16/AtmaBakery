@@ -109,3 +109,21 @@ export const updateTransactionReady = async (id: string) => {
     toast.error(`Failed to update delivery range: ${error}`);
   }
 };
+
+export const addTransaction = async (data: any) => {
+  try {
+    const response = await axiosInstance().post(
+      `${import.meta.env.VITE_BASE_API}/transaksi`,
+      data
+    );
+    console.log(response);
+
+    if (response.status.toString().startsWith("20")) {
+      toast.success("Checkout success, Please wait for the admin to confirm");
+    }
+  } catch (error) {
+    console.log(error);
+
+    toast.error(`Failed to Checkout: ${error}`);
+  }
+};

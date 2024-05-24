@@ -57,7 +57,7 @@ import ListProduct from "./pages/customer/products/ListProduct";
 import DetailProduct from "./pages/customer/products/DetailProduct";
 import HowToOrder from "./pages/customer/how-to-order/HowToOrder";
 import Invoice from "./pages/customer/invoice/Invoice";
-import UnpaidOrderList from "./pages/customer/profile/UnpaidOrderList";
+import Checkout from "./pages/customer/checkout/Checkout";
 
 export const router = createBrowserRouter([
   {
@@ -480,6 +480,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="4">
         <Cart />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/u/checkout",
+    element: (
+      <ProtectedRoutes role_id="4">
+        <Checkout />
       </ProtectedRoutes>
     ),
   },

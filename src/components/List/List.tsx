@@ -3,6 +3,7 @@ import { IRoles } from "../../lib/interfaces/IRoles";
 import { ITransaction } from "../../lib/interfaces/ITransaction";
 import { ITransactionDetails } from "../../lib/interfaces/ITransactionDetails";
 import { currencyConverter } from "../../lib/utils/converter";
+import { ICart } from "../../lib/interfaces/ICart";
 
 type RolesListProps = {
   rolesData: IRoles[];
@@ -82,6 +83,34 @@ export const ProductWithImageList = ({
           {currencyConverter(detailTransaction.harga_satuan)}
         </p>
       </div>
+    </div>
+  );
+};
+
+type ProductWithImageListPropsCart = {
+  carts: ICart;
+};
+
+export const ProductWithImageListCart = ({
+  carts,
+}: ProductWithImageListPropsCart) => {
+  return (
+    <div className="flex border border-gray-200 rounded-md py-2 px-4 my-2">
+      <img
+        className="w-20 h-20 object-cover rounded-md mr-4"
+        src={carts.produk.foto}
+        alt={carts.produk.nama_produk}
+      />
+      <div className="flex flex-col my-auto">
+        <h6 className="font-bold text-xl">{carts.produk.nama_produk}</h6>
+        <p className="text-gray-500">
+          {carts.jumlah_item_keranjang} pcs x{" "}
+          {currencyConverter(carts.produk.harga)}
+        </p>
+      </div>
+      <p className="my-auto ml-auto font-bold text-gray-600 text-lg">
+        {currencyConverter(carts.jumlah_item_keranjang * carts.produk.harga)}
+      </p>
     </div>
   );
 };

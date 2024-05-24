@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ICustomer } from "../interfaces/ICustomer";
 
 export const fetcher = async (url: string) => {
   const token = localStorage.getItem("token");
@@ -28,4 +29,9 @@ export const axiosInstance = () => {
   });
 
   return axiosClient;
+};
+
+export const localCustomer = () => {
+  return JSON.parse(localStorage.getItem("customer_id") || "{}")
+    .customer as ICustomer;
 };

@@ -25,13 +25,18 @@ export function Navbar() {
       <div className="navbar-start">
         <div className="dropdown lg:block hidden">
           {token != null ? (
-            <div
+            <a
               tabIndex={0}
               role="button"
-              className="btn btn-ghost btn-circle"
+              className={`btn btn-ghost btn-circle ${
+                pathname.includes("cart")
+                  ? "text-primary bg-primary-lighter"
+                  : "text-black"
+              }`}
+              onClick={() => navigate("/u/cart")}
             >
               <ShoppingBasket size={36} />
-            </div>
+            </a>
           ) : null}
         </div>
         <div className="dropdown lg:hidden">
@@ -49,6 +54,7 @@ export function Navbar() {
             !pathname.includes("login") &&
             !pathname.includes("register") &&
             !pathname.includes("profile") &&
+            !pathname.includes("cart") &&
             !pathname.includes("history")
               ? "border-b-2 border-primary"
               : ""

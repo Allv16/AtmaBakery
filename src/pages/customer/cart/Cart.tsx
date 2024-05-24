@@ -11,20 +11,30 @@ import {
   incrementCart,
 } from "../../../lib/repository/CartRepository";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
-  const currentDate = dateConverterISO(new Date().toISOString());
+  const navigate = useNavigate();
+  const dateNow = new Date();
 
-  const [date, setDate] = useState(currentDate);
+  const currentDate = dateConverterISO(dateNow.toISOString());
+  const nextMonth = dateConverterISO(
+    new Date(dateNow.setMonth(dateNow.getMonth() + 1)).toISOString()
+  );
+  const [date, setDate] = useState(
+    localStorage.getItem("cartDate") || currentDate
+  );
 
   const { data, isLoading, isValidating } = getCart(date);
 
   return (
     <NavWrapper>
-      <div className="max-w-7xl">
+      <div className="pt-32">
         <input
           type="date"
           className="border-2 border-primary rounded bg-primary-lighter px-4 py-2"
+          min={currentDate}
+          max={nextMonth}
           value={date}
           onChange={(e) => setDate(e.target.value)}
         />
@@ -59,7 +69,15 @@ export const Cart = () => {
               )
             )}
           </span>
-          <button className="btn btn-primary ml-4">Checkout</button>
+          <button
+            className="btn btn-primary ml-4"
+            onClick={() => {
+              localStorage.setItem("cartDate", date);
+              navigate("/u/checkout");
+            }}
+          >
+            Checkout
+          </button>
         </div>
       )}
     </NavWrapper>

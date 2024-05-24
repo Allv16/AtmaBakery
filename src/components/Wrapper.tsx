@@ -13,7 +13,7 @@ import Indicator from "./Indicator";
 export const NavWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <div className="max-w-7xl mx-auto font-mulish relative">
+      <div className="max-w-7xl mx-auto font-mulish relative min-h-screen">
         <Navbar />
         {children}
       </div>
