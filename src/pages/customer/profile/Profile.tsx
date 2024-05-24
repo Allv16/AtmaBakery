@@ -139,7 +139,7 @@ export default function Profile() {
                   Address List
                 </a>
               </h2>
-              <div className="grid max-w-2xl mx-auto mt-8">
+              <div className="grid max-w-3xl mx-auto mt-8">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();

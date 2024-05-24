@@ -70,3 +70,23 @@ export const updateDeliveryRange = async (
     toast.error(`Failed to update delivery range: ${error}`);
   }
 };
+
+export const getTransactionById = (id: string) => {
+  let { data, error, isLoading, isValidating } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/transaksi/id/${id}`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  console.log(data);
+  return {
+    data: data?.transaksi as ITransaction,
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
+};

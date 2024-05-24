@@ -42,25 +42,24 @@ export function Navbar() {
       </div>
       <div className="navbar-center gap-5 xl:gap-10 xl:text-lg cursor-pointer">
         <a
-          className={`font-bold text-black hidden lg:block ${
-            !pathname.includes("about") &&
+          className={`font-bold text-black hidden lg:block ${!pathname.includes("about") &&
             !pathname.includes("invoice") &&
             !pathname.includes("how-to-order") &&
             !pathname.includes("login") &&
             !pathname.includes("register") &&
             !pathname.includes("profile") &&
-            !pathname.includes("history")
-              ? "border-b-2 border-primary"
-              : ""
-          }`}
+            !pathname.includes("history") &&
+            !pathname.includes("order")
+            ? "border-b-2 border-primary"
+            : ""
+            }`}
           onClick={() => navigate("/")}
         >
           HOME
         </a>
         <a
-          className={`font-bold text-black hidden lg:block ${
-            pathname.includes("about") ? "border-b-2 border-primary" : ""
-          }`}
+          className={`font-bold text-black hidden lg:block ${pathname.includes("about") ? "border-b-2 border-primary" : ""
+            }`}
           onClick={() => navigate("/about")}
         >
           ABOUT US
@@ -69,17 +68,15 @@ export function Navbar() {
           ATMA KITCHEN
         </h1>
         <a
-          className={`font-bold text-black hidden lg:block ${
-            pathname.includes("invoice") ? "border-b-2 border-primary" : ""
-          }`}
+          className={`font-bold text-black hidden lg:block ${pathname.includes("shop") ? "border-b-2 border-primary" : ""
+            }`}
           onClick={() => navigate("/invoice-payment")}
         >
           SHOP
         </a>
         <a
-          className={`font-bold text-black hidden lg:block ${
-            pathname.includes("how-to-order") ? "border-b-2 border-primary" : ""
-          }`}
+          className={`font-bold text-black hidden lg:block ${pathname.includes("how-to-order") ? "border-b-2 border-primary" : ""
+            }`}
           onClick={() => navigate("/how-to-order")}
         >
           HOW TO ORDER

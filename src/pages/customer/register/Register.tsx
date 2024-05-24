@@ -5,7 +5,7 @@ import { NavWrapper } from "../../../components/Wrapper";
 export default function Register() {
   return (
     <NavWrapper>
-      <div className="flex h-screen max-w-7xl flex-col-2 px-4 mt-20 xl:px-0 mx-auto">
+      <div className="flex h-screen max-w-7xl flex-col-2 px-4 mt-16 xl:px-0 mx-auto">
         <div className="hidden lg:flex items-center justify-center flex-1 my-auto">
           <img
             src={images}

@@ -2,7 +2,7 @@ import React from "react";
 
 export const AboutTimeline = () => {
     return (
-        <div className="max-w-7xl mx-auto my-20 px-4">
+        <div className="max-w-7xl mx-auto my-16 px-4">
             <div className="2xl:container 2xl:mx-auto md:py-12 md:px-6 py-9 px-4">
                 <div className="flex lg:flex-row flex-col lg:gap-8 sm:gap-10 items-center justify-center">
                     <div className="w-full lg:w-6/12">

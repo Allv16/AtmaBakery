@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@onedoc/react-print": "^0.1.133",
     "axios": "^1.6.8",
     "axios-hooks": "^5.0.2",
     "flatpickr": "^4.6.13",
@@ -19,6 +20,7 @@
     "react-datepicker": "^6.9.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
+    "react-to-print": "^2.15.1",
     "sonner": "^1.4.41",
     "swr": "^2.2.5"
   },

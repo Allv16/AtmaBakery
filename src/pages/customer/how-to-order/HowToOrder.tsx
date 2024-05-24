@@ -8,7 +8,7 @@ import payment from "../../../assets/images/Payment.png";
 export default function HowToOrder() {
     return (
         <NavWrapper>
-            <div className="max-w-7xl mx-auto my-20 px-4 mt-24">
+            <div className="max-w-7xl mx-auto my-20 px-4">
                 <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
                     <li>
                         <div className="timeline-start text-end mb-10 mr-20">
