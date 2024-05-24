@@ -10,7 +10,7 @@ import { Search } from "lucide-react";
 export default function OrderHistory() {
   const customer = JSON.parse(localStorage.getItem("customer_id") || "{}")
     .customer as ICustomer;
-  const { data, error, isLoading } = getAllTransactionByIdCustomer(
+  const { data, isLoading, isValidating } = getAllTransactionByIdCustomer(
     customer.id_customer
   );
 
@@ -55,10 +55,10 @@ export default function OrderHistory() {
         <main className="w-full min-h-screen py-4 md:w-2/3 lg:w-3/4">
           <div className="p-2 md:p-4 border">
             <div className="w-full mx px-3 pb-8 sm:rounded-lg">
-              <h2 className="pl-2 flex items-center text-2xl font-serif font-semibold">
+              <h2 className="pl-2 flex items-center text-2xl font-serif font-semibold text-primary">
                 Transactions
               </h2>
-              <div className="grid max-w-2xl mx-auto mt-8">
+              <div className="grid max-w-3xl mx-auto mt-8">
                 <div className="flex items-center">
                   <label className="input input-bordered flex items-center gap-2">
                     <input
@@ -70,7 +70,7 @@ export default function OrderHistory() {
                     <Search size={16} />
                   </label>
                 </div>
-                {isLoading ? (
+                {isLoading || isValidating ? (
                   <div className="w-full flex justify-center items-center mt-16">
                     <span className="loading loading-dots loading-sm" />
                   </div>

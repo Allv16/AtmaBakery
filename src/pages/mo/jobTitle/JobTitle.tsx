@@ -28,7 +28,8 @@ const JobTitle: React.FC = () => {
           </div>
         )}
         {error && <div>Error</div>}
-        {data && <JobTitleList rolesData={data} />}
+        {data &&
+          <JobTitleList rolesData={data} />}
       </MOWrapper>
     </>
   );

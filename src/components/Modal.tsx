@@ -11,6 +11,7 @@ import {
   updateTransactionReady,
 } from "../lib/repository/TransactionRepository";
 import { currencyConverter, dateConverter } from "../lib/utils/converter";
+import { useNavigate } from "react-router-dom";
 
 type InputRangeModalProps = {
   data: ITransaction;
@@ -180,6 +181,7 @@ export const PayModal: React.FC<PayModalProps> = ({ data }) => {
   const dialog2 = document.getElementById(
     "confirmation_modal_pay_modal"
   )! as HTMLDialogElement;
+  const navigate = useNavigate();
   const handleSubmit = async () => {
     const dialog = document.getElementById("pay_modal")! as HTMLDialogElement;
 
@@ -188,6 +190,9 @@ export const PayModal: React.FC<PayModalProps> = ({ data }) => {
     await payTransaction(formData, data.id_pembayaran);
     dialog2.close();
     dialog.close();
+    setTimeout(() => {
+      navigate("/order-history");
+    }, 300);
   };
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -213,15 +218,42 @@ export const PayModal: React.FC<PayModalProps> = ({ data }) => {
           <h3 className="font-bold text-lg mb-4 text-center">
             Upload Transfer Receipt
           </h3>
-          <p className="text-center">
+          <label
+            htmlFor="dropzone-file"
+            className="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50"
+          >
+            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-cloud-upload"
+              >
+                <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+                <path d="M12 12v9" />
+                <path d="m16 16-4-4-4 4" />
+              </svg>
+              <p className="mb-2 text-sm text-gray-500">
+                <span className="font-semibold">
+                  {selectedFile ? selectedFile.name : "Click to upload"}
+                </span>
+              </p>
+            </div>
             <input
+              id="dropzone-file"
               type="file"
-              className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+              className="hidden"
               name="bukti_pembayaran"
               onChange={handleFileUpload}
               required
             />
-          </p>
+          </label>
           <div className="flex justify-between mx-16 mt-4">
             <form method="dialog">
               <button className="btn bg-gray-100">Cancel</button>

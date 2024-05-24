@@ -76,7 +76,7 @@ export function Navbar() {
         </h1>
         <a
           className={`font-bold text-black hidden lg:block ${
-            pathname.includes("invoice") ? "border-b-2 border-primary" : ""
+            pathname.includes("shop") ? "border-b-2 border-primary" : ""
           }`}
           onClick={() => navigate("/invoice-payment")}
         >

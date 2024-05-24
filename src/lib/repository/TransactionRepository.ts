@@ -11,7 +11,6 @@ export const getAllTransactionByIdCustomer = (id: string) => {
 
   if (!isLoading && error) {
     toast.error("Gagal mengambil data");
-    console.log(error);
   }
 
   return {
@@ -31,7 +30,6 @@ export const getAllTransactionAdminToDo = () => {
 
   if (!isLoading && error) {
     toast.error("Gagal mengambil data");
-    console.log(error);
   }
 
   return {
@@ -59,7 +57,6 @@ export const updateDeliveryRange = async (
         ...body,
       }
     );
-    console.log(response);
 
     if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Updated Delivery Range");
@@ -97,7 +94,6 @@ export const updateTransactionReady = async (id: string) => {
     const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/transaksi/ready/${id}`
     );
-    console.log(response);
 
     if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Updated Transaction Status");
@@ -116,14 +112,31 @@ export const addTransaction = async (data: any) => {
       `${import.meta.env.VITE_BASE_API}/transaksi`,
       data
     );
-    console.log(response);
 
     if (response.status.toString().startsWith("20")) {
       toast.success("Checkout success, Please wait for the admin to confirm");
     }
   } catch (error) {
-    console.log(error);
-
     toast.error(`Failed to Checkout: ${error}`);
   }
+};
+
+export const getTransactionById = (id: string) => {
+  let { data, error, isLoading, isValidating } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/transaksi/id/${id}`,
+    fetcher
+  );
+  console.log(data);
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.transaksi as ITransaction,
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
 };
