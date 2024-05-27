@@ -6,6 +6,9 @@ import { useState } from "react";
 import { ITransaction } from "../../../lib/interfaces/ITransaction";
 import { ITransactionDetails } from "../../../lib/interfaces/ITransactionDetails";
 import { Search } from "lucide-react";
+import {
+  getProfileCustomer,
+} from "../../../lib/repository/ProfileRepository";
 
 export default function OrderHistory() {
   const customer = JSON.parse(localStorage.getItem("customer_id") || "{}")
@@ -13,6 +16,8 @@ export default function OrderHistory() {
   const { data, isLoading, isValidating } = getAllTransactionByIdCustomer(
     customer.id_customer
   );
+
+  const { data: dataCust, error, isLoading: isLoadingCust } = getProfileCustomer();
 
   const [search, setSearch] = useState("");
 
@@ -24,16 +29,21 @@ export default function OrderHistory() {
 
   return (
     <NavWrapper>
-      <div className="bg-white mx-auto flex flex-col-2 gap-10 px-3 py-20 md:flex-row">
+       {isLoadingCust ? (
+        <div className="w-full mt-64 flex justify-center items-center">
+          <span className="loading loading-dots loading-md"></span>
+        </div>
+      ): (
+<div className="bg-white mx-auto flex flex-col-2 gap-10 px-3 py-20 md:flex-row">
         <aside className="hidden py-4 md:w-1/3 lg:w-1/4 md:block">
           <div className="flex flex-col p-4 text-sm border-r border-indigo-100 top-12 border">
             <div className="flex items-center justify-between">
-              <div className="flex flex-col">
-                <h2 className="pl-3 text-xl font-semibold">
-                  {customer.nama_customer}
+            <div className="flex flex-col">
+                <h2 className="pl-3 text-primary text-xl font-bold md:text-3xl">
+                  {dataCust.nama_customer}
                 </h2>
                 <h6 className="pl-3 text-sm font-semibold">
-                  {customer.poin}
+                  {dataCust.poin}
                   {" point"}
                 </h6>
               </div>
@@ -90,6 +100,8 @@ export default function OrderHistory() {
           </div>
         </main>
       </div>
+      )}
+      
     </NavWrapper>
   );
 }

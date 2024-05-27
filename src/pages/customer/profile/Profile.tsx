@@ -103,7 +103,7 @@ export default function Profile() {
           <div className="flex flex-col p-4 text-sm border-r border-indigo-100 top-12 border">
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
-                <h2 className="pl-3 text-xl font-semibold">
+                <h2 className="pl-3 text-primary text-xl font-bold md:text-3xl">
                   {input.nama_customer}
                 </h2>
                 <h6 className="pl-3 text-sm font-semibold">
