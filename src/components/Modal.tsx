@@ -191,7 +191,7 @@ export const PayModal: React.FC<PayModalProps> = ({ data }) => {
     dialog2.close();
     dialog.close();
     setTimeout(() => {
-      navigate("/order-history");
+      navigate("/u/transactions");
     }, 300);
   };
 

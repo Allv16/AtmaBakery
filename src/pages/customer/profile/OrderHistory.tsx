@@ -39,13 +39,13 @@ export default function OrderHistory() {
               </div>
             </div>
             <a
-              href="/profile"
+              href="/u/profile"
               className="flex items-center px-3 py-2.5 font-bold bg-white text-lg"
             >
               Settings
             </a>
             <a
-              href="/order-history"
+              href="/u/transactions"
               className="flex items-center px-3 py-2.5 font-semibold text-lg"
             >
               Transactions

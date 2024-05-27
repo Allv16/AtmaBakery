@@ -1061,12 +1061,16 @@ export const CartTable = ({
               </td>
               <td className="text-center">
                 <button
-                  className="mr-2"
+                  className={
+                    item.jumlah_item_keranjang <= 1
+                      ? "btn-disabled text-gray-300 mr-2"
+                      : "text-primary mr-2"
+                  }
                   onClick={() => {
                     onMinus(item.id_keranjang, item.tanggal_keranjang);
                   }}
                 >
-                  <CircleMinus className="text-primary" />
+                  <CircleMinus />
                 </button>
                 <button
                   className="mr-2"
@@ -1080,11 +1084,13 @@ export const CartTable = ({
                   onClick={() =>
                     onAdd(item.id_keranjang, item.tanggal_keranjang)
                   }
-                  {...(item.jumlah_item_keranjang === item.produk.stok && {
-                    disabled: true,
-                  })}
+                  className={
+                    item.jumlah_item_keranjang >= item.produk.stok
+                      ? "btn-disabled text-gray-300"
+                      : "text-primary"
+                  }
                 >
-                  <CirclePlus className="text-primary" />
+                  <CirclePlus />
                 </button>
               </td>
             </tr>

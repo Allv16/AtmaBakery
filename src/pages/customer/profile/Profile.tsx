@@ -45,7 +45,7 @@ export default function Profile() {
 
   const handleSubmit = async () => {
     await editProfile(input, data.id_customer);
-    navigate("/profile");
+    navigate("/u/profile");
   };
 
   const ProfileForm = () => {
@@ -113,13 +113,13 @@ export default function Profile() {
               </div>
             </div>
             <a
-              href="/profile"
+              href="/u/profile"
               className="flex items-center px-3 py-2.5 font-semibold bg-white text-lg hover-up"
             >
               Settings
             </a>
             <a
-              href="/order-history"
+              href="/u/transactions"
               className="flex items-center px-3 py-2.5 font-semibold text-lg hover-up"
             >
               Transaction
@@ -131,7 +131,7 @@ export default function Profile() {
           <div className="p-2 md:p-4 border">
             <div className="w-full mx px-3 pb-8 sm:rounded-lg">
               <h2 className="pl-2 flex items-center text-2xl font-serif font-semibold">
-                <a href="/profile" className="text-primary">
+                <a href="/u/profile" className="text-primary">
                   Personal Profile
                 </a>
                 <span className="mx-2"></span>

@@ -453,7 +453,7 @@ export const router = createBrowserRouter([
   */
   //Customer
   {
-    path: "/profile",
+    path: "/u/profile",
     element: (
       <ProtectedRoutes role_id="4">
         <Profile />
@@ -469,7 +469,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/order-history",
+    path: "/u/transactions",
     element: (
       <ProtectedRoutes role_id="4">
         <OrderHistory />

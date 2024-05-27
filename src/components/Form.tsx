@@ -27,7 +27,10 @@ export const FormLogin = () => {
       toast.success("Login Success!");
       localStorage.setItem("token", loginResponse.data.data.token);
       localStorage.setItem("role_id", loginResponse.data.data.user.id_role);
-      localStorage.setItem("profile_url", loginResponse.data.data.user.url_foto);
+      localStorage.setItem(
+        "profile_url",
+        loginResponse.data.data.user.url_foto
+      );
       switch (loginResponse.data.data.user.id_role) {
         case 1:
           navigate("/owner/dashboard");
@@ -43,7 +46,7 @@ export const FormLogin = () => {
             "customer_id",
             JSON.stringify(loginResponse.data.data.user)
           );
-          navigate("/profile");
+          navigate("/list-products");
           break;
         default:
           navigate("/");

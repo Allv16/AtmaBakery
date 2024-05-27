@@ -55,7 +55,8 @@ export function Navbar() {
             !pathname.includes("register") &&
             !pathname.includes("profile") &&
             !pathname.includes("cart") &&
-            !pathname.includes("history")
+            !pathname.includes("history") &&
+            !pathname.includes("product")
               ? "border-b-2 border-primary"
               : ""
           }`}
@@ -76,9 +77,9 @@ export function Navbar() {
         </h1>
         <a
           className={`font-bold text-black hidden lg:block ${
-            pathname.includes("shop") ? "border-b-2 border-primary" : ""
+            pathname.includes("product") ? "border-b-2 border-primary" : ""
           }`}
-          onClick={() => navigate("/invoice-payment")}
+          onClick={() => navigate("/list-products")}
         >
           SHOP
         </a>
@@ -104,7 +105,7 @@ export function Navbar() {
               tabIndex={0}
               className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <li onClick={() => navigate("/profile")}>
+              <li onClick={() => navigate("/u/profile")}>
                 <a className="text-lg">Profile</a>
               </li>
               <li>

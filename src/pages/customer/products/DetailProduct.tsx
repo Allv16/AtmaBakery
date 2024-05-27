@@ -10,12 +10,13 @@ import {
   dateConverterISO,
 } from "../../../lib/utils/converter";
 import { addCart } from "../../../lib/repository/CartRepository";
-import { toast } from 'sonner';
+import { toast } from "sonner";
 
 export default function DetailProduct() {
   const [date, setDate] = React.useState(
     dateConverterISO(new Date().toISOString())
   );
+  const isLogin = localStorage.getItem("token");
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data, isValidating, isLoading } = getProductsById(id!, date);
@@ -104,12 +105,14 @@ export default function DetailProduct() {
                   <p className="text-center ms-5">Stok: {data.stok}</p>
                 </div>
                 <div className="flex space-x-4 mt-10">
-                  <button
-                    className="btn btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg"
-                    type="submit"
-                  >
-                    Add to Cart
-                  </button>
+                  {isLogin && (
+                    <button
+                      className="btn btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+                      type="submit"
+                    >
+                      Add to Cart
+                    </button>
+                  )}
                 </div>
               </form>
             </div>

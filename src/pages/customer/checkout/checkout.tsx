@@ -46,7 +46,7 @@ export default function Checkout() {
       jenis_pembayaran: paymentMethod,
     };
     await addTransaction(data);
-    navigate("/order-history");
+    navigate("/u/transactions");
   };
 
   return (

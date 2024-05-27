@@ -45,7 +45,7 @@ export default function AddressList() {
           <div className="p-2 md:p-4 border">
             <div className="w-full px-3 pb-8 sm:max-w-xl sm:rounded-lg">
               <h2 className="pl-2 flex items-center text-2xl font-serif font-semibold sm:text-xl">
-                <a href="/profile" className="text-primary">
+                <a href="/u/profile" className="text-primary">
                   Personal Profile
                 </a>
                 <span className="mx-2"></span>

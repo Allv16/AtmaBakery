@@ -33,7 +33,7 @@ export default function ListProduct() {
 
   return (
     <NavWrapper>
-      <aside className="flex flex-row px-40 py-10 pb-10">
+      <aside className="flex flex-row max-w-7xl py-20">
         <div className="w-1/4 p-4 pt-3">
           <div className="card p-4">
             <label className="input input-bordered flex items-center gap-2 mb-4 w-full">
@@ -78,7 +78,7 @@ export default function ListProduct() {
                         ? "btn-primary"
                         : "border-t-secondary-light"
                     }`}
-                    onClick={() => handleCategoryClick("Bread")}
+                    onClick={() => handleCategoryClick("Roti")}
                   >
                     Bread
                   </button>
@@ -88,7 +88,7 @@ export default function ListProduct() {
                         ? "btn-primary"
                         : "border-t-secondary-light"
                     }`}
-                    onClick={() => handleCategoryClick("Drink")}
+                    onClick={() => handleCategoryClick("Minuman")}
                   >
                     Drink
                   </button>
@@ -116,35 +116,32 @@ export default function ListProduct() {
               </div>
             </div>
           </div>
-          {topProductsLoading ? (
-            <div>Loading...</div>
-          ) : (
-            <div>
-              {topProducts?.map((product) => (
-                <div
-                  className="card card-side cursor-pointer"
-                  key={product.id_produk}
-                  onClick={() => handleCardClick(product.id_produk)}
-                >
-                  <figure className="ml-8 max-w-16">
-                    <img src={product.foto} alt={product.nama_produk} />
-                  </figure>
-                  <div className="card-body">
-                    <h2 className="card-title text-lg">{product.nama_produk}</h2>
-                    <p className="text-secondary-dark">
-                      {currencyConverter(product.harga)}
-                    </p>
-                  </div>
+
+          <div>
+            {topProducts?.map((product) => (
+              <div
+                className="card card-side cursor-pointer"
+                key={product.id_produk}
+                onClick={() => handleCardClick(product.id_produk)}
+              >
+                <figure className="ml-8 max-w-16">
+                  <img src={product.foto} alt={product.nama_produk} />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title text-lg">{product.nama_produk}</h2>
+                  <p className="text-secondary-dark">
+                    {currencyConverter(product.harga)}
+                  </p>
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="w-3/4 p-4">
           <div className="grid grid-cols-3 gap-5">
-            {isLoading ? (
-              <div className="text-center">Loading...</div>
+            {isLoading && topProductsLoading ? (
+              <span className="col-span-3 loading loading-dots loading-md mx-auto mt-64"></span>
             ) : (
               filteredProducts.map((product, index) => (
                 <div

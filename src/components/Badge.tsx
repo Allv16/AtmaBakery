@@ -9,7 +9,7 @@ export function TransactionStatusBadge({ status }: BadgeProps) {
         {status}
       </span>
     );
-  else if (status === "Cancelled")
+  else if (status === "Rejected")
     return (
       <span className="badge bg-red-100 text-red-950 rounded-sm px-1 font-medium text-xs">
         {status}

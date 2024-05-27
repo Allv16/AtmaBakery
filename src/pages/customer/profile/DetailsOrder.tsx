@@ -1,11 +1,8 @@
-import { NavWrapper } from "../../../components/Wrapper";
-import { getTransactionById } from "../../../lib/repository/TransactionRepository";
-import { ICustomer } from "../../../lib/interfaces/ICustomer";
-import { useState } from "react";
-import { ITransaction } from "../../../lib/interfaces/ITransaction";
-import { ITransactionDetails } from "../../../lib/interfaces/ITransactionDetails";
 import { useNavigate, useParams } from "react-router-dom";
 import { OrderDetailsCard } from "../../../components/Card/Card";
+import { NavWrapper } from "../../../components/Wrapper";
+import { ICustomer } from "../../../lib/interfaces/ICustomer";
+import { getTransactionById } from "../../../lib/repository/TransactionRepository";
 
 export default function DetailsOrder() {
   const navigate = useNavigate();
@@ -16,7 +13,7 @@ export default function DetailsOrder() {
   const { data, error, isLoading, isValidating } = getTransactionById(id!);
 
   const handleBack = () => {
-    navigate("/order-history");
+    navigate("/u/transactions");
   };
 
   return (
@@ -36,13 +33,13 @@ export default function DetailsOrder() {
               </div>
             </div>
             <a
-              href="/profile"
+              href="/u/profile"
               className="flex items-center px-3 py-2.5 font-bold bg-white text-lg"
             >
               Settings
             </a>
             <a
-              href="/order-history"
+              href="/u/transactions"
               className="flex items-center px-3 py-2.5 font-semibold text-lg"
             >
               Transactions
