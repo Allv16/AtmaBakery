@@ -97,3 +97,22 @@ export const deleteIngredient = async (id: string) => {
     toast.error("An error occurred while deleting the ingredient");
   }
 };
+
+export const getLowIngredients = () => {
+  let { data, error, isLoading, isValidating, mutate } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/low-ingredeints`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.ingredients as IIngredients[],
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
+};

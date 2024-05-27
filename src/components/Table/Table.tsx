@@ -1179,3 +1179,61 @@ export const AdminOnProcessTable = ({
     </div>
   );
 };
+
+export const LowIngredientsTable = (props: IngredientsTableProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const navigate = useNavigate();
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = props.ingredientsData.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const renderTableRows = () => {
+    return currentItems.map((item) => (
+      <tr key={item.id_bahan_baku}>
+        <td>{item.nama_bahan_baku}</td>
+        <td>{item.stok}</td>
+        <td>{item.min_stok}</td>
+      </tr>
+    ));
+  };
+
+  const handlePaginationClick = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const totalPages = Math.ceil(props.ingredientsData.length / itemsPerPage);
+  const paginationItems = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    paginationItems.push(
+      <button
+        key={i}
+        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
+          }`}
+        onClick={() => handlePaginationClick(i)}
+      >
+        {i}
+      </button>
+    );
+  }
+
+  return (
+    <div className="xl:overflow-x-hidden">
+      <table className="table table-zebra w-full mb-5">
+        <thead>
+          <tr>
+            <th>Ingredients Name</th>
+            <th>Stocks</th>
+            <th>Minimal Stocks</th>
+          </tr>
+        </thead>
+        <tbody>{renderTableRows()}</tbody>
+      </table>
+    </div>
+  );
+};
