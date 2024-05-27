@@ -1,136 +1,148 @@
+import { useNavigate, useParams } from "react-router-dom";
 import { NavWrapper } from "../../../components/Wrapper";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import {
+  getProductsById,
+  getRandomProducts,
+} from "../../../lib/repository/ProductRepository";
+import {
+  currencyConverter,
+  dateConverterISO,
+} from "../../../lib/utils/converter";
+import { addCart } from "../../../lib/repository/CartRepository";
+import { toast } from 'sonner';
 
 export default function DetailProduct() {
+  const [date, setDate] = React.useState(
+    dateConverterISO(new Date().toISOString())
+  );
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const { data, isValidating, isLoading } = getProductsById(id!, date);
+  const { data: randomProducts } = getRandomProducts();
+  const today = new Date();
+  const nextMonth = new Date(
+    today.getFullYear(),
+    today.getMonth() + 1,
+    today.getDate()
+  );
+  const todayStr = dateConverterISO(today.toISOString());
+  const nextMonthStr = dateConverterISO(nextMonth.toISOString());
+
+  const handleCardClick = (id: string) => {
+    navigate(`/detail-product/${id}`);
+  };
+
+  const [qty, setQty] = useState(0);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(e.target.value);
+  };
+
+  const inputField = {
+    tanggal_keranjang: date,
+    jumlah_item_keranjang: 0,
+    id_produk: "",
+    id_customer: "",
+  };
+
+  const handleSubmit = async () => {
+    if (qty > data.stok || qty < 1) {
+      toast.error("Cannot purchase more than available stock!");
+      return;
+    }
+    addCart(data.id_produk, qty, date);
+  };
+
   return (
     <NavWrapper>
-      <aside className="mt-20">
-        <div className="flex flex-row px-40">
-          <div className="w-1/2 p-4 pt-5">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-              alt="Product Image"
-              className="max-w-full h-full"
-            />
-          </div>
-          <div className="w-1/2 p-4 pt-5 ml-10">
-            <h1 className="text-4xl font-serif font-bold mb-4">
-              Kue Lapis Legit
-            </h1>
-            <p className="text-xl text-secondary-dark font-bold mb-4">
-              Rp 200.000
-            </p>
-            <p className="text-base mb-6">
-              Deskripsi produk ini memberikan informasi mendetail tentang fitur,
-              manfaat, dan spesifikasi produk yang ditawarkan. Ini membantu
-              pelanggan memahami apa yang mereka beli dan mengapa produk ini
-              bernilai.
-            </p>
-            <form action="">
-              <input
-                type="date"
-                className="input input-bordered w-full max-w-xs mb-4"
+      {isLoading || isValidating ? (
+        <div className="w-full py-96 flex justify-center items-center">
+          <span className="loading loading-dots loading-md"></span>
+        </div>
+      ) : (
+        <aside className="mt-20">
+          <div className="flex flex-row px-40">
+            <div className="w-1/2 p-4 pt-5">
+              <img
+                src={data.foto}
+                alt={data.nama_produk}
+                className="max-w-full h-full"
               />
-              <div className="flex flex-row items-center mb-4">
+            </div>
+            <div className="w-1/2 p-4 pt-5 ml-10">
+              <h1 className="text-4xl font-serif font-bold mb-4">
+                {data.nama_produk}
+              </h1>
+              <p className="text-xl text-secondary-dark font-bold mb-4">
+                {currencyConverter(data.harga)}
+              </p>
+              <p className="text-base mb-6">{data.deskripsi}</p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSubmit();
+                }}
+              >
                 <input
-                  type="number"
-                  placeholder="Input the purchase amount"
-                  className="input input-bordered w-full max-w-xs"
+                  type="date"
+                  className="input input-bordered w-full max-w-xs mb-4"
+                  max={nextMonthStr}
+                  min={todayStr}
+                  onChange={handleChange}
+                  value={date}
                 />
-                <p className="text-center ms-5">Stok : 5</p>
-              </div>
-              <div className="flex items-center mb-4">
-                <div className="form-control mr-4">
-                  <label className="label cursor-pointer">
-                    <input
-                      type="radio"
-                      name="radio-10"
-                      className="radio checked:bg-primary mr-2"
-                      defaultChecked
-                    />
-                    <span className="label-text">Pre-Order</span>
-                  </label>
+                <div className="flex flex-row items-center mb-4">
+                  <input
+                    type="number"
+                    placeholder="Input the purchase amount"
+                    className="input input-bordered w-full max-w-xs"
+                    value={qty}
+                    onChange={(e) => setQty(parseInt(e.target.value))}
+                    required
+                  />
+                  <p className="text-center ms-5">Stok: {data.stok}</p>
                 </div>
-                <div className="form-control">
-                  <label className="label cursor-pointer">
-                    <input
-                      type="radio"
-                      name="radio-10"
-                      className="radio checked:bg-primary mr-2"
-                      defaultChecked
-                    />
-                    <span className="label-text">Ready Stock</span>
-                  </label>
+                <div className="flex space-x-4 mt-10">
+                  <button
+                    className="btn btn-primary btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+                    type="submit"
+                  >
+                    Add to Cart
+                  </button>
                 </div>
-              </div>
-              <div className="flex space-x-4 mt-16">
-                <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg hover:bg-primary hover:text-white">
-                  Add to Chart
-                </button>
-                <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-primary text-white hover:bg-primary hover:text-white">
-                  Buy Now
-                </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
-        <div className="flex justify-center my-20 mx-44">
-          <hr className="w-full border-t-1 border-black" />
-        </div>
-        <div className="w-full px-44 my-20">
-            <h1 className="text-4xl font-serif font-bold mb-10 text-center">Related Product</h1>
+          <div className="flex justify-center my-20 mx-44">
+            <hr className="w-full border-t-1 border-black" />
+          </div>
+          <div className="w-full px-44 my-20">
+            <h1 className="text-4xl font-serif font-bold mb-10 text-center">
+              Products That You Might Like
+            </h1>
             <div className="grid grid-cols-4 gap-6">
-            <div className="card bg-base-100">
-              <figure>
-                <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body text-center bg-white">
-                <h2 className="card-title justify-center">Lapis Legit</h2>
-                <p>Rp 20.000</p>
-              </div>
+              {randomProducts?.slice(0, 4).map((product) => (
+                <div
+                  className="card bg-base-100 cursor-pointer"
+                  key={product.id_produk}
+                  onClick={() => handleCardClick(product.id_produk)}
+                >
+                  <figure>
+                    <img src={product.foto} alt={product.nama_produk} />
+                  </figure>
+                  <div className="card-body text-center bg-white">
+                    <h2 className="card-title justify-center">
+                      {product.nama_produk}
+                    </h2>
+                    <p>{currencyConverter(product.harga)}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="card bg-base-100">
-              <figure>
-                <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body text-center bg-white">
-                <h2 className="card-title justify-center">Lapis Legit</h2>
-                <p>Rp 20.000</p>
-              </div>
-            </div>
-            <div className="card bg-base-100">
-              <figure>
-                <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body text-center bg-white">
-                <h2 className="card-title justify-center">Lapis Legit</h2>
-                <p>Rp 20.000</p>
-              </div>
-            </div>
-            <div className="card bg-base-100">
-              <figure>
-                <img
-                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="Shoes"
-                />
-              </figure>
-              <div className="card-body text-center bg-white">
-                <h2 className="card-title justify-center">Lapis Legit</h2>
-                <p>Rp 20.000</p>
-              </div>
-            </div>
-            </div>
-        </div>
-      </aside>
+          </div>
+        </aside>
+      )}
     </NavWrapper>
   );
 }
