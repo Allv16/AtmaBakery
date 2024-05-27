@@ -369,16 +369,24 @@ export const InputPaymentModal = ({ data }: InputTotalPaymentModalProps) => {
             </p>
           ))}
           <hr className="border-t-2 my-2 col-span-7" />
-
-          <p className="col-span-2 mt-4">Payment Receipt</p>
-          <div className="col-span-5 mt-4 flex items-start">
-            :
-            <img
-              className="w-72 object-cover mx-auto "
-              src={data.pembayaran.bukti_pembayaran}
-              alt={data.pembayaran.id_pembayaran}
-            />
-          </div>
+          {data.pembayaran.jenis_pembayaran === "Cash" ? (
+            <>
+              <p className="col-span-2 mt-4">Payment Method</p>
+              <div className="col-span-5 mt-4 flex items-start">: Cash</div>
+            </>
+          ) : (
+            <>
+              <p className="col-span-2 mt-4">Payment Receipt</p>
+              <div className="col-span-5 mt-4 flex items-start">
+                :
+                <img
+                  className="w-72 object-cover mx-auto "
+                  src={data.pembayaran.bukti_pembayaran}
+                  alt={data.pembayaran.id_pembayaran}
+                />
+              </div>
+            </>
+          )}
           <p className="col-span-2 mt-4 font-bold">Total</p>
           <p className="col-span-5 mt-4 font-bold">
             : {currencyConverter(data.total)}
