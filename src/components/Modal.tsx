@@ -7,7 +7,6 @@ import {
   payTransaction,
 } from "../lib/repository/PaymentRepository";
 import {
-  getTransactionForMOTodo,
   updateDeliveryRange,
   updateTransactionReady,
 } from "../lib/repository/TransactionRepository";
@@ -112,8 +111,9 @@ export const InputRangeModal = ({ data }: InputRangeModalProps) => {
         </div>
 
         <label
-          className={`input input-bordered ${isError && `border-error`
-            } flex items-center gap-2`}
+          className={`input input-bordered ${
+            isError && `border-error`
+          } flex items-center gap-2`}
         >
           <input
             type="number"
@@ -399,8 +399,9 @@ export const InputPaymentModal = ({ data }: InputTotalPaymentModalProps) => {
             </span>
           </div>
           <label
-            className={`input input-bordered ${isNull && `border-error`
-              } flex items-center gap-2`}
+            className={`input input-bordered ${
+              isNull && `border-error`
+            } flex items-center gap-2`}
           >
             <p className={`${isNull || (isInvalid && `text-error`)}`}>Rp</p>
             <input
@@ -444,22 +445,17 @@ type ConfirmMOModalProps = {
 };
 
 export const ConfirmMOModal = ({ data }: ConfirmMOModalProps) => {
-  const [isNull, setIsNull] = useState<boolean>(false);
-  const [isInvalid, setIsInvalid] = useState<boolean>(false);
+  const { data: recipe, isLoading: recipeLoading } = getRecipesByManyProducts([
+    12, 13,
+  ]);
 
-  // const {
-  //   data: taskData,
-  //   isLoading: taskIsLoading,
-  //   isValidating: taskIsValidating,
-  // } = getTransactionForMOTodo();
+  console.log(recipe);
 
   const dialog = document.getElementById(
     "confirmation_mo_modal"
   )! as HTMLDialogElement;
 
-  const handleModalConfirmation = () => {
-
-  };
+  const handleModalConfirmation = () => {};
 
   const handleSubmit = () => {
     dialog.close();
@@ -508,7 +504,6 @@ export const ConfirmMOModal = ({ data }: ConfirmMOModalProps) => {
             </p>
           ))}
           <hr className="border-t-2 my-2 col-span-7" />
-
         </div>
 
         <div className="flex justify-end mt-6">

@@ -75,9 +75,12 @@ export const editRecipes = async (id: string, data: any) => {
   }
 };
 
-export const getRecipesByManyProducts = () => {
+export const getRecipesByManyProducts = (productsId: number[]) => {
+  const productsParams = productsId.join(",");
   let { data, error, isLoading, isValidating } = useSWR(
-    `${import.meta.env.VITE_BASE_API}/products-recipe`,
+    `${
+      import.meta.env.VITE_BASE_API
+    }/products-recipe?products=${productsParams}`,
     fetcher
   );
 
