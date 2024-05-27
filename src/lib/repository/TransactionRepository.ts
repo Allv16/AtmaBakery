@@ -140,3 +140,22 @@ export const getTransactionById = (id: string) => {
     mutate,
   };
 };
+
+export const getTransactionForMOTodo = () => {
+  let { data, error, isLoading, isValidating, mutate } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/transaksi-mo/todo`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.transaksi as ITransaction[],
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
+};

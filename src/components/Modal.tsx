@@ -7,11 +7,13 @@ import {
   payTransaction,
 } from "../lib/repository/PaymentRepository";
 import {
+  getTransactionForMOTodo,
   updateDeliveryRange,
   updateTransactionReady,
 } from "../lib/repository/TransactionRepository";
 import { currencyConverter, dateConverter } from "../lib/utils/converter";
 import { useNavigate } from "react-router-dom";
+import { getRecipesByManyProducts } from "../lib/repository/RecipeRepository";
 
 type InputRangeModalProps = {
   data: ITransaction;
@@ -110,9 +112,8 @@ export const InputRangeModal = ({ data }: InputRangeModalProps) => {
         </div>
 
         <label
-          className={`input input-bordered ${
-            isError && `border-error`
-          } flex items-center gap-2`}
+          className={`input input-bordered ${isError && `border-error`
+            } flex items-center gap-2`}
         >
           <input
             type="number"
@@ -398,9 +399,8 @@ export const InputPaymentModal = ({ data }: InputTotalPaymentModalProps) => {
             </span>
           </div>
           <label
-            className={`input input-bordered ${
-              isNull && `border-error`
-            } flex items-center gap-2`}
+            className={`input input-bordered ${isNull && `border-error`
+              } flex items-center gap-2`}
           >
             <p className={`${isNull || (isInvalid && `text-error`)}`}>Rp</p>
             <input
@@ -422,6 +422,95 @@ export const InputPaymentModal = ({ data }: InputTotalPaymentModalProps) => {
             <span className="text-error">Enter the correct amount.</span>
           </div>
         )}
+        <div className="flex justify-end mt-6">
+          <button
+            className="btn btn-primary w-1/4"
+            onClick={() => handleModalConfirmation()}
+          >
+            Save
+          </button>
+        </div>
+      </div>
+      <ConfirmationModal
+        onClick={handleSubmit}
+        uniqueId="total_payment_modal"
+      />
+    </dialog>
+  );
+};
+
+type ConfirmMOModalProps = {
+  data: ITransaction;
+};
+
+export const ConfirmMOModal = ({ data }: ConfirmMOModalProps) => {
+  const [isNull, setIsNull] = useState<boolean>(false);
+  const [isInvalid, setIsInvalid] = useState<boolean>(false);
+
+  // const {
+  //   data: taskData,
+  //   isLoading: taskIsLoading,
+  //   isValidating: taskIsValidating,
+  // } = getTransactionForMOTodo();
+
+  const dialog = document.getElementById(
+    "confirmation_mo_modal"
+  )! as HTMLDialogElement;
+
+  const handleModalConfirmation = () => {
+
+  };
+
+  const handleSubmit = () => {
+    dialog.close();
+    const dialog2 = document.getElementById(
+      "total_payment_modal"
+    )! as HTMLDialogElement;
+    dialog2.close();
+    const updateData = {
+      // total_pembayaran: amount!,
+      // tip: tips,
+    };
+
+    setTimeout(async () => {
+      await confirmTransaction(updateData, data.pembayaran.id_pembayaran);
+      mutate(`${import.meta.env.VITE_BASE_API}/transaksi-mo/todo`);
+    }, 300); //
+  };
+
+  return (
+    <dialog id="confirmation_mo_modal" className="modal">
+      <div className="modal-box w-1/2">
+        <form method="dialog">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            ✕
+          </button>
+        </form>
+        <h3 className="font-bold text-lg mb-4 text-center">
+          Transaction Details
+        </h3>
+        <div className="grid grid-cols-7">
+          <p className="col-span-2">Transaction ID</p>
+          <p className="col-span-5">: {data.id_transaksi}</p>
+          <p className="col-span-2">Order Date</p>
+          <p className="col-span-5">
+            : {dateConverter(data.tanggal_nota_dibuat)}
+          </p>
+          <p className="col-span-2">Due Date</p>
+          <p className="col-span-5">: {dateConverter(data.tanggal_ambil)}</p>
+          <p className="col-span-2">Customer</p>
+          <p className="col-span-5">: {data.customer.nama_customer}</p>
+          <p className="col-span-2">Orders</p>
+          <p className="col-span-5">:</p>
+          {data.detail_transaksi.map((item) => (
+            <p className="col-span-6 col-start-1 ml-3">
+              - {item.produk.nama_produk} | {item.jumlah_item} pcs
+            </p>
+          ))}
+          <hr className="border-t-2 my-2 col-span-7" />
+
+        </div>
+
         <div className="flex justify-end mt-6">
           <button
             className="btn btn-primary w-1/4"

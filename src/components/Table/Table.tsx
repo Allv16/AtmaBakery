@@ -1006,7 +1006,7 @@ type MoTaskTableProps = {
   onClick: (index: number) => void;
 };
 
-export const MOTaskTable = ({ data, onClick }: AdminTaskTableProps) => {
+export const MOTaskTable = ({ data, onClick }: MoTaskTableProps) => {
   return (
     <div className="overflow-x-hidden">
       <table className="table">

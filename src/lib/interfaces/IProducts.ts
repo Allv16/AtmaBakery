@@ -1,3 +1,5 @@
+import { IRecipe } from "./IRecipe";
+
 export type IProduct = {
   id_produk: string;
   nama_produk: string;
@@ -8,4 +10,5 @@ export type IProduct = {
   id_penitip?: string;
   foto: string;
   stok: number;
+  resep: IRecipe;
 };

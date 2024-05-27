@@ -74,3 +74,21 @@ export const editRecipes = async (id: string, data: any) => {
     console.error(error);
   }
 };
+
+export const getRecipesByManyProducts = () => {
+  let { data, error, isLoading, isValidating } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/products-recipe`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.products as IProduct[],
+    error,
+    isLoading,
+    isValidating,
+  };
+};
