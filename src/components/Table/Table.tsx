@@ -1080,6 +1080,9 @@ export const CartTable = ({
                   onClick={() =>
                     onAdd(item.id_keranjang, item.tanggal_keranjang)
                   }
+                  {...(item.jumlah_item_keranjang === item.produk.stok && {
+                    disabled: true,
+                  })}
                 >
                   <CirclePlus className="text-primary" />
                 </button>
@@ -1108,10 +1111,8 @@ export const AdminOnProcessTable = ({
         <thead className="bg-secondary-light font-bold text-sm text-black">
           <tr>
             <th>#</th>
-            <th>Order Date</th>
             <th>Due Date</th>
             <th>Customer</th>
-            <th>Total</th>
             <th></th>
           </tr>
         </thead>
@@ -1119,10 +1120,8 @@ export const AdminOnProcessTable = ({
           {data.map((item, index) => (
             <tr>
               <th>{item.id_transaksi}</th>
-              <td>{dateConverterSimple(item.tanggal_nota_dibuat)}</td>
               <td>{dateConverterSimple(item.tanggal_ambil)}</td>
               <td>{item.customer.nama_customer}</td>
-              <td>{currencyConverter(item.total)}</td>
               <td>
                 <a
                   className="btn btn-circle btn-sm bg-primary-lighter"
