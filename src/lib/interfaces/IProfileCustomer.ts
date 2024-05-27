@@ -1,3 +1,5 @@
+import { IBalance } from "./IBalance";
+
 export type IProfileCustomer = {
   id_user: string;
   id_customer: string;
@@ -6,4 +8,5 @@ export type IProfileCustomer = {
   tanggal_lahir: string;
   jenis_kelamin: string;
   poin: number;
+  saldo?: IBalance;
 };

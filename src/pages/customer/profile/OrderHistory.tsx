@@ -6,6 +6,8 @@ import { useState } from "react";
 import { ITransaction } from "../../../lib/interfaces/ITransaction";
 import { ITransactionDetails } from "../../../lib/interfaces/ITransactionDetails";
 import { Search } from "lucide-react";
+import { currencyConverter } from "../../../lib/utils/converter";
+import { getProfileCustomer } from "../../../lib/repository/ProfileRepository";
 
 export default function OrderHistory() {
   const customer = JSON.parse(localStorage.getItem("customer_id") || "{}")
@@ -13,6 +15,8 @@ export default function OrderHistory() {
   const { data, isLoading, isValidating } = getAllTransactionByIdCustomer(
     customer.id_customer
   );
+
+  const { data: profile, isLoading: profileIsLoading } = getProfileCustomer();
 
   const [search, setSearch] = useState("");
 
@@ -32,10 +36,18 @@ export default function OrderHistory() {
                 <h2 className="pl-3 text-xl font-semibold">
                   {customer.nama_customer}
                 </h2>
-                <h6 className="pl-3 text-sm font-semibold">
-                  {customer.poin}
-                  {" point"}
-                </h6>
+                {!profileIsLoading && (
+                  <>
+                    <h6 className="pl-3 text-sm font-semibold">
+                      {profile.poin}
+                      {" point"}
+                    </h6>
+                    <h6 className="pl-3 text-sm font-semibold">
+                      {currencyConverter(profile.saldo?.saldo ?? 0)}
+                      {" Balance"}
+                    </h6>
+                  </>
+                )}
               </div>
             </div>
             <a
