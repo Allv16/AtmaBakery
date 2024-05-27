@@ -73,7 +73,7 @@ const Dashboard: React.FC = () => {
   const renderModal = (data: any[], status: string) => {
     if (data.length > 0) {
       const selectedData = data[selectedTask!];
-      switch (selectedData.status_transaksi) {
+      switch (status) {
         case "Inputing Range":
           return <InputRangeModal data={selectedData} />;
         case "Paid":
@@ -94,8 +94,8 @@ const Dashboard: React.FC = () => {
           Admin Dashboard
         </h2>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-6 2xl:gap-7.5">
-        <div className="card w-full bg-white shadow-xl border col-span-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-12 2xl:gap-7.5">
+        <div className="card w-full bg-white shadow-xl border col-span-7">
           <div className="card-body p-0">
             <h2 className="card-title text-xl p-4 font-bol d">My Task</h2>
             {!taskIsLoading && !taskIsValidating ? (
@@ -115,7 +115,7 @@ const Dashboard: React.FC = () => {
             )}
           </div>
         </div>
-        <div className="col-span-3">
+        <div className="col-span-5">
           <div className="card w-full bg-white shadow-xl border h-fit">
             <div className="card-body p-0">
               <h2 className="card-title text-xl p-4 font-bol d">
@@ -150,17 +150,17 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {selectedTask !== undefined ||
-        (selectedTask !== null &&
-          taskData[selectedTask!] &&
-          renderModal(taskData, taskData[selectedTask!].status_transaksi))}
-      {selectedTask !== undefined ||
-        (selectedTask !== null &&
-          onProcessData[selectedTask!] &&
-          renderModal(
-            onProcessData,
-            onProcessData[selectedTask!].status_transaksi
-          ))}
+      {selectedTask !== null &&
+        (taskData.length > 0
+          ? renderModal(taskData, taskData[selectedTask!].status_transaksi)
+          : null)}
+      {selectedTask !== null &&
+        (onProcessData.length > 0
+          ? renderModal(
+              onProcessData,
+              onProcessData[selectedTask!].status_transaksi
+            )
+          : null)}
     </AdminWrapper>
   );
 };
