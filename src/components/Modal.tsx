@@ -12,7 +12,8 @@ import {
 } from "../lib/repository/TransactionRepository";
 import { currencyConverter, dateConverter } from "../lib/utils/converter";
 import { useNavigate } from "react-router-dom";
-import { getRecipesByManyProducts } from "../lib/repository/RecipeRepository";
+import { getRecipesByTransactions } from "../lib/repository/RecipeRepository";
+import { FileWarning, TriangleAlert } from "lucide-react";
 
 type InputRangeModalProps = {
   data: ITransaction;
@@ -445,15 +446,17 @@ type ConfirmMOModalProps = {
 };
 
 export const ConfirmMOModal = ({ data }: ConfirmMOModalProps) => {
-  const { data: recipe, isLoading: recipeLoading } = getRecipesByManyProducts([
-    12, 13,
-  ]);
-
-  console.log(recipe);
+  const { data: recipe, isLoading: recipeLoading } = getRecipesByTransactions(
+    data.id_transaksi
+  );
 
   const dialog = document.getElementById(
     "confirmation_mo_modal"
   )! as HTMLDialogElement;
+
+  const runningOutIngredients = recipe?.filter((item) => {
+    return isIngredientRunOut(item.bahan_baku.stok, item.jumlah_bahan);
+  });
 
   const handleModalConfirmation = () => {};
 
@@ -473,6 +476,9 @@ export const ConfirmMOModal = ({ data }: ConfirmMOModalProps) => {
       mutate(`${import.meta.env.VITE_BASE_API}/transaksi-mo/todo`);
     }, 300); //
   };
+  function isIngredientRunOut(stock: number, needed: number): boolean {
+    return stock < needed;
+  }
 
   return (
     <dialog id="confirmation_mo_modal" className="modal">
@@ -483,7 +489,7 @@ export const ConfirmMOModal = ({ data }: ConfirmMOModalProps) => {
           </button>
         </form>
         <h3 className="font-bold text-lg mb-4 text-center">
-          Transaction Details
+          Required Ingredients
         </h3>
         <div className="grid grid-cols-7">
           <p className="col-span-2">Transaction ID</p>
@@ -504,16 +510,57 @@ export const ConfirmMOModal = ({ data }: ConfirmMOModalProps) => {
             </p>
           ))}
           <hr className="border-t-2 my-2 col-span-7" />
+          <div className="col-span-7">
+            {recipeLoading ? (
+              <span className="loading loading-dots loading-md"></span>
+            ) : (
+              <>
+                <span className="font-bold">Detail Ingredients</span>
+                {recipe?.map((item) => (
+                  <p className="col-span-6 col-start-1 ml-3">
+                    - {item.bahan_baku.nama_bahan_baku} | {item.jumlah_bahan}{" "}
+                    {item.bahan_baku.satuan}
+                  </p>
+                ))}
+              </>
+            )}
+          </div>
+          {!recipeLoading && runningOutIngredients.length > 0 && (
+            <div className="col-span-7 mt-4">
+              <div className="flex items-center">
+                <span className="font-semibold text-warning">
+                  Insufficient Ingredients
+                </span>
+                <TriangleAlert className="text-warning ml-1" size={16} />
+              </div>
+              {runningOutIngredients?.map((item) => (
+                <p className="col-span-6 col-start-1 ml-3">
+                  {`- ${item.bahan_baku.nama_bahan_baku} in stock ${item.bahan_baku.stok} ${item.bahan_baku.satuan}`}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
-
-        <div className="flex justify-end mt-6">
-          <button
-            className="btn btn-primary w-1/4"
-            onClick={() => handleModalConfirmation()}
-          >
-            Save
-          </button>
-        </div>
+        {!recipeLoading && (
+          <div className="flex justify-evenly mt-6">
+            <button
+              className="btn w-1/3 border-1 border-red-200 bg-transparent text-red-400 hover:bg-red-200 hover:text-white"
+              onClick={() => handleModalConfirmation()}
+            >
+              Reject
+            </button>
+            <button
+              className={`btn w-1/3 ${
+                runningOutIngredients.length > 0
+                  ? `btn-disabled`
+                  : `btn-primary`
+              }`}
+              onClick={() => handleModalConfirmation()}
+            >
+              Confirm
+            </button>
+          </div>
+        )}
       </div>
       <ConfirmationModal
         onClick={handleSubmit}

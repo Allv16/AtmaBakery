@@ -2,6 +2,7 @@ import useSWR from "swr";
 import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IProduct } from "../interfaces/IProducts";
+import { IRecipe } from "../interfaces/IRecipe";
 
 export const getOwnProducts = () => {
   let { data, error, isLoading, isValidating } = useSWR(
@@ -75,12 +76,9 @@ export const editRecipes = async (id: string, data: any) => {
   }
 };
 
-export const getRecipesByManyProducts = (productsId: number[]) => {
-  const productsParams = productsId.join(",");
+export const getRecipesByTransactions = (transactionId: string) => {
   let { data, error, isLoading, isValidating } = useSWR(
-    `${
-      import.meta.env.VITE_BASE_API
-    }/products-recipe?products=${productsParams}`,
+    `${import.meta.env.VITE_BASE_API}/recipes-transactions/${transactionId}`,
     fetcher
   );
 
@@ -89,7 +87,7 @@ export const getRecipesByManyProducts = (productsId: number[]) => {
   }
 
   return {
-    data: data?.products as IProduct[],
+    data: data?.ingredients as IRecipe[],
     error,
     isLoading,
     isValidating,
