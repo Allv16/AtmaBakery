@@ -8,4 +8,5 @@ export type IProduct = {
   id_penitip?: string;
   foto: string;
   stok: number;
+  items?: [IProduct];
 };
