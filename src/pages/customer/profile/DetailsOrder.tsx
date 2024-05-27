@@ -10,7 +10,7 @@ export default function DetailsOrder() {
 
   const customer = JSON.parse(localStorage.getItem("customer_id") || "{}")
     .customer as ICustomer;
-  const { data, error, isLoading, isValidating } = getTransactionById(id!);
+  const { data, isLoading } = getTransactionById(id!);
 
   const handleBack = () => {
     navigate("/u/transactions");

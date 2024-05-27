@@ -1,13 +1,13 @@
-import { NavWrapper } from "../../../components/Wrapper";
-import { CardHistory } from "../../../components/Card/Card";
-import { getAllTransactionByIdCustomer } from "../../../lib/repository/TransactionRepository";
-import { ICustomer } from "../../../lib/interfaces/ICustomer";
+import { Search } from "lucide-react";
 import { useState } from "react";
+import { CardHistory } from "../../../components/Card/Card";
+import { NavWrapper } from "../../../components/Wrapper";
+import { ICustomer } from "../../../lib/interfaces/ICustomer";
 import { ITransaction } from "../../../lib/interfaces/ITransaction";
 import { ITransactionDetails } from "../../../lib/interfaces/ITransactionDetails";
-import { Search } from "lucide-react";
-import { currencyConverter } from "../../../lib/utils/converter";
 import { getProfileCustomer } from "../../../lib/repository/ProfileRepository";
+import { getAllTransactionByIdCustomer } from "../../../lib/repository/TransactionRepository";
+import { currencyConverter } from "../../../lib/utils/converter";
 
 export default function OrderHistory() {
   const customer = JSON.parse(localStorage.getItem("customer_id") || "{}")
