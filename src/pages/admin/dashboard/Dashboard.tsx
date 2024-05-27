@@ -157,9 +157,9 @@ const Dashboard: React.FC = () => {
       {selectedTask !== null &&
         (onProcessData.length > 0
           ? renderModal(
-              onProcessData,
-              onProcessData[selectedTask!].status_transaksi
-            )
+            onProcessData,
+            onProcessData[selectedTask!].status_transaksi
+          )
           : null)}
     </AdminWrapper>
   );

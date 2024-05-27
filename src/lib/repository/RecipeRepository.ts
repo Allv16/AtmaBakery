@@ -2,6 +2,7 @@ import useSWR from "swr";
 import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
 import { IProduct } from "../interfaces/IProducts";
+import { IRecipe } from "../interfaces/IRecipe";
 
 export const getOwnProducts = () => {
   let { data, error, isLoading, isValidating } = useSWR(
@@ -73,4 +74,22 @@ export const editRecipes = async (id: string, data: any) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const getRecipesByTransactions = (transactionId: string) => {
+  let { data, error, isLoading, isValidating } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/recipes-transactions/${transactionId}`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.ingredients as IRecipe[],
+    error,
+    isLoading,
+    isValidating,
+  };
 };

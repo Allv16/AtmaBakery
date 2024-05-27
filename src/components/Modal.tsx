@@ -8,10 +8,15 @@ import {
 } from "../lib/repository/PaymentRepository";
 import {
   updateDeliveryRange,
+  updateTransactionConfirmed,
   updateTransactionReady,
+  updateTransactionReject,
 } from "../lib/repository/TransactionRepository";
 import { currencyConverter, dateConverter } from "../lib/utils/converter";
 import { useNavigate } from "react-router-dom";
+import { getRecipesByTransactions } from "../lib/repository/RecipeRepository";
+import { FileWarning, TriangleAlert } from "lucide-react";
+import { IRecipe } from "../lib/interfaces/IRecipe";
 
 type InputRangeModalProps = {
   data: ITransaction;
@@ -442,6 +447,169 @@ export const InputPaymentModal = ({ data }: InputTotalPaymentModalProps) => {
       <ConfirmationModal
         onClick={handleSubmit}
         uniqueId="total_payment_modal"
+      />
+    </dialog>
+  );
+};
+
+type ConfirmMOModalProps = {
+  data: ITransaction;
+};
+
+export const ConfirmMOModal = ({ data }: ConfirmMOModalProps) => {
+  const { data: recipe, isLoading: recipeLoading } = getRecipesByTransactions(
+    data.id_transaksi
+  );
+
+  const dialog = document.getElementById(
+    "confirmation_mo_modal"
+  )! as HTMLDialogElement;
+
+  let runningOutIngredients: IRecipe[];
+
+  runningOutIngredients = recipe?.filter((item) => {
+    return isIngredientRunOut(item.bahan_baku.stok, item.jumlah_bahan);
+  });
+
+  const handleModalConfirmation = () => {
+    const confirmModal = document.getElementById(
+      "confirmation_modal_confirm_confirmation_mo_modal"
+    )! as HTMLDialogElement;
+    setTimeout(() => {
+      confirmModal.showModal();
+    }, 300); //
+  };
+
+  const handleModalReject = () => {
+    const confirmModal = document.getElementById(
+      "confirmation_modal_reject_confirmation_mo_modal"
+    )! as HTMLDialogElement;
+    setTimeout(() => {
+      confirmModal.showModal();
+    }, 300); //
+  };
+
+  const handleConfirmSubmit = () => {
+    dialog.close();
+    const dialog2 = document.getElementById(
+      "confirmation_modal_confirm_confirmation_mo_modal"
+    )! as HTMLDialogElement;
+    dialog2.close();
+
+    setTimeout(async () => {
+      await updateTransactionConfirmed(data.id_transaksi);
+      mutate(`${import.meta.env.VITE_BASE_API}/transaksi-mo/todo`);
+    }, 300); //
+  };
+
+  const handleRejectSubmit = () => {
+    dialog.close();
+    const dialog2 = document.getElementById(
+      "confirmation_modal_reject_confirmation_mo_modal"
+    )! as HTMLDialogElement;
+    dialog2.close();
+
+    setTimeout(async () => {
+      await updateTransactionReject(data.id_transaksi);
+      mutate(`${import.meta.env.VITE_BASE_API}/transaksi-mo/todo`);
+    }, 300); //
+  };
+
+  function isIngredientRunOut(stock: number, needed: number): boolean {
+    return stock < needed;
+  }
+
+  return (
+    <dialog id="confirmation_mo_modal" className="modal">
+      <div className="modal-box w-1/2">
+        <form method="dialog">
+          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+            ✕
+          </button>
+        </form>
+        <h3 className="font-bold text-lg mb-4 text-center">
+          Required Ingredients
+        </h3>
+        <div className="grid grid-cols-7">
+          <p className="col-span-2">Transaction ID</p>
+          <p className="col-span-5">: {data.id_transaksi}</p>
+          <p className="col-span-2">Order Date</p>
+          <p className="col-span-5">
+            : {dateConverter(data.tanggal_nota_dibuat)}
+          </p>
+          <p className="col-span-2">Due Date</p>
+          <p className="col-span-5">: {dateConverter(data.tanggal_ambil)}</p>
+          <p className="col-span-2">Customer</p>
+          <p className="col-span-5">: {data.customer.nama_customer}</p>
+          <p className="col-span-2">Orders</p>
+          <p className="col-span-5">:</p>
+          {data.detail_transaksi.map((item) => (
+            <p className="col-span-6 col-start-1 ml-3">
+              - {item.produk.nama_produk} | {item.jumlah_item} pcs
+            </p>
+          ))}
+          <hr className="border-t-2 my-2 col-span-7" />
+          <div className="col-span-7">
+            {recipeLoading ? (
+              <span className="loading loading-dots loading-md"></span>
+            ) : (
+              <>
+                <span className="font-bold">Detail Ingredients</span>
+                {recipe?.map((item) => (
+                  <p className="col-span-6 col-start-1 ml-3">
+                    - {item.bahan_baku.nama_bahan_baku} | {item.jumlah_bahan}{" "}
+                    {item.bahan_baku.satuan}
+                  </p>
+                ))}
+              </>
+            )}
+          </div>
+          {!recipeLoading && runningOutIngredients.length > 0 && (
+            <div className="col-span-7 mt-4">
+              <div className="flex items-center">
+                <span className="font-semibold text-warning">
+                  Insufficient Ingredients
+                </span>
+                <TriangleAlert className="text-warning ml-1" size={16} />
+              </div>
+              {runningOutIngredients?.map((item) => (
+                <p className="col-span-6 col-start-1 ml-3">
+                  {`- ${item.bahan_baku.nama_bahan_baku} in stock ${item.bahan_baku.stok} ${item.bahan_baku.satuan}`}
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
+        {!recipeLoading && (
+          <div className="flex justify-evenly mt-6">
+            <button
+              className="btn w-1/3 border-1 border-red-200 bg-transparent text-red-400 hover:bg-red-200 hover:text-white"
+              onClick={() => handleModalReject()}
+            >
+              Reject
+            </button>
+            <button
+              className={`btn w-1/3 ${
+                runningOutIngredients.length > 0
+                  ? `btn-disabled`
+                  : `btn-primary`
+              }`}
+              onClick={() => handleModalConfirmation()}
+            >
+              Confirm
+            </button>
+          </div>
+        )}
+      </div>
+      <ConfirmationModal
+        onClick={handleConfirmSubmit}
+        uniqueId="confirm_confirmation_mo_modal"
+        text="Are you sure want to confirm this transaction?"
+      />
+      <ConfirmationModal
+        onClick={handleRejectSubmit}
+        uniqueId="reject_confirmation_mo_modal"
+        text="Are you sure want to reject this transaction?"
       />
     </dialog>
   );
