@@ -11,6 +11,7 @@ import {
 } from "../../../lib/utils/converter";
 import { addCart } from "../../../lib/repository/CartRepository";
 import { toast } from "sonner";
+import { IProduct } from "../../../lib/interfaces/IProducts";
 
 export default function DetailProduct() {
   const [date, setDate] = React.useState(
@@ -68,17 +69,41 @@ export default function DetailProduct() {
               <img
                 src={data.foto}
                 alt={data.nama_produk}
-                className="max-w-full h-full"
+                className="w-full max-h-full"
               />
             </div>
             <div className="w-1/2 p-4 pt-5 ml-10">
               <h1 className="text-4xl font-serif font-bold mb-4">
                 {data.nama_produk}
               </h1>
-              <p className="text-xl text-secondary-dark font-bold mb-4">
+              <p className="text-xl text-secondary font-bold mb-4">
                 {currencyConverter(data.harga)}
               </p>
-              <p className="text-base mb-6">{data.deskripsi}</p>
+              <p className="text-base mb-4">{data.deskripsi}</p>
+              <div>
+                {data.nama_produk?.toLowerCase().includes("paket") && (
+                  <>
+                    <h3 className="text-lg font-semibold mb-2">Includes:</h3>
+                    {data.items?.map((item: IProduct) => (
+                      <div
+                        className="card card-side cursor-pointer"
+                        key={item.id_produk}
+                        onClick={() => handleCardClick(item.id_produk)}
+                      >
+                        <figure className="max-w-16">
+                          <img src={item.foto} alt={item.nama_produk} />
+                        </figure>
+                        <div className="card-body p-5">
+                          <h2 className="card-title text-lg">
+                            {item.nama_produk}
+                          </h2>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
+              </div>
+
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -87,7 +112,7 @@ export default function DetailProduct() {
               >
                 <input
                   type="date"
-                  className="input input-bordered w-full max-w-xs mb-4"
+                  className="input input-bordered w-full max-w-xs mb-4 mt-4"
                   max={nextMonthStr}
                   min={todayStr}
                   onChange={handleChange}
