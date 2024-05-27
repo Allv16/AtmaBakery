@@ -198,9 +198,8 @@ export const IngredientsTable = (props: IngredientsTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${
-          currentPage === i ? "btn-active" : ""
-        }`}
+        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
+          }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -369,9 +368,8 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${
-          currentPage === i ? "btn-active" : ""
-        }`}
+        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
+          }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -527,9 +525,8 @@ export const PartnerTable = (props: PartnerTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${
-          currentPage === i ? "btn-active" : ""
-        }`}
+        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
+          }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -679,9 +676,8 @@ export const IngredientPurchaseTable = (
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${
-          currentPage === i ? "btn-active" : ""
-        }`}
+        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
+          }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -830,9 +826,8 @@ export const OtherExpensesTable = (props: OtherExpensesTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${
-          currentPage === i ? "btn-active" : ""
-        }`}
+        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
+          }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -930,9 +925,8 @@ export const CustomersTable = (props: CustomersTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${
-          currentPage === i ? "btn-active" : ""
-        }`}
+        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
+          }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -965,6 +959,54 @@ type AdminTaskTableProps = {
 };
 
 export const AdminTaskTable = ({ data, onClick }: AdminTaskTableProps) => {
+  return (
+    <div className="overflow-x-hidden">
+      <table className="table">
+        {/* head */}
+        <thead className="bg-gray-200 font-bold text-sm text-black">
+          <tr>
+            <th>#</th>
+            <th>Order Date</th>
+            <th>QTY</th>
+            <th>Customer</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr>
+              <th>{item.id_transaksi}</th>
+              <td>{dateConverterSimple(item.tanggal_nota_dibuat)}</td>
+              <td>{item.detail_transaksi.length}</td>
+              <td>{item.customer.nama_customer}</td>
+              <td>{item.total}</td>
+              <td>
+                <TransactionStatusBadge status={item.status_transaksi} />
+              </td>
+              <td>
+                <a
+                  className="btn btn-circle btn-sm"
+                  onClick={() => onClick(index)}
+                >
+                  <ChevronRight size={14} />
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+type MoTaskTableProps = {
+  data: ITransaction[];
+  onClick: (index: number) => void;
+};
+
+export const MOTaskTable = ({ data, onClick }: AdminTaskTableProps) => {
   return (
     <div className="overflow-x-hidden">
       <table className="table">

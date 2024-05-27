@@ -59,6 +59,7 @@ import HowToOrder from "./pages/customer/how-to-order/HowToOrder";
 import DetailsOrder from "./pages/customer/profile/DetailsOrder";
 import Invoice from "./components/invoice/Invoice";
 import Checkout from "./pages/customer/checkout/checkout";
+import TaskOrder from "./pages/mo/customer-order/TaskOrder";
 
 export const router = createBrowserRouter([
   {
@@ -392,6 +393,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="3">
         <MOProfile />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo/task-order",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <TaskOrder />
       </ProtectedRoutes>
     ),
   },
