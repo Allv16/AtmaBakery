@@ -98,6 +98,7 @@ export const updateTransactionReady = async (id: string) => {
     if (response.status.toString().startsWith("20")) {
       toast.success("Successfully Updated Transaction Status");
       mutate(`${import.meta.env.VITE_BASE_API}/transaksi-admin/on-process`);
+      mutate(`${import.meta.env.VITE_BASE_API}/transaksi-admin/ready`);
     }
   } catch (error) {
     console.log(error);
@@ -205,4 +206,19 @@ export const getTransactionReady = () => {
     isValidating,
     mutate,
   };
+};
+
+export const updateTransactionAfterReady = async (id: string) => {
+  try {
+    const response = await axiosInstance().put(
+      `${import.meta.env.VITE_BASE_API}/transaksi-admin/after-ready/${id}`
+    );
+
+    if (response.status.toString().startsWith("20")) {
+      toast.success("Successfully Update Transaction Status");
+      mutate(`${import.meta.env.VITE_BASE_API}/transaksi-admin/ready`);
+    }
+  } catch (error) {
+    toast.error(`Failed to reject transaction: ${error}`);
+  }
 };

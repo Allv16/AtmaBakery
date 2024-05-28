@@ -4,6 +4,7 @@ import {
   DetailTransactionModal,
   InputPaymentModal,
   InputRangeModal,
+  ReadyDetailTransactionModal,
 } from "../../../components/Modal";
 import {
   AdminOnProcessTable,
@@ -60,9 +61,8 @@ const Dashboard: React.FC = () => {
         break;
     }
   };
-  const handleOpenModalOnProcess = (index: number) => {
-    console.log("index", index);
 
+  const handleOpenModalOnProcess = (index: number) => {
     setSelectedTask(index);
 
     switch (onProcessData[index].status_transaksi) {
@@ -77,6 +77,17 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  const handleOpenModalReady = (index: number) => {
+    setSelectedTask(index);
+
+    setTimeout(() => {
+      const dialog = document.getElementById(
+        "detail_transaction_ready_modal"
+      )! as HTMLDialogElement;
+      dialog.showModal();
+    }, 300); //
+  };
+
   const renderModal = (data: any, status: string) => {
     const selectedData = data;
     switch (status) {
@@ -86,6 +97,8 @@ const Dashboard: React.FC = () => {
         return <InputPaymentModal data={selectedData} />;
       case "On Process":
         return <DetailTransactionModal data={selectedData} />;
+      case "Ready":
+        return <ReadyDetailTransactionModal data={selectedData} />;
       default:
         return null;
     }
@@ -130,8 +143,9 @@ const Dashboard: React.FC = () => {
                 readyData.length > 0 ? (
                   <AdminTaskTable
                     data={readyData}
-                    onClick={handleOpenModalTodo}
+                    onClick={handleOpenModalReady}
                     bgColor="bg-primary-lighter"
+                    isReady={true}
                   />
                 ) : (
                   <div className="w-full py-8 flex justify-center items-center">
@@ -189,6 +203,13 @@ const Dashboard: React.FC = () => {
           ? renderModal(
               onProcessData[selectedTask!],
               onProcessData[selectedTask!].status_transaksi
+            )
+          : null)}
+      {selectedTask !== null &&
+        (readyData[selectedTask!] !== undefined
+          ? renderModal(
+              readyData[selectedTask!],
+              readyData[selectedTask!].status_transaksi
             )
           : null)}
     </AdminWrapper>

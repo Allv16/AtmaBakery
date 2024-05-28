@@ -4,6 +4,7 @@ import {
   CircleMinus,
   CirclePlus,
   Trash2,
+  Truck,
 } from "lucide-react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -963,12 +964,14 @@ type AdminTaskTableProps = {
   data: ITransaction[];
   onClick: (index: number) => void;
   bgColor?: string;
+  isReady?: boolean;
 };
 
 export const AdminTaskTable = ({
   data,
   onClick,
   bgColor = "bg-gray-200",
+  isReady = false,
 }: AdminTaskTableProps) => {
   return (
     <div className="overflow-x-hidden">
@@ -981,7 +984,7 @@ export const AdminTaskTable = ({
             <th>QTY</th>
             <th>Customer</th>
             <th>Total</th>
-            <th>Status</th>
+            {!isReady && <th>Status</th>}
             <th></th>
           </tr>
         </thead>
@@ -992,10 +995,12 @@ export const AdminTaskTable = ({
               <td>{dateConverterSimple(item.tanggal_nota_dibuat)}</td>
               <td>{item.detail_transaksi.length}</td>
               <td>{item.customer.nama_customer}</td>
-              <td>{item.total}</td>
-              <td>
-                <TransactionStatusBadge status={item.status_transaksi} />
-              </td>
+              <td>{currencyConverter(item.total)}</td>
+              {item.status_transaksi !== "Ready" && (
+                <td>
+                  <TransactionStatusBadge status={item.status_transaksi} />
+                </td>
+              )}
               <td>
                 <a
                   className={`btn btn-circle btn-sm ${
@@ -1005,7 +1010,11 @@ export const AdminTaskTable = ({
                   onClick={() => onClick(index)}
                 >
                   {item.status_transaksi === "Ready" ? (
-                    <Check size={14} />
+                    item.jenis_pengiriman === "Delivery" ? (
+                      <Truck size={14} />
+                    ) : (
+                      <Check size={14} />
+                    )
                   ) : (
                     <ChevronRight size={14} />
                   )}
@@ -1190,10 +1199,10 @@ export const AdminOnProcessTable = ({
               <td>{item.customer.nama_customer}</td>
               <td>
                 <a
-                  className="btn btn-circle btn-sm bg-primary-lighter"
+                  className="btn btn-circle btn-sm bg-secondary-light"
                   onClick={() => onClick(index)}
                 >
-                  <Check size={14} className="text-primary" />
+                  <Check size={14} className="text-secondary" />
                 </a>
               </td>
             </tr>

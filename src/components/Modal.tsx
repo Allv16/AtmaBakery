@@ -12,6 +12,7 @@ import {
 import { getRecipesByTransactions } from "../lib/repository/RecipeRepository";
 import {
   updateDeliveryRange,
+  updateTransactionAfterReady,
   updateTransactionConfirmed,
   updateTransactionReady,
   updateTransactionReject,
@@ -703,6 +704,106 @@ export const DetailTransactionModal = ({
         onClick={handleSubmit}
         text="Are you sure want to update this transaction to ready?"
         uniqueId="detail_transaction_modal"
+      />
+    </>
+  );
+};
+
+type ReadyDetailTransactionModalProps = {
+  data: ITransaction;
+};
+
+export const ReadyDetailTransactionModal = ({
+  data,
+}: ReadyDetailTransactionModalProps) => {
+  const handleModalConfirmation = () => {
+    setTimeout(() => {
+      const dialog = document.getElementById(
+        "confirmation_modal_detail_transaction_ready_modal"
+      )! as HTMLDialogElement;
+      dialog.showModal();
+    }, 350); //
+  };
+
+  const handleSubmit = () => {
+    const dialog = document.getElementById(
+      "confirmation_modal_detail_transaction_ready_modal"
+    )! as HTMLDialogElement;
+    dialog.close();
+    const dialog2 = document.getElementById(
+      "detail_transaction_ready_modal"
+    )! as HTMLDialogElement;
+    dialog2.close();
+
+    setTimeout(async () => {
+      await updateTransactionAfterReady(data.id_transaksi);
+    }, 400); //
+  };
+
+  return (
+    <>
+      <dialog id="detail_transaction_ready_modal" className="modal">
+        <div className="modal-box w-1/2">
+          <form method="dialog">
+            {/* if there is a button in form, it will close the modal */}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-bold text-lg mb-4 text-center">
+            Transaction Details
+          </h3>
+          <div className="grid grid-cols-7">
+            <p className="col-span-2 mb-4">Transaction ID</p>
+            <p className="col-span-5 mb-4">: {data.id_transaksi}</p>
+            <p className="col-span-2">Order Date</p>
+            <p className="col-span-5">
+              : {dateConverter(data.tanggal_nota_dibuat)}
+            </p>
+            <p className="col-span-2">Due Date</p>
+            <p className="col-span-5">: {dateConverter(data.tanggal_ambil)}</p>
+            <p className="col-span-2 mt-4">Customer</p>
+            <p className="col-span-5 mt-4">: {data.customer.nama_customer}</p>
+            <p className="col-span-2">Phone</p>
+            <p className="col-span-5">: {data.customer.no_telp}</p>
+
+            <p className="col-span-2 mt-4">Delivery Method</p>
+            <p className="col-span-5 mt-4">: {data.jenis_pengiriman}</p>
+            {data.jenis_pengiriman === "Delivery" && (
+              <>
+                <p className="col-span-2">Delivery Range</p>
+                <p className="col-span-5">
+                  {`: ${data.pengiriman.jarak_pengiriman} km`}
+                </p>
+                <p className="col-span-2">Delivery Address</p>
+                <p className="col-span-5">
+                  {`: ${data.pengiriman.alamat_tujuan}`}
+                </p>
+              </>
+            )}
+
+            <p className="col-span-2 mt-4">Total</p>
+            <p className="col-span-5 mt-4">: {currencyConverter(data.total)}</p>
+            <p className="col-span-2 mt-4">Orders</p>
+            <p className="col-span-5 mt-4">:</p>
+            {data.detail_transaksi.map((item) => (
+              <p className="col-span-6 col-start-1 ml-3">
+                - {item.produk.nama_produk} | {item.jumlah_item} pcs
+              </p>
+            ))}
+          </div>
+          <button
+            className="btn btn-primary w-full mt-4"
+            onClick={handleModalConfirmation}
+          >
+            Confirm
+          </button>
+        </div>
+      </dialog>
+      <ConfirmationModal
+        onClick={handleSubmit}
+        text="Are you sure want to confirm this transaction?"
+        uniqueId="detail_transaction_ready_modal"
       />
     </>
   );
