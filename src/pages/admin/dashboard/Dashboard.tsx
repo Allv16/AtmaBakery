@@ -70,20 +70,19 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const renderModal = (data: any[], status: string) => {
-    if (data.length > 0) {
-      const selectedData = data[selectedTask!];
-      switch (status) {
-        case "Inputing Range":
-          return <InputRangeModal data={selectedData} />;
-        case "Paid":
-          return <InputPaymentModal data={selectedData} />;
-        case "On Process":
-          return <DetailTransactionModal data={selectedData} />;
-        default:
-          return null;
-      }
+  const renderModal = (data: any, status: string) => {
+    const selectedData = data;
+    switch (status) {
+      case "Inputing Range":
+        return <InputRangeModal data={selectedData} />;
+      case "Paid":
+        return <InputPaymentModal data={selectedData} />;
+      case "On Process":
+        return <DetailTransactionModal data={selectedData} />;
+      default:
+        return null;
     }
+
     return null;
   };
 
@@ -151,15 +150,18 @@ const Dashboard: React.FC = () => {
       </div>
 
       {selectedTask !== null &&
-        (taskData.length > 0
-          ? renderModal(taskData, taskData[selectedTask!].status_transaksi)
+        (taskData[selectedTask!] !== undefined
+          ? renderModal(
+              taskData[selectedTask!],
+              taskData[selectedTask!].status_transaksi
+            )
           : null)}
       {selectedTask !== null &&
-        (onProcessData.length > 0
+        (onProcessData[selectedTask!] !== undefined
           ? renderModal(
-            onProcessData,
-            onProcessData[selectedTask!].status_transaksi
-          )
+              onProcessData[selectedTask!],
+              onProcessData[selectedTask!].status_transaksi
+            )
           : null)}
     </AdminWrapper>
   );

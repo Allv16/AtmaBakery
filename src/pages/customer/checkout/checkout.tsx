@@ -9,6 +9,7 @@ import { currencyConverter, dateConverter } from "../../../lib/utils/converter";
 import { toast } from "sonner";
 import { addTransaction } from "../../../lib/repository/TransactionRepository";
 import { useNavigate } from "react-router-dom";
+import { ConfirmationModal } from "../../../components/Modal";
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function Checkout() {
   const [points, setPoints] = useState<number>(0);
   const [paymentMethod, setPaymentMethod] = useState<string>("");
 
-  const handleCheckout = async () => {
+  const handleModalConfirmation = () => {
     if (selectedAddress === 0 && isDelivery) {
       toast.info("Please select an address");
       return;
@@ -36,7 +37,15 @@ export default function Checkout() {
       toast.info("Please select a payment method");
       return;
     }
+    setTimeout(() => {
+      const dialog = document.getElementById(
+        "confirmation_modal_checkout"
+      )! as HTMLDialogElement;
+      dialog.showModal();
+    }, 300); //
+  };
 
+  const handleCheckout = async () => {
     const data = {
       tanggal_ambil:
         localStorage.getItem("cartDate") || new Date().toISOString(),
@@ -46,6 +55,10 @@ export default function Checkout() {
       jenis_pembayaran: paymentMethod,
     };
     await addTransaction(data);
+    const dialog = document.getElementById(
+      "confirmation_modal_checkout"
+    )! as HTMLDialogElement;
+    dialog.close();
     navigate("/u/transactions");
   };
 
@@ -215,7 +228,7 @@ export default function Checkout() {
                   </div>
                   <button
                     className="btn btn-primary mt-8 w-full"
-                    onClick={handleCheckout}
+                    onClick={handleModalConfirmation}
                   >
                     Checkout
                   </button>
@@ -225,6 +238,12 @@ export default function Checkout() {
           </div>
         </div>
       </div>
+
+      <ConfirmationModal
+        onClick={handleCheckout}
+        uniqueId="checkout"
+        text="Are you sure want to checkout this cart?"
+      />
     </NavWrapper>
   );
 }
