@@ -187,3 +187,22 @@ export const updateTransactionReject = async (id: string) => {
     toast.error(`Failed to reject transaction: ${error}`);
   }
 };
+
+export const getTransactionReady = () => {
+  let { data, error, isLoading, isValidating, mutate } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/transaksi-admin/ready`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.transaksi as ITransaction[],
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
+};

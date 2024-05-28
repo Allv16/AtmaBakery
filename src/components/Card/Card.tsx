@@ -420,7 +420,7 @@ export const OrderDetailsCard = (props: CardTransactionProps) => {
             <div className="flex justify-between items-center">
               <p className="text-left text-gray-500">Destination Address</p>
               <p className="text-right text-gray-500">
-                {props.transaction.pengiriman.alamat_tujuan}
+                {props.transaction.pengiriman.alamat_tujuan ?? "-"}
               </p>
             </div>
             <div className="flex justify-between items-center">
@@ -463,7 +463,8 @@ export const OrderDetailsCard = (props: CardTransactionProps) => {
           <div className="flex justify-between items-center">
             <p className="text-left text-gray-500">Poin Used</p>
             <p className="text-right text-gray-500">
-              {props.transaction.poin_digunakan} points ( - {currencyConverter(props.transaction.poin_digunakan *100)})
+              {props.transaction.poin_digunakan} points ( -{" "}
+              {currencyConverter(props.transaction.poin_digunakan * 100)})
             </p>
           </div>
           <hr className="my-1 border-t-[1px]" />

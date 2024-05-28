@@ -104,7 +104,10 @@ export const InputRangeModal = ({ data }: InputRangeModalProps) => {
           <p className="col-span-5 mt-4">: {currencyConverter(data.total)}</p>
           <p className="col-span-2 font-bold">Address</p>
           <p className="col-span-5 font-bold">
-            : {data.pengiriman.alamat_tujuan}
+            :{" "}
+            {data.pengiriman.alamat_tujuan
+              ? data.pengiriman.alamat_tujuan
+              : "-"}
           </p>
         </div>
 

@@ -13,6 +13,7 @@ import { AdminWrapper } from "../../../components/Wrapper";
 import {
   getAllTransactionAdminToDo,
   getOnProcessTransaction,
+  getTransactionReady,
 } from "../../../lib/repository/TransactionRepository";
 
 const Dashboard: React.FC = () => {
@@ -27,6 +28,12 @@ const Dashboard: React.FC = () => {
     isLoading: onProcessIsLoading,
     isValidating: onProcessIsValidating,
   } = getOnProcessTransaction();
+
+  const {
+    data: readyData,
+    isLoading: readyIsLoading,
+    isValidating: readyIsValidating,
+  } = getTransactionReady();
 
   const [selectedTask, setSelectedTask] = useState<number | null>(null);
 
@@ -82,8 +89,6 @@ const Dashboard: React.FC = () => {
       default:
         return null;
     }
-
-    return null;
   };
 
   return (
@@ -93,28 +98,57 @@ const Dashboard: React.FC = () => {
           Admin Dashboard
         </h2>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-12 2xl:gap-7.5">
-        <div className="card w-full bg-white shadow-xl border col-span-7">
-          <div className="card-body p-0">
-            <h2 className="card-title text-xl p-4 font-bol d">My Task</h2>
-            {!taskIsLoading && !taskIsValidating ? (
-              taskData.length > 0 ? (
-                <AdminTaskTable data={taskData} onClick={handleOpenModalTodo} />
+      <div className="flex w-full">
+        <div className="flex-col w-7/12 mr-4">
+          <div className="card bg-white shadow-xl border w-full">
+            <div className="card-body p-0">
+              <h2 className="card-title text-xl p-4 font-bold">My Task</h2>
+              {!taskIsLoading && !taskIsValidating ? (
+                taskData.length > 0 ? (
+                  <AdminTaskTable
+                    data={taskData}
+                    onClick={handleOpenModalTodo}
+                  />
+                ) : (
+                  <div className="w-full py-8 flex justify-center items-center">
+                    <p className="text-center text-gray-400">
+                      There is no task available
+                    </p>
+                  </div>
+                )
               ) : (
                 <div className="w-full py-8 flex justify-center items-center">
-                  <p className="text-center text-gray-400">
-                    There is no task available
-                  </p>
+                  <span className="loading loading-dots loading-md"></span>
                 </div>
-              )
-            ) : (
-              <div className="w-full py-8 flex justify-center items-center">
-                <span className="loading loading-dots loading-md"></span>
-              </div>
-            )}
+              )}
+            </div>
+          </div>
+          <div className="card bg-white shadow-xl border w-full mt-4">
+            <div className="card-body p-0">
+              <h2 className="card-title text-xl p-4 font-bold">Order Ready</h2>
+              {!readyIsLoading && !readyIsValidating ? (
+                readyData.length > 0 ? (
+                  <AdminTaskTable
+                    data={readyData}
+                    onClick={handleOpenModalTodo}
+                    bgColor="bg-primary-lighter"
+                  />
+                ) : (
+                  <div className="w-full py-8 flex justify-center items-center">
+                    <p className="text-center text-gray-400">
+                      There is no order that is ready
+                    </p>
+                  </div>
+                )
+              ) : (
+                <div className="w-full py-8 flex justify-center items-center">
+                  <span className="loading loading-dots loading-md"></span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-        <div className="col-span-5">
+        <div className="flex-col w-5/12">
           <div className="card w-full bg-white shadow-xl border h-fit">
             <div className="card-body p-0">
               <h2 className="card-title text-xl p-4 font-bol d">
@@ -140,12 +174,6 @@ const Dashboard: React.FC = () => {
               )}
             </div>
           </div>
-          {/* <div className="card w-[540px] bg-white shadow-xl border h-fit">
-            <div className="card-body p-0">
-              <h2 className="card-title text-xl p-4 font-bol d">My Task</h2>
-              <AdminOnProcessTable />
-            </div>
-          </div> */}
         </div>
       </div>
 

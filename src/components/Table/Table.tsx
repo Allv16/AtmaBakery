@@ -198,8 +198,9 @@ export const IngredientsTable = (props: IngredientsTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
-          }`}
+        className={`join-item btn btn-sm justify ${
+          currentPage === i ? "btn-active" : ""
+        }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -368,8 +369,9 @@ export const EmployeeTable = (props: EmployeeTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
-          }`}
+        className={`join-item btn btn-sm justify ${
+          currentPage === i ? "btn-active" : ""
+        }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -525,8 +527,9 @@ export const PartnerTable = (props: PartnerTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
-          }`}
+        className={`join-item btn btn-sm justify ${
+          currentPage === i ? "btn-active" : ""
+        }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -676,8 +679,9 @@ export const IngredientPurchaseTable = (
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
-          }`}
+        className={`join-item btn btn-sm justify ${
+          currentPage === i ? "btn-active" : ""
+        }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -826,8 +830,9 @@ export const OtherExpensesTable = (props: OtherExpensesTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
-          }`}
+        className={`join-item btn btn-sm justify ${
+          currentPage === i ? "btn-active" : ""
+        }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -925,8 +930,9 @@ export const CustomersTable = (props: CustomersTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
-          }`}
+        className={`join-item btn btn-sm justify ${
+          currentPage === i ? "btn-active" : ""
+        }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -956,14 +962,19 @@ export const CustomersTable = (props: CustomersTableProps) => {
 type AdminTaskTableProps = {
   data: ITransaction[];
   onClick: (index: number) => void;
+  bgColor?: string;
 };
 
-export const AdminTaskTable = ({ data, onClick }: AdminTaskTableProps) => {
+export const AdminTaskTable = ({
+  data,
+  onClick,
+  bgColor = "bg-gray-200",
+}: AdminTaskTableProps) => {
   return (
     <div className="overflow-x-hidden">
       <table className="table">
         {/* head */}
-        <thead className="bg-gray-200 font-bold text-sm text-black">
+        <thead className={`${bgColor} font-bold text-sm text-black`}>
           <tr>
             <th>#</th>
             <th>Order Date</th>
@@ -987,10 +998,17 @@ export const AdminTaskTable = ({ data, onClick }: AdminTaskTableProps) => {
               </td>
               <td>
                 <a
-                  className="btn btn-circle btn-sm"
+                  className={`btn btn-circle btn-sm ${
+                    item.status_transaksi === "Ready" &&
+                    "text-primary bg-primary-lighter"
+                  }`}
                   onClick={() => onClick(index)}
                 >
-                  <ChevronRight size={14} />
+                  {item.status_transaksi === "Ready" ? (
+                    <Check size={14} />
+                  ) : (
+                    <ChevronRight size={14} />
+                  )}
                 </a>
               </td>
             </tr>
@@ -1219,8 +1237,9 @@ export const LowIngredientsTable = (props: IngredientsTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
-          }`}
+        className={`join-item btn btn-sm justify ${
+          currentPage === i ? "btn-active" : ""
+        }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}

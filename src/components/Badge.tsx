@@ -3,7 +3,7 @@ type BadgeProps = {
 };
 
 export function TransactionStatusBadge({ status }: BadgeProps) {
-  if (status === "Completed")
+  if (status === "Completed" || status === "Ready")
     return (
       <span className="badge bg-primary-lighter text-primary rounded-sm px-1 font-medium text-xs">
         {status}
