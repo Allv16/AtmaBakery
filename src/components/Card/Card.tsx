@@ -442,28 +442,35 @@ export const OrderDetailsCard = (props: CardTransactionProps) => {
           <div className="flex justify-between items-center">
             <p className="text-left text-gray-500">Total Order</p>
             <p className="text-right text-gray-500">
-              {currencyConverter(props.transaction.total)}
+              {currencyConverter(
+                props.transaction.detail_transaksi.reduce(
+                  (total, item) => total + item.produk.harga * item.jumlah_item,
+                  0
+                )
+              )}
             </p>
           </div>
           {props.transaction && props.transaction.pengiriman && (
             <div className="flex justify-between items-center">
               <p className="text-left text-gray-500">Delivery Cost</p>
               <p className="text-right text-gray-500">
-                {props.transaction.pengiriman.biaya_pengiriman}
+                {currencyConverter(
+                  props.transaction.pengiriman.biaya_pengiriman
+                )}
               </p>
             </div>
           )}
           <div className="flex justify-between items-center">
             <p className="text-left text-gray-500">Poin Used</p>
             <p className="text-right text-gray-500">
-              {props.transaction.poin_digunakan}
+              {props.transaction.poin_digunakan} points ( - {currencyConverter(props.transaction.poin_digunakan *100)})
             </p>
           </div>
           <hr className="my-1 border-t-[1px]" />
           <div className="flex justify-between items-center">
             <p className="text-left  font-bold">Total</p>
             <p className="text-right text-gray-500">
-              {currencyConverter(props.transaction.pembayaran.total_pembayaran)}
+              {currencyConverter(props.transaction.total)}
             </p>
           </div>
           {props.transaction &&
