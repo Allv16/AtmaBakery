@@ -4,6 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 // import SidebarLinkGroup from './SidebarLinkGroup';
 
 import Logo from "../../assets/images/kitchen.svg";
+import { FileMinus2 } from "lucide-react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -58,8 +59,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   return (
     <aside
       ref={sidebar}
-      className={`absolute left-0 top-0 z-9999 flex h-screen w-72 flex-col overflow-y-hidden bg-sidebar duration-300 ease-linear lg:static lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-72 flex-col overflow-y-hidden bg-sidebar duration-300 ease-linear lg:static lg:translate-x-0 ${
+        sidebarOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-6 lg:py-6.5">
@@ -105,8 +107,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <NavLink
                   to="/mo/dashboard"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-white duration-300 ease-in-out hover:bg-graydark ${pathname.includes("mo/dashboard") && "bg-graydark"
-                    }`}
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-white duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes("mo/dashboard") && "bg-graydark"
+                  }`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -141,8 +144,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <NavLink
                   to="/mo/employee"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes("employee") && "bg-graydark"
-                    }`}
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes("employee") && "bg-graydark"
+                  }`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -170,8 +174,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <NavLink
                   to="/mo/partner"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes("partner") && "bg-graydark"
-                    }`}
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes("partner") && "bg-graydark"
+                  }`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -198,8 +203,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <NavLink
                   to="/mo/job-title"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes("job-title") && "bg-graydark"
-                    }`}
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes("job-title") && "bg-graydark"
+                  }`}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -252,8 +258,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <NavLink
                 to="/mo/ingredient-purchase"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes("purchase") && "bg-graydark"
-                  }`}
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                  pathname.includes("purchase") && "bg-graydark"
+                }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -280,8 +287,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <NavLink
                 to="/mo/other-expenses"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes("expenses") && "bg-graydark"
-                  }`}
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                  pathname.includes("expenses") && "bg-graydark"
+                }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -315,8 +323,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <NavLink
                 to="/mo/task-order"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes("order") && "bg-graydark"
-                  }`}
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                  pathname.includes("order") && "bg-graydark"
+                }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -330,8 +339,33 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   stroke-linejoin="round"
                   className="lucide lucide-calendar-check"
                 >
-                  <path d="M8 2v4" /><path d="M16 2v4" /><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M3 10h18" /><path d="m9 16 2 2 4-4" /></svg>
+                  <path d="M8 2v4" />
+                  <path d="M16 2v4" />
+                  <rect width="18" height="18" x="3" y="4" rx="2" />
+                  <path d="M3 10h18" />
+                  <path d="m9 16 2 2 4-4" />
+                </svg>
                 Customer Orders
+              </NavLink>
+            </li>
+            {/* <!-- /Ingredient --> */}
+          </ul>
+          <div>
+            <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
+              REPORT
+            </h3>
+          </div>
+          <ul className="mb-6 flex flex-col gap-1.5">
+            {/* <!-- Order --> */}
+            <li>
+              <NavLink
+                to="/mo/report/ingredients-usage"
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                  pathname.includes("ingredients-usage") && "bg-graydark"
+                }`}
+              >
+                <FileMinus2 size={18} />
+                Ingredients Usage
               </NavLink>
             </li>
             {/* <!-- /Ingredient --> */}
