@@ -222,3 +222,25 @@ export const updateTransactionAfterReady = async (id: string) => {
     toast.error(`Failed to reject transaction: ${error}`);
   }
 };
+
+export const updateTransactionCompleted = async (id: string) => {
+  try {
+    const response = await axiosInstance().put(
+      `${import.meta.env.VITE_BASE_API}/transaksi/completed/${id}`
+    );
+
+    if (response.status.toString().startsWith("20")) {
+      toast.success(
+        "Successfully completed the transaction, Thank you for shopping with us"
+      );
+      mutate(`${import.meta.env.VITE_BASE_API}/transaksi/id/${id}`);
+      mutate(
+        `${import.meta.env.VITE_BASE_API}/transaksi/${localStorage.getItem(
+          "customer_id"
+        )}`
+      );
+    }
+  } catch (error) {
+    toast.error(`Failed to confirm transaction: ${error}`);
+  }
+};
