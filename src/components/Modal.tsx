@@ -646,7 +646,11 @@ export const DetailTransactionModal = ({
     dialog2.close();
 
     setTimeout(async () => {
-      await updateTransactionReady(data.id_transaksi);
+      await updateTransactionReady(
+        data.id_transaksi,
+        data.customer.id_customer,
+        data.jenis_pengiriman
+      );
     }, 400); //
   };
 

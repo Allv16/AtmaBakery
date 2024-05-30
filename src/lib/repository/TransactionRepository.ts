@@ -89,14 +89,37 @@ export const getOnProcessTransaction = () => {
   };
 };
 
-export const updateTransactionReady = async (id: string) => {
+export const updateTransactionReady = async (
+  id: string,
+  idCustomer: string,
+  deliveryMethod: string
+) => {
+  switch (deliveryMethod) {
+    case "Delivery":
+      deliveryMethod = "delivered";
+      break;
+    case "Pickup":
+      deliveryMethod = "picked up";
+      break;
+    default:
+      deliveryMethod = "delivered or picked up";
+      break;
+  }
   try {
     const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/transaksi/ready/${id}`
     );
 
     if (response.status.toString().startsWith("20")) {
+      //Send Notificatoin
       toast.success("Successfully Updated Transaction Status");
+      await axiosInstance().post(
+        `${import.meta.env.VITE_BASE_API}/notification/send/${idCustomer}`,
+        {
+          header: "Order Ready",
+          message: `Your order is ready to be ${deliveryMethod}`,
+        }
+      );
       mutate(`${import.meta.env.VITE_BASE_API}/transaksi-admin/on-process`);
       mutate(`${import.meta.env.VITE_BASE_API}/transaksi-admin/ready`);
     }
