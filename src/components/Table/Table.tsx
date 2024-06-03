@@ -1483,6 +1483,13 @@ export const PartnerReportTable = (props: PartnerReportTableProps) => {
     );
   }
 
+  const totalReceived = currentItems.reduce((acc, item) => {
+    const total = item.harga * item.sold;
+    const komisi = total * 0.2;
+    const diterima = total - komisi;
+    return acc + diterima;
+  }, 0);
+
   return (
     <div className="">
       <table className="table table-zebra w-full mb-5">
@@ -1496,7 +1503,12 @@ export const PartnerReportTable = (props: PartnerReportTableProps) => {
             <th>Total Received</th>
           </tr>
         </thead>
-        <tbody>{renderTableRows()}</tbody>
+        <tbody>{renderTableRows()}
+          <tr>
+            <td colSpan={5} className="text-end font-bold">Total</td>
+            <td className="font-bold">{currencyConverter(totalReceived)}</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   );
