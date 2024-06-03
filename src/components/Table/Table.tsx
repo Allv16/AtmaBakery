@@ -23,6 +23,7 @@ import { deleteOtherExpenses } from "../../lib/repository/OtherExpensesRepositor
 import { deletePartner } from "../../lib/repository/PartnerRepository";
 import {
   currencyConverter,
+  dateConverter,
   dateConverterSimple,
   numbertoMonthConverter,
 } from "../../lib/utils/converter";
@@ -32,6 +33,7 @@ import { ISalesReport } from "../../lib/interfaces/ISalesReport";
 import { IIncomeExpenseReport } from "../../lib/interfaces/IIncomeExpenseReport";
 import { IPartnerProduct } from "../../lib/interfaces/IPartnerProduct";
 import { IAttendanceReport } from "../../lib/interfaces/IAttendanceReport";
+import { it } from "date-fns/locale";
 
 type IngredientsTableProps = {
   ingredientsData: IIngredients[];
@@ -1133,7 +1135,6 @@ export const MORejectTable = ({ data }: MoTaskTableProps) => {
   );
 };
 
-
 type CartTableProps = {
   cartData: ICart[];
   onAdd: (id: number, date: string) => void;
@@ -1395,7 +1396,11 @@ export const SalesReportTable = (props: SalesReportTableProps) => {
   const renderTableRows = () => {
     return currentItems.map((item, index) => (
       <tr>
-        <td>{numbertoMonthConverter(index + 1).toLocaleString('default', { month: 'long' })}</td>
+        <td>
+          {numbertoMonthConverter(index + 1).toLocaleString("default", {
+            month: "long",
+          })}
+        </td>
         <td>{item.transaction_count}</td>
         <td>{currencyConverter(item.total_sales)}</td>
       </tr>
@@ -1413,8 +1418,9 @@ export const SalesReportTable = (props: SalesReportTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
-          }`}
+        className={`join-item btn btn-sm justify ${
+          currentPage === i ? "btn-active" : ""
+        }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -1538,8 +1544,9 @@ export const PartnerReportTable = (props: PartnerReportTableProps) => {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
-          }`}
+        className={`join-item btn btn-sm justify ${
+          currentPage === i ? "btn-active" : ""
+        }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -1597,15 +1604,18 @@ export const AttendanceReportTable = (props: AttendanceReportTableProps) => {
     setCurrentPage(page);
   };
 
-  const totalPages = Math.ceil(props.attendanceReportData.length / itemsPerPage);
+  const totalPages = Math.ceil(
+    props.attendanceReportData.length / itemsPerPage
+  );
   const paginationItems = [];
 
   for (let i = 1; i <= totalPages; i++) {
     paginationItems.push(
       <button
         key={i}
-        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
-          }`}
+        className={`join-item btn btn-sm justify ${
+          currentPage === i ? "btn-active" : ""
+        }`}
         onClick={() => handlePaginationClick(i)}
       >
         {i}
@@ -1632,3 +1642,39 @@ export const AttendanceReportTable = (props: AttendanceReportTableProps) => {
   );
 };
 
+type ICancleOrderProps = {
+  data: ITransaction[];
+};
+
+export const CancelledOrderTable = ({ data }: ICancleOrderProps) => {
+  return (
+    <div className="">
+      <table className="table table-zebra w-full mb-5">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Customer</th>
+            <th>Order Date</th>
+            <th>Due Date</th>
+            <th>Total Payment</th>
+            <th>Poin Earned</th>
+            <th>Poin Used</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.id_transaksi}>
+              <td>{item.id_transaksi}</td>
+              <td>{item.customer.nama_customer}</td>
+              <td>{dateConverter(item.tanggal_nota_dibuat)}</td>
+              <td>{dateConverter(item.tanggal_ambil)}</td>
+              <td>{currencyConverter(item.pembayaran.total_pembayaran)}</td>
+              <td>{item.poin_diperoleh}</td>
+              <td>{item.poin_digunakan}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};

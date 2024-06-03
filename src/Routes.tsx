@@ -65,6 +65,7 @@ import RejectOrder from "./pages/mo/customer-order/RejectOrder";
 import ConfirmedOrder from "./pages/mo/customer-order/ConfirmedOrder";
 import RefundCustomer from "./pages/admin/refund-customer/RefundCustomer";
 import PartnerReport from "./pages/mo/partner-report/PartnerReport";
+import CancelledOrder from "./pages/admin/cancelled-order/CancelledOrder";
 
 export const router = createBrowserRouter([
   {
@@ -398,6 +399,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="2">
         <AdminProfile />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/admin/cancelled-order",
+    element: (
+      <ProtectedRoutes role_id="2">
+        <CancelledOrder />
       </ProtectedRoutes>
     ),
   },

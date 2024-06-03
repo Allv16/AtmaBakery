@@ -320,3 +320,37 @@ export const updateTransactionCompleted = async (id: string) => {
     toast.error(`Failed to confirm transaction: ${error}`);
   }
 };
+
+export const getTransactionCancelled = () => {
+  let { data, error, isLoading, isValidating, mutate } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/transaksi-cancelled`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.transaksi as ITransaction[],
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
+};
+
+export const cancelledOrders = async () => {
+  try {
+    const response = await axiosInstance().put(
+      `${import.meta.env.VITE_BASE_API}/transaksi/cancelled`
+    );
+
+    if (response.status.toString().startsWith("20")) {
+      toast.success("Successfully cancelled all late payment transaction");
+      mutate(`${import.meta.env.VITE_BASE_API}/transaksi-cancelled`);
+    }
+  } catch (error) {
+    toast.error(`Failed to confirm transaction: ${error}`);
+  }
+};

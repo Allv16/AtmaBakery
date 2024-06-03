@@ -324,7 +324,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <NavLink
                 to="/mo/task-order"
                 className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
-                  pathname.includes("order") && "bg-graydark"
+                  pathname.includes("task-order") && "bg-graydark"
                 }`}
               >
                 <svg
@@ -348,40 +348,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 Customer Orders
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/mo/reject-order"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
-                  pathname.includes("reject") && "bg-graydark"
-                }`}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  className="lucide lucide-calendar-check"
-                >
-                  <path d="M8 2v4" />
-                  <path d="M16 2v4" />
-                  <rect width="18" height="18" x="3" y="4" rx="2" />
-                  <path d="M3 10h18" />
-                  <path d="m9 16 2 2 4-4" />
-                </svg>
-                Reject Orders
-              </NavLink>
-            </li>
+
             {/* <!-- /Ingredient --> */}
             <li>
               <NavLink
                 to="/mo/confirmed-order"
                 className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
-                  pathname.includes("confirmed") && "bg-graydark"
+                  pathname.includes("confirmed-order") && "bg-graydark"
                 }`}
               >
                 <svg
@@ -428,8 +401,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             <li>
               <NavLink
                 to="/mo/report"
-                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${pathname.includes("report") && "bg-graydark"
-                  }`}
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                  pathname.includes("report") && "bg-graydark"
+                }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -443,7 +417,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   stroke-linejoin="round"
                   className="lucide lucide-badge-euro"
                 >
-                  <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="M7 12h5" /><path d="M15 9.4a4 4 0 1 0 0 5.2" /></svg>
+                  <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                  <path d="M7 12h5" />
+                  <path d="M15 9.4a4 4 0 1 0 0 5.2" />
+                </svg>
                 Partner Report
               </NavLink>
             </li>
