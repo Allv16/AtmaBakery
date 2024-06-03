@@ -61,6 +61,8 @@ import Invoice from "./components/invoice/Invoice";
 import Checkout from "./pages/customer/checkout/checkout";
 import TaskOrder from "./pages/mo/customer-order/TaskOrder";
 import IngredientsUsage from "./pages/mo/ingredients-usage/IngredientsUsage";
+import RejectOrder from "./pages/mo/customer-order/RejectOrder";
+import ConfirmedOrder from "./pages/mo/customer-order/ConfirmedOrder";
 
 export const router = createBrowserRouter([
   {
@@ -413,6 +415,23 @@ export const router = createBrowserRouter([
       </ProtectedRoutes>
     ),
   },
+  {
+    path: "/mo/reject-order",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <RejectOrder />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo/confirmed-order",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <ConfirmedOrder />
+      </ProtectedRoutes>
+    ),
+  },
+
   /*
  
   

@@ -46,15 +46,18 @@ export default function Checkout() {
   };
 
   const handleCheckout = async () => {
-    const data = {
+    const dataSend = {
       tanggal_ambil:
         localStorage.getItem("cartDate") || new Date().toISOString(),
       poin_digunakan: points,
       jenis_pengiriman: isDelivery ? "Delivery" : "Pickup",
       id_customer: customerData.id_customer,
       jenis_pembayaran: paymentMethod,
+      alamat_tujuan: data.find(
+        (address) => address.id_alamat === selectedAddress
+      )?.alamat,
     };
-    await addTransaction(data);
+    await addTransaction(dataSend);
     const dialog = document.getElementById(
       "confirmation_modal_checkout"
     )! as HTMLDialogElement;

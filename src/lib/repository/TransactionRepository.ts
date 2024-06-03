@@ -89,6 +89,26 @@ export const getOnProcessTransaction = () => {
   };
 };
 
+export const getOnProcessTransactionToday = () => {
+  let { data, error, isLoading, isValidating, mutate } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/transaksi-mo/on-process-today`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+    console.log(error);
+  }
+
+  return {
+    data: data?.transaksi as ITransaction[],
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
+};
+
 export const updateTransactionReady = async (
   id: string,
   idCustomer: string,
@@ -184,10 +204,43 @@ export const getTransactionForMOTodo = () => {
   };
 };
 
+export const getTransactionRejectedByMO = () => {
+  let { data, error, isLoading, isValidating, mutate } = useSWR(
+    `${import.meta.env.VITE_BASE_API}/transaksi-mo/reject`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+  }
+
+  return {
+    data: data?.transaksi as ITransaction[],
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
+};
+
 export const updateTransactionConfirmed = async (id: string) => {
   try {
     const response = await axiosInstance().put(
       `${import.meta.env.VITE_BASE_API}/transaksi-mo/accept/${id}`
+    );
+
+    if (response.status.toString().startsWith("20")) {
+      toast.success("Successfully Confirm Transaction");
+    }
+  } catch (error) {
+    toast.error(`Failed to confirm transaction: ${error}`);
+  }
+};
+
+export const updateTransactionOnProcess = async (id: string) => {
+  try {
+    const response = await axiosInstance().put(
+      `${import.meta.env.VITE_BASE_API}/transaksi-mo/on-process/${id}`
     );
 
     if (response.status.toString().startsWith("20")) {
