@@ -80,75 +80,81 @@ const DashboardOwner: React.FC = () => {
                 </div>
                 <div className=" gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-12 2xl:gap-7.5">
                     <div className="card w-full bg-white shadow-xl border col-span-7">
-                        {isLoading && (
-                            <div className="w-full mt-64 flex justify-center items-center">
-                                <span className="loading loading-dots loading-md"></span>
-                            </div>
-                        )}
-                        {error && <div>Error</div>}
-                        {data && (
-                            <div ref={componentRef}>
-                                <div className="card-body p-0">
-                                    <div className="p-4 flex justify-between items-center">
-                                        <div>
-                                            <h2 className="card-title text-xl font-bold">Sales Report</h2>
-                                            <div className="flex items-center mt-2">
-                                                <span className="mr-2">Year:</span>
-                                                <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '2px' }}>
-                                                    <DatePicker
-                                                        selected={new Date(parseInt(selectedYear), 0)}
-                                                        onChange={handleYearChange}
-                                                        dateFormat="yyyy"
-                                                        showYearPicker
-                                                        renderCustomHeader={({ date }) => (
-                                                            <div>
-                                                                <span>{date.getFullYear()}</span>
-                                                            </div>
-                                                        )}
-                                                        renderYearContent={renderYearContent}
-                                                    />
+                        {!isLoading && !isValidating ? (
+                            data.length > 0 ? (
+                                <div ref={componentRef}>
+                                    <div className="card-body p-0">
+                                        <div className="p-4 flex justify-between items-center">
+                                            <div>
+                                                <h2 className="card-title text-xl font-bold">Sales Report</h2>
+                                                <div className="flex items-center mt-2">
+                                                    <span className="mr-2">Year:</span>
+                                                    <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '2px' }}>
+                                                        <DatePicker
+                                                            selected={new Date(parseInt(selectedYear), 0)}
+                                                            onChange={handleYearChange}
+                                                            dateFormat="yyyy"
+                                                            showYearPicker
+                                                            renderCustomHeader={({ date }) => (
+                                                                <div>
+                                                                    <span>{date.getFullYear()}</span>
+                                                                </div>
+                                                            )}
+                                                            renderYearContent={renderYearContent}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <ReactToPrint
-                                            trigger={() => (
-                                                <button
-                                                    className="btn mt-3 ml-auto flex items-center btn-primary no-print"
-                                                >
-                                                    {" "}
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="22"
-                                                        height="22"
-                                                        viewBox="0 0 24 24"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        strokeWidth="2"
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        className="lucide lucide-printer mr-2"
+                                            <ReactToPrint
+                                                trigger={() => (
+                                                    <button
+                                                        className="btn mt-3 ml-auto flex items-center btn-primary no-print"
                                                     >
-                                                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                                                        <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
-                                                        <rect x="6" y="14" width="12" height="8" rx="1" />
-                                                    </svg>
-                                                </button>
-                                            )}
-                                            content={() => componentRef.current}
-                                        />
-                                    </div>
-                                    <p className="ml-5">Tanggal Cetak : {getCurrentDate()}</p>
-                                    <div className="flex flex-col bg-white shadow-md rounded-lg p-4">
-                                        <div className="flex flex-row gap-5">
-                                            <div className="w-1/2 p-2">
-                                                <SalesReportTable salesReportData={data} />
-                                            </div>
-                                            <div className="w-full p-2">
-                                                <Chart data={data} />
+                                                        {" "}
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            width="22"
+                                                            height="22"
+                                                            viewBox="0 0 24 24"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            strokeWidth="2"
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            className="lucide lucide-printer mr-2"
+                                                        >
+                                                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                                                            <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
+                                                            <rect x="6" y="14" width="12" height="8" rx="1" />
+                                                        </svg>
+                                                    </button>
+                                                )}
+                                                content={() => componentRef.current}
+                                            />
+                                        </div>
+                                        <p className="ml-5">Tanggal Cetak : {getCurrentDate()}</p>
+                                        <div className="flex flex-col bg-white shadow-md rounded-lg p-4">
+                                            <div className="flex flex-row gap-5">
+                                                <div className="w-1/2 p-2">
+                                                    <SalesReportTable salesReportData={data} />
+                                                </div>
+                                                <div className="w-full p-2">
+                                                    <Chart data={data} />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            ) : (
+                                <div className="w-full py-8 flex justify-center items-center">
+                                    <p className="text-center text-gray-400">
+                                        There is no data
+                                    </p>
+                                </div>
+                            )
+                        ) : (
+                            <div className="w-full py-8 flex justify-center items-center">
+                                <span className="loading loading-dots loading-md"></span>
                             </div>
                         )}
                     </div>
@@ -159,55 +165,61 @@ const DashboardOwner: React.FC = () => {
                             <div ref={componentRef3}>
                                 <div className="p-4">
                                     <h2 className="card-title text-xl font-bold p-2">Attendance Report</h2>
-                                    {attendanceIsLoading && (
-                                        <div className="w-full mt-64 flex justify-center items-center">
-                                            <span className="loading loading-dots loading-md"></span>
-                                        </div>
-                                    )}
-                                    {error && <div>Error</div>}
-                                    {attendanceData && (
-                                        <div className="flex flex-col mt-2">
-                                            <div className="flex items-center">
-                                                <span className="mr-2">Interval:</span>
-                                                <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '2px' }}>
-                                                    <DatePicker
-                                                        selected={startDate}
-                                                        onChange={handleDateChange}
-                                                        dateFormat="MM/yyyy"
-                                                        showMonthYearPicker
+                                    {!attendanceIsLoading && !attendanceIsValidating ? (
+                                        attendanceData.length > 0 ? (
+                                            <div className="flex flex-col mt-2">
+                                                <div className="flex items-center">
+                                                    <span className="mr-2">Interval:</span>
+                                                    <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '2px' }}>
+                                                        <DatePicker
+                                                            selected={startDate}
+                                                            onChange={handleDateChange}
+                                                            dateFormat="MM/yyyy"
+                                                            showMonthYearPicker
+                                                        />
+                                                    </div>
+                                                    <ReactToPrint
+                                                        trigger={() => (
+                                                            <button
+                                                                className="btn mt-3 ml-auto flex items-center btn-primary no-print"
+                                                            >
+                                                                {" "}
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    width="22"
+                                                                    height="22"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="none"
+                                                                    stroke="currentColor"
+                                                                    strokeWidth="2"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    className="lucide lucide-printer mr-2"
+                                                                >
+                                                                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                                                                    <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
+                                                                    <rect x="6" y="14" width="12" height="8" rx="1" />
+                                                                </svg>
+                                                            </button>
+                                                        )}
+                                                        content={() => componentRef3.current}
                                                     />
                                                 </div>
-                                                <ReactToPrint
-                                                    trigger={() => (
-                                                        <button
-                                                            className="btn mt-3 ml-auto flex items-center btn-primary no-print"
-                                                        >
-                                                            {" "}
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                width="22"
-                                                                height="22"
-                                                                viewBox="0 0 24 24"
-                                                                fill="none"
-                                                                stroke="currentColor"
-                                                                strokeWidth="2"
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                className="lucide lucide-printer mr-2"
-                                                            >
-                                                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                                                                <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
-                                                                <rect x="6" y="14" width="12" height="8" rx="1" />
-                                                            </svg>
-                                                        </button>
-                                                    )}
-                                                    content={() => componentRef3.current}
-                                                />
+                                                <p className="py-2">Tanggal Cetak : {getCurrentDate()}</p>
+                                                <div className="mt-4">
+                                                    <AttendanceReportTable attendanceReportData={attendanceData} />
+                                                </div>
                                             </div>
-                                            <p className="py-2">Tanggal Cetak : {getCurrentDate()}</p>
-                                            <div className="mt-4">
-                                                <AttendanceReportTable attendanceReportData={attendanceData} />
+                                        ) : (
+                                            <div className="w-full py-8 flex justify-center items-center">
+                                                <p className="text-center text-gray-400">
+                                                    There is no data
+                                                </p>
                                             </div>
+                                        )
+                                    ) : (
+                                        <div className="w-full py-8 flex justify-center items-center">
+                                            <span className="loading loading-dots loading-md"></span>
                                         </div>
                                     )}
                                 </div>
@@ -221,63 +233,69 @@ const DashboardOwner: React.FC = () => {
                             <div className="card-body p-0">
                                 <div className="p-4 ">
                                     <h2 className="card-title text-xl font-bold">Income and Expense Report</h2>
-                                    {incomeIsLoading && (
-                                        <div className="w-full mt-64 flex justify-center items-center">
-                                            <span className="loading loading-dots loading-md"></span>
-                                        </div>
-                                    )}
-                                    {error && <div>Error</div>}
-                                    {incomeData && (
-                                        <div className="flex flex-col mt-2">
-                                            <div className="flex items-center">
-                                                <span className="mr-2">Interval:</span>
-                                                <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '2px' }}>
-                                                    <DatePicker
-                                                        selected={startDate}
-                                                        onChange={handleDateChange}
-                                                        dateFormat="MM/yyyy"
-                                                        showMonthYearPicker
+                                    {!incomeIsLoading && !incomeIsValidating ? (
+                                        incomeData.length > 0 ? (
+                                            <div className="flex flex-col mt-2">
+                                                <div className="flex items-center">
+                                                    <span className="mr-2">Interval:</span>
+                                                    <div style={{ border: '1px solid #ccc', borderRadius: '5px', padding: '2px' }}>
+                                                        <DatePicker
+                                                            selected={startDate}
+                                                            onChange={handleDateChange}
+                                                            dateFormat="MM/yyyy"
+                                                            showMonthYearPicker
+                                                        />
+                                                    </div>
+                                                    <ReactToPrint
+                                                        trigger={() => (
+                                                            <button
+                                                                className="btn mt-3 ml-auto flex items-center btn-primary no-print"
+                                                            >
+                                                                {" "}
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    width="22"
+                                                                    height="22"
+                                                                    viewBox="0 0 24 24"
+                                                                    fill="none"
+                                                                    stroke="currentColor"
+                                                                    strokeWidth="2"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    className="lucide lucide-printer mr-2"
+                                                                >
+                                                                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                                                                    <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
+                                                                    <rect x="6" y="14" width="12" height="8" rx="1" />
+                                                                </svg>
+                                                            </button>
+                                                        )}
+                                                        content={() => componentRef2.current}
                                                     />
                                                 </div>
-                                                <ReactToPrint
-                                                    trigger={() => (
-                                                        <button
-                                                            className="btn mt-3 ml-auto flex items-center btn-primary no-print"
-                                                        >
-                                                            {" "}
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                width="22"
-                                                                height="22"
-                                                                viewBox="0 0 24 24"
-                                                                fill="none"
-                                                                stroke="currentColor"
-                                                                strokeWidth="2"
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                className="lucide lucide-printer mr-2"
-                                                            >
-                                                                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                                                                <path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6" />
-                                                                <rect x="6" y="14" width="12" height="8" rx="1" />
-                                                            </svg>
-                                                        </button>
-                                                    )}
-                                                    content={() => componentRef2.current}
-                                                />
+                                                <p className="py-2">Tanggal Cetak : {getCurrentDate()}</p>
+                                                <div className="mt-4">
+                                                    <IncomeReportTable incomeExpenseReportData={incomeData} />
+                                                </div>
                                             </div>
-                                            <p className="py-2">Tanggal Cetak : {getCurrentDate()}</p>
-                                            <div className="mt-4">
-                                                <IncomeReportTable incomeExpenseReportData={incomeData} />
+                                        ) : (
+                                            <div className="w-full py-8 flex justify-center items-center">
+                                                <p className="text-center text-gray-400">
+                                                    There is no data
+                                                </p>
                                             </div>
+                                        )
+                                    ) : (
+                                        <div className="w-full py-8 flex justify-center items-center">
+                                            <span className="loading loading-dots loading-md"></span>
                                         </div>
                                     )}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </OwnerWrapper>
+                </div >
+            </OwnerWrapper >
         </>
     );
 };

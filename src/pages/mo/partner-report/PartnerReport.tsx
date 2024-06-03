@@ -90,23 +90,29 @@ const PartnerReport: React.FC = () => {
                     />
                 </div>
                 <p className="mb-4">Tanggal Cetak : {getCurrentDate()}</p>
-                {isLoading &&
-                    <div className="w-full mt-64 flex justify-center items-center">
+                {!isLoading && !isValidating ? (
+                    data.length > 0 ? (
+                        <div className="rounded-sm border border-stroke bg-white shadow-default p-4 overflow-x-auto">
+                            {data.map((item) => {
+                                return (
+                                    <div key={item.id_penitip}>
+                                        <h3>ID Penitip : {item.id_penitip}</h3>
+                                        <h3>Nama Penitip : {item.nama_penitip}</h3>
+                                        <PartnerReportTable partnerReportData={item.products} />
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    ) : (
+                        <div className="w-full py-8 flex justify-center items-center">
+                            <p className="text-center text-gray-400">
+                                There is no data
+                            </p>
+                        </div>
+                    )
+                ) : (
+                    <div className="w-full py-8 flex justify-center items-center">
                         <span className="loading loading-dots loading-md"></span>
-                    </div>
-                }
-                {error && <div>Error</div>}
-                {data && (
-                    <div className="rounded-sm border border-stroke bg-white shadow-default p-4 overflow-x-auto">
-                        {data.map((item) => {
-                            return (
-                                <div key={item.id_penitip}>
-                                    <h3>ID Penitip : {item.id_penitip}</h3>
-                                    <h3>Nama Penitip : {item.nama_penitip}</h3>
-                                    <PartnerReportTable partnerReportData={item.products} />
-                                </div>
-                            );
-                        })}
                     </div>
                 )}
             </div>
