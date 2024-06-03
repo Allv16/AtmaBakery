@@ -121,9 +121,8 @@ export const InputRangeModal = ({ data }: InputRangeModalProps) => {
         </div>
 
         <label
-          className={`input input-bordered ${
-            isError && `border-error`
-          } flex items-center gap-2`}
+          className={`input input-bordered ${isError && `border-error`
+            } flex items-center gap-2`}
         >
           <input
             type="number"
@@ -417,9 +416,8 @@ export const InputPaymentModal = ({ data }: InputTotalPaymentModalProps) => {
             </span>
           </div>
           <label
-            className={`input input-bordered ${
-              isNull && `border-error`
-            } flex items-center gap-2`}
+            className={`input input-bordered ${isNull && `border-error`
+              } flex items-center gap-2`}
           >
             <p className={`${isNull || (isInvalid && `text-error`)}`}>Rp</p>
             <input
@@ -595,11 +593,10 @@ export const ConfirmMOModal = ({ data }: ConfirmMOModalProps) => {
               Reject
             </button>
             <button
-              className={`btn w-1/3 ${
-                runningOutIngredients.length > 0
-                  ? `btn-disabled`
-                  : `btn-primary`
-              }`}
+              className={`btn w-1/3 ${runningOutIngredients.length > 0
+                ? `btn-disabled`
+                : `btn-primary`
+                }`}
               onClick={() => handleModalConfirmation()}
             >
               Confirm
