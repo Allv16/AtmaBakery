@@ -60,6 +60,8 @@ import DetailsOrder from "./pages/customer/profile/DetailsOrder";
 import Invoice from "./components/invoice/Invoice";
 import Checkout from "./pages/customer/checkout/checkout";
 import TaskOrder from "./pages/mo/customer-order/TaskOrder";
+import RefundCustomer from "./pages/admin/refund-customer/RefundCustomer";
+import PartnerReport from "./pages/mo/partner-report/PartnerReport";
 
 export const router = createBrowserRouter([
   {
@@ -236,6 +238,14 @@ export const router = createBrowserRouter([
       </ProtectedRoutes>
     ),
   },
+  {
+    path: "/admin/refund",
+    element: (
+      <ProtectedRoutes role_id="2">
+        <RefundCustomer />
+      </ProtectedRoutes>
+    ),
+  },
 
   /*
  
@@ -401,6 +411,14 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="3">
         <TaskOrder />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo/report",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <PartnerReport />
       </ProtectedRoutes>
     ),
   },

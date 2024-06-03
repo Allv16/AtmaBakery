@@ -152,16 +152,16 @@ const Dashboard: React.FC = () => {
       {selectedTask !== null &&
         (taskData[selectedTask!] !== undefined
           ? renderModal(
-              taskData[selectedTask!],
-              taskData[selectedTask!].status_transaksi
-            )
+            taskData[selectedTask!],
+            taskData[selectedTask!].status_transaksi
+          )
           : null)}
       {selectedTask !== null &&
         (onProcessData[selectedTask!] !== undefined
           ? renderModal(
-              onProcessData[selectedTask!],
-              onProcessData[selectedTask!].status_transaksi
-            )
+            onProcessData[selectedTask!],
+            onProcessData[selectedTask!].status_transaksi
+          )
           : null)}
     </AdminWrapper>
   );

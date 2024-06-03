@@ -23,8 +23,14 @@ import { deletePartner } from "../../lib/repository/PartnerRepository";
 import {
   currencyConverter,
   dateConverterSimple,
+  numbertoMonthConverter,
 } from "../../lib/utils/converter";
 import { TransactionStatusBadge } from "../Badge";
+import { IRefund } from "../../lib/interfaces/IRefund";
+import { ISalesReport } from "../../lib/interfaces/ISalesReport";
+import { IIncomeExpenseReport } from "../../lib/interfaces/IIncomeExpenseReport";
+import { IPartnerProduct } from "../../lib/interfaces/IPartnerProduct";
+import { IAttendanceReport } from "../../lib/interfaces/IAttendanceReport";
 
 type IngredientsTableProps = {
   ingredientsData: IIngredients[];
@@ -48,6 +54,22 @@ type OtherExpensesTableProps = {
 
 type CustomersTableProps = {
   customersData: ICustomer[];
+};
+
+type SalesReportTableProps = {
+  salesReportData: ISalesReport[];
+};
+
+type IncomeExpenseReportTableProps = {
+  incomeExpenseReportData: IIncomeExpenseReport[];
+};
+
+type PartnerReportTableProps = {
+  partnerReportData: IPartnerProduct[];
+};
+
+type AttendanceReportTableProps = {
+  attendanceReportData: IAttendanceReport[];
 };
 
 export const IngredientsTable = (props: IngredientsTableProps) => {
@@ -1243,3 +1265,306 @@ export const LowIngredientsTable = (props: IngredientsTableProps) => {
     </div>
   );
 };
+
+type AdminRefundTableProps = {
+  data: IRefund[];
+  onClick: (index: number, uniqueId: string) => void;
+};
+
+export const AdminRefundTable = ({ data, onClick }: AdminRefundTableProps) => {
+  return (
+    <div className="xl:overflow-x-hidden">
+      <table className="table">
+        {/* head */}
+        <thead className="bg-gray-200 font-bold text-sm text-black">
+          <tr>
+            <th>#</th>
+            <th>Customer Name</th>
+            <th>Date Refund</th>
+            <th>Date Confirm</th>
+            <th>Amount</th>
+            <th>Number Bank Account</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr>
+              <th>{item.id_pengembalian_dana}</th>
+              <th>{item.customer.nama_customer}</th>
+              <td>{dateConverterSimple(item.tanggal_pengembalian_diajukan)}</td>
+              <td>{dateConverterSimple(item.tanggal_pengembalian_diterima)}</td>
+              <td>{item.jumlah_pengembalian}</td>
+              <td>{item.nomor_rekening_tujuan}</td>
+              <td>
+                <TransactionStatusBadge status={item.status_pengembalian} />
+              </td>
+              <td>
+                <a
+                  className="btn btn-circle btn-sm"
+                  onClick={() => onClick(index, item.id_pengembalian_dana)}
+                >
+                  <ChevronRight size={14} />
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export const SalesReportTable = (props: SalesReportTableProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+  const navigate = useNavigate();
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = props.salesReportData.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const renderTableRows = () => {
+    return currentItems.map((item, index) => (
+      <tr>
+        <td>{numbertoMonthConverter(index + 1).toLocaleString('default', { month: 'long' })}</td>
+        <td>{item.transaction_count}</td>
+        <td>{currencyConverter(item.total_sales)}</td>
+      </tr>
+    ));
+  };
+
+  const handlePaginationClick = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const totalPages = Math.ceil(props.salesReportData.length / itemsPerPage);
+  const paginationItems = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    paginationItems.push(
+      <button
+        key={i}
+        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
+          }`}
+        onClick={() => handlePaginationClick(i)}
+      >
+        {i}
+      </button>
+    );
+  }
+
+  return (
+    <div className="">
+      <table className="table table-zebra w-full mb-5">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Transaction Count</th>
+            <th>Total Amount</th>
+          </tr>
+        </thead>
+        <tbody>{renderTableRows()}</tbody>
+      </table>
+    </div>
+  );
+};
+
+export const IncomeReportTable = (props: IncomeExpenseReportTableProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = props.incomeExpenseReportData.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const renderTableRows = () => {
+    return currentItems.map((item) => (
+      <tr key={item.type}>
+        <td>{item.type}</td>
+        <td>{currencyConverter(item.income)}</td>
+        <td>{currencyConverter(item.expenses)}</td>
+      </tr>
+    ));
+  };
+
+  const calculateTotals = () => {
+    const totals = currentItems.reduce(
+      (acc, item) => {
+        acc.income += item.income;
+        acc.expenses += item.expenses;
+        return acc;
+      },
+      { income: 0, expenses: 0 }
+    );
+    return totals;
+  };
+
+  const { income: totalIncome, expenses: totalExpenses } = calculateTotals();
+
+  return (
+    <div className="">
+      <table className="table table-zebra w-full mb-5">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Income</th>
+            <th>Expense</th>
+          </tr>
+        </thead>
+        <tbody>
+          {renderTableRows()}
+          <tr>
+            <td className="text-end font-bold">Total</td>
+            <td>{currencyConverter(totalIncome)}</td>
+            <td>{currencyConverter(totalExpenses)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export const PartnerReportTable = (props: PartnerReportTableProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+  const navigate = useNavigate();
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = props.partnerReportData.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const renderTableRows = () => {
+    return currentItems.map((item, index) => {
+      const total = item.harga * item.sold;
+      const komisi = total * 0.2;
+      const diterima = total - komisi;
+
+      return (
+        <tr key={index}>
+          <td>{item.nama_produk}</td>
+          <td>{item.sold}</td>
+          <td>{currencyConverter(item.harga)}</td>
+          <td>{currencyConverter(total)}</td>
+          <td>{currencyConverter(komisi)}</td>
+          <td>{currencyConverter(diterima)}</td>
+        </tr>
+      );
+    });
+  };
+
+  const handlePaginationClick = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const totalPages = Math.ceil(props.partnerReportData.length / itemsPerPage);
+  const paginationItems = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    paginationItems.push(
+      <button
+        key={i}
+        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
+          }`}
+        onClick={() => handlePaginationClick(i)}
+      >
+        {i}
+      </button>
+    );
+  }
+
+  return (
+    <div className="">
+      <table className="table table-zebra w-full mb-5">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>QTY</th>
+            <th>Selling Price</th>
+            <th>Total</th>
+            <th>20% Commision</th>
+            <th>Total Received</th>
+          </tr>
+        </thead>
+        <tbody>{renderTableRows()}</tbody>
+      </table>
+    </div>
+  );
+};
+
+export const AttendanceReportTable = (props: AttendanceReportTableProps) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+  const navigate = useNavigate();
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = props.attendanceReportData.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const renderTableRows = () => {
+    return currentItems.map((item) => {
+      return (
+        <tr key={item.id_karyawan}>
+          <td>{item.nama_karyawan}</td>
+          <td>{item.total_present}</td>
+          <td>{item.total_absent}</td>
+          <td>{currencyConverter(item.honor)}</td>
+          <td>{currencyConverter(item.bonus)}</td>
+          <td>{currencyConverter(item.bonus + item.honor)}</td>
+        </tr>
+      );
+    });
+  };
+
+  const handlePaginationClick = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const totalPages = Math.ceil(props.attendanceReportData.length / itemsPerPage);
+  const paginationItems = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    paginationItems.push(
+      <button
+        key={i}
+        className={`join-item btn btn-sm justify ${currentPage === i ? "btn-active" : ""
+          }`}
+        onClick={() => handlePaginationClick(i)}
+      >
+        {i}
+      </button>
+    );
+  }
+
+  return (
+    <div className="">
+      <table className="table table-zebra w-full mb-5">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Total Attendance</th>
+            <th>Total Absences</th>
+            <th>Daily Salary</th>
+            <th>Bonus</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>{renderTableRows()}</tbody>
+      </table>
+    </div>
+  );
+};
+

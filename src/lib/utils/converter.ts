@@ -1,4 +1,5 @@
 import moment from "moment";
+import { setMonth } from "date-fns";
 
 export const dateConverter = (date: string) => {
   return moment(date).format("ddd, DD MMMM YYYY");
@@ -18,4 +19,10 @@ export const currencyConverter = (price: number) => {
     currency: "IDR",
     maximumFractionDigits: 0,
   }).format(price);
+};
+
+export const numbertoMonthConverter = (month: number) => {
+  const date = new Date();
+
+  return setMonth(date, month - 1);
 };
