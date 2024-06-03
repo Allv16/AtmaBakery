@@ -26,7 +26,7 @@ const ProductSales: React.FC = () => {
 
   const handleDateChange = (date: Date) => {
     setStartDate(date);
-    setSelectedMonth((date.getMonth() + 1).toString());
+    setSelectedMonth(date.getMonth() + 1);
   };
   const handleYearChange = (date: Date) => {
     setSelectedYear(date.getFullYear().toString());
