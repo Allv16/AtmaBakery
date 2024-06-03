@@ -1067,6 +1067,42 @@ export const MOTaskTable = ({ data, onClick }: MoTaskTableProps) => {
   );
 };
 
+export const MORejectTable = ({ data }: MoTaskTableProps) => {
+  return (
+    <div className="overflow-x-hidden">
+      <table className="table">
+        {/* head */}
+        <thead className="bg-gray-200 font-bold text-sm text-black">
+          <tr>
+            <th>#</th>
+            <th>Order Date</th>
+            <th>QTY</th>
+            <th>Customer</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => (
+            <tr>
+              <th>{item.id_transaksi}</th>
+              <td>{dateConverterSimple(item.tanggal_nota_dibuat)}</td>
+              <td>{item.detail_transaksi.length}</td>
+              <td>{item.customer.nama_customer}</td>
+              <td>{item.total}</td>
+              <td>
+                <TransactionStatusBadge status={item.status_transaksi} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+
 type CartTableProps = {
   cartData: ICart[];
   onAdd: (id: number, date: string) => void;
