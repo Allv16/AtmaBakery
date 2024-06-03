@@ -2,6 +2,9 @@ import { toast } from "sonner";
 import useSWR from "swr";
 import { IIngredientUsage } from "../interfaces/IIngredientUsage";
 import { fetcher } from "../utils/utils";
+import { ITransactionDetails } from "../interfaces/ITransactionDetails";
+import { ITransaction } from "../interfaces/ITransaction";
+import { IProductSales } from "../interfaces/IProductSales";
 
 export const getIngredientsUsage = (startDate: string, endDate: string) => {
   let { data, error, isLoading, isValidating } = useSWR(
@@ -18,6 +21,27 @@ export const getIngredientsUsage = (startDate: string, endDate: string) => {
 
   return {
     data: data?.usage as IIngredientUsage[],
+    error,
+    isLoading,
+    isValidating,
+  };
+};
+
+export const getProductSales = (month: number, year: number) => {
+  let { data, error, isLoading, isValidating } = useSWR(
+    `${
+      import.meta.env.VITE_BASE_API
+    }/laporan/monthly-sales-product?month=${month}&year=${year}`,
+    fetcher
+  );
+
+  if (!isLoading && error) {
+    toast.error("Gagal mengambil data");
+    console.log(data);
+  }
+
+  return {
+    data: data as IProductSales[],
     error,
     isLoading,
     isValidating,

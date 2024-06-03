@@ -66,6 +66,8 @@ import ConfirmedOrder from "./pages/mo/customer-order/ConfirmedOrder";
 import RefundCustomer from "./pages/admin/refund-customer/RefundCustomer";
 import PartnerReport from "./pages/mo/partner-report/PartnerReport";
 import CancelledOrder from "./pages/admin/cancelled-order/CancelledOrder";
+import ProductSales from "./pages/mo/product-sales/ProductSales";
+import IngredientsStock from "./pages/mo/ingredients-stock/IngredientsStock";
 
 export const router = createBrowserRouter([
   {
@@ -455,6 +457,22 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="3">
         <PartnerReport />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo/report/product-sales",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <ProductSales />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo/report/ingredients-stock",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <IngredientsStock />
       </ProtectedRoutes>
     ),
   },
