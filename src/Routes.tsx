@@ -63,6 +63,8 @@ import TaskOrder from "./pages/mo/customer-order/TaskOrder";
 import IngredientsUsage from "./pages/mo/ingredients-usage/IngredientsUsage";
 import RejectOrder from "./pages/mo/customer-order/RejectOrder";
 import ConfirmedOrder from "./pages/mo/customer-order/ConfirmedOrder";
+import ProductSales from "./pages/mo/product-sales/ProductSales";
+import IngredientsStock from "./pages/mo/ingredients-stock/IngredientsStock";
 
 export const router = createBrowserRouter([
   {
@@ -428,6 +430,22 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="3">
         <ConfirmedOrder />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo/report/product-sales",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <ProductSales />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo/report/ingredients-stock",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <IngredientsStock />
       </ProtectedRoutes>
     ),
   },

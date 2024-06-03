@@ -425,6 +425,28 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               </NavLink>
             </li>
             {/* <!-- /Ingredient --> */}
+            <li>
+              <NavLink
+                to="/mo/report/product-sales"
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                  pathname.includes("product-sales") && "bg-graydark"
+                }`}
+              >
+                <FileMinus2 size={18} />
+                Product Sales
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/mo/report/ingredients-stock"
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                  pathname.includes("ingredients-stock") && "bg-graydark"
+                }`}
+              >
+                <FileMinus2 size={18} />
+                Ingredients Stock
+              </NavLink>
+            </li>
           </ul>
         </nav>
         {/* <!-- Sidebar Menu --> */}
