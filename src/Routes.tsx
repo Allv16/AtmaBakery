@@ -451,7 +451,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: "/mo/report",
+    path: "/mo/report/partner",
     element: (
       <ProtectedRoutes role_id="3">
         <PartnerReport />
