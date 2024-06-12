@@ -116,29 +116,32 @@ export default function ListProduct() {
           </div>
 
           <div>
-            {topProducts?.map((product) => (
-              <div
-                className="card card-side cursor-pointer"
-                key={product.id_produk}
-                onClick={() => handleCardClick(product.id_produk)}
-              >
-                <figure className="ml-8 max-w-16">
-                  <img src={product.foto} alt={product.nama_produk} />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title text-lg">{product.nama_produk}</h2>
-                  <p className="text-secondary-dark">
-                    {currencyConverter(product.harga)}
-                  </p>
+            {!topProductsLoading &&
+              topProducts?.map((product) => (
+                <div
+                  className="card card-side cursor-pointer"
+                  key={product.id_produk}
+                  onClick={() => handleCardClick(product.id_produk)}
+                >
+                  <figure className="ml-8 max-w-16">
+                    <img src={product.foto} alt={product.nama_produk} />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title text-lg">
+                      {product.nama_produk}
+                    </h2>
+                    <p className="text-secondary-dark">
+                      {currencyConverter(product.harga)}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
 
         <div className="w-3/4 p-4">
           <div className="grid grid-cols-3 gap-5">
-            {isLoading && topProductsLoading ? (
+            {isLoading ? (
               <span className="col-span-3 loading loading-dots loading-md mx-auto mt-64"></span>
             ) : (
               filteredProducts.map((product, index) => (
