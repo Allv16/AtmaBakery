@@ -1,30 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ReactToPrint from "react-to-print";
-import { MOWrapper } from "../../../components/Wrapper";
-import { getProductSales } from "../../../lib/repository/ReportRepository";
-import { currencyConverter } from "../../../lib/utils/converter";
+import { OwnerWrapper } from "../../../components/Wrapper";
+import { getAllIngredients } from "../../../lib/repository/IngredientsRepository";
 
-const ProductSales: React.FC = () => {
-  const [selectedYear] = useState(new Date().getFullYear().toString());
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+const IngredientsStockOwner: React.FC = () => {
   //data handling
-  const { data, isLoading, isValidating } = getProductSales(
-    selectedMonth,
-    parseInt(selectedYear)
-  );
+  const { data, isLoading, isValidating } = getAllIngredients();
 
   const componentRef = useRef<HTMLDivElement>(null);
-
-  const handleDateChange = (date: Date) => {
-    setStartDate(date);
-    setSelectedMonth(date.getMonth() + 1);
-  };
-
-  const [startDate, setStartDate] = useState<Date>(new Date());
 
   useEffect(() => {
     const style = document.createElement("style");
@@ -42,34 +28,18 @@ const ProductSales: React.FC = () => {
   }, []);
 
   return (
-    <MOWrapper>
+    <OwnerWrapper>
       <div ref={componentRef}>
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-title-xl font-serif font-bold text-black">
-            Product Sales Report
+            Ingredients Stock
           </h2>
         </div>
-
         <div className="card w-full bg-white shadow-xl border col-span-3 px-8 py-4 min-h-40">
           <div className="flex items-center w-fit">
             <div>
               <span className="text-gray-400 text-sm">Periode</span>
             </div>
-          </div>
-          <div
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "10px",
-              padding: "2px",
-              width: "fit-content",
-            }}
-          >
-            <DatePicker
-              selected={startDate}
-              onChange={handleDateChange}
-              dateFormat="MM/yyyy"
-              showMonthYearPicker
-            />
           </div>
           <div className="mt-2">
             <span className="text-gray-500">
@@ -120,49 +90,32 @@ const ProductSales: React.FC = () => {
                     <thead className="bg-primary-lighter">
                       <tr className="text-black text-bas">
                         <th>No</th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Amount of Money</th>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Stock</th>
                       </tr>
                     </thead>
                     <tbody>
                       {data?.map((item, index) => (
                         <tr key={index}>
                           <td>{index + 1}</td>
-                          <td>{item.product_name}</td>
-                          <td>{item.qty}</td>
-                          <td>{currencyConverter(item.price)}</td>
-                          <td>{currencyConverter(item.total)}</td>
+                          <td>{item.nama_bahan_baku}</td>
+                          <td>{item.satuan}</td>
+                          <td>{item.stok}</td>
                         </tr>
                       ))}
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <td
-                          colSpan={4}
-                          className="text-right text-black text-sm"
-                        >
-                          Total:
-                        </td>
-                        <td className="text-black text-bas text-sm">
-                          {currencyConverter(
-                            data.reduce((acc, item) => acc + item.total, 0)
-                          )}
-                        </td>
-                      </tr>
-                    </tfoot>
                   </table>
                 </div>
               </>
             )}
           </div>
         </div>
-      </div>
 
-      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5"></div>
-    </MOWrapper>
+        <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5"></div>
+      </div>
+    </OwnerWrapper>
   );
 };
 
-export default ProductSales;
+export default IngredientsStockOwner;

@@ -1,5 +1,3 @@
-import { InputForm } from "../../../components/Input";
-import { Label } from "../../../components/Label";
 import { NavWrapper } from "../../../components/Wrapper";
 
 export default function AddressList() {

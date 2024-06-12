@@ -1,10 +1,8 @@
 import { toast } from "sonner";
 import useSWR from "swr";
 import { IIngredientUsage } from "../interfaces/IIngredientUsage";
-import { fetcher } from "../utils/utils";
-import { ITransactionDetails } from "../interfaces/ITransactionDetails";
-import { ITransaction } from "../interfaces/ITransaction";
 import { IProductSales } from "../interfaces/IProductSales";
+import { fetcher } from "../utils/utils";
 
 export const getIngredientsUsage = (startDate: string, endDate: string) => {
   let { data, error, isLoading, isValidating } = useSWR(

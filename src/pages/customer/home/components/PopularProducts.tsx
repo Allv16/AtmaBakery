@@ -1,4 +1,3 @@
-import React from "react";
 import placeholder from "../../../../assets/images/products/top-product.png";
 import PopularProductItem from "./PopularProductItem";
 

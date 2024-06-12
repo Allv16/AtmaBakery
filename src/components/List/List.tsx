@@ -1,9 +1,7 @@
-import { Hash, PersonStanding, User } from "lucide-react";
+import { ICart } from "../../lib/interfaces/ICart";
 import { IRoles } from "../../lib/interfaces/IRoles";
-import { ITransaction } from "../../lib/interfaces/ITransaction";
 import { ITransactionDetails } from "../../lib/interfaces/ITransactionDetails";
 import { currencyConverter } from "../../lib/utils/converter";
-import { ICart } from "../../lib/interfaces/ICart";
 
 type RolesListProps = {
   rolesData: IRoles[];

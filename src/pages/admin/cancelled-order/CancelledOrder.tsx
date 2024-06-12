@@ -1,7 +1,4 @@
-import {
-  AdminRefundTable,
-  CancelledOrderTable,
-} from "../../../components/Table/Table";
+import { CancelledOrderTable } from "../../../components/Table/Table";
 import { AdminWrapper } from "../../../components/Wrapper";
 import {
   cancelledOrders,

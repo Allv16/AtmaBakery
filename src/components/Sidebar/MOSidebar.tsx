@@ -93,7 +93,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       </div>
       {/* <!-- SIDEBAR HEADER --> */}
 
-      <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+      <div
+        className="flex flex-col overflow-y-scroll duration-300 ease-linear"
+        style={{
+          msOverflowStyle: "none",
+          scrollbarWidth: "none",
+        }}
+      >
         {/* <!-- Sidebar Menu --> */}
         <nav className="mt-5 px-4 lg:mt-9 lg:px-6">
           {/* <!-- Menu Group --> */}
@@ -444,6 +450,41 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               >
                 <FileMinus2 size={18} />
                 Ingredients Stock
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/mo/report/sales-report"
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                  pathname.includes("mo/report/sales-report") && "bg-graydark"
+                }`}
+              >
+                <FileMinus2 size={18} />
+                Sales Report
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/mo/report/attendance-report"
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                  pathname.includes("/mo/report/attendance-report") &&
+                  "bg-graydark"
+                }`}
+              >
+                <FileMinus2 size={18} />
+                Attendance Report
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/mo/report/expense-income-report"
+                className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                  pathname.includes("/mo/report/expense-income-report") &&
+                  "bg-graydark"
+                }`}
+              >
+                <FileMinus2 size={18} />
+                Expense Income Report
               </NavLink>
             </li>
             {/* <!-- /Ingredient --> */}

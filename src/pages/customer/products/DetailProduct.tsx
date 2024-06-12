@@ -1,6 +1,9 @@
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import { NavWrapper } from "../../../components/Wrapper";
-import React, { useEffect, useState } from "react";
+import { IProduct } from "../../../lib/interfaces/IProducts";
+import { addCart } from "../../../lib/repository/CartRepository";
 import {
   getProductsById,
   getRandomProducts,
@@ -9,9 +12,6 @@ import {
   currencyConverter,
   dateConverterISO,
 } from "../../../lib/utils/converter";
-import { addCart } from "../../../lib/repository/CartRepository";
-import { toast } from "sonner";
-import { IProduct } from "../../../lib/interfaces/IProducts";
 
 export default function DetailProduct() {
   const [date, setDate] = React.useState(
@@ -39,13 +39,6 @@ export default function DetailProduct() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
-  };
-
-  const inputField = {
-    tanggal_keranjang: date,
-    jumlah_item_keranjang: 0,
-    id_produk: "",
-    id_customer: "",
   };
 
   const handleSubmit = async () => {

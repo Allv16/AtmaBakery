@@ -1,5 +1,3 @@
-import React from "react";
-
 type PopularProductItemProps = {
   title: string;
   description: string;

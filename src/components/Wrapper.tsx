@@ -1,14 +1,13 @@
 import { ReactNode, useState } from "react";
-import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
-import HeaderAdmin from "./Header/HeaderAdmin";
 import AdminSidebar from "../components/Sidebar/AdminSidebar";
 import MOSidebar from "../components/Sidebar/MOSidebar";
-import OwnerSidebar from "./Sidebar/OwnerSidebar";
+import { Footer } from "./Footer";
+import { FooterAdmin } from "./FooterAdmin";
+import HeaderAdmin from "./Header/HeaderAdmin";
 import HeaderMO from "./Header/HeaderMO";
 import HeaderOwner from "./Header/HeaderOwner";
-import { FooterAdmin } from "./FooterAdmin";
-import Indicator from "./Indicator";
+import { Navbar } from "./Navbar";
+import OwnerSidebar from "./Sidebar/OwnerSidebar";
 
 export const NavWrapper = ({ children }: { children: ReactNode }) => {
   return (

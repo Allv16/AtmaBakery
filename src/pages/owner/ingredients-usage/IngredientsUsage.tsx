@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import { MOWrapper } from "../../../components/Wrapper";
+import { OwnerWrapper } from "../../../components/Wrapper";
 import { getIngredientsUsage } from "../../../lib/repository/ReportRepository";
 import {
   dateConverter,
@@ -14,7 +14,7 @@ import {
 
 import ReactToPrint from "react-to-print";
 
-const IngredientsUsage: React.FC = () => {
+const IngredientsUsageOwner: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState([
     {
       startDate: startOfMonth(new Date()),
@@ -74,7 +74,7 @@ const IngredientsUsage: React.FC = () => {
     };
   }, []);
   return (
-    <MOWrapper>
+    <OwnerWrapper>
       <div ref={componentRef}>
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-title-xl font-serif font-bold text-black">
@@ -191,8 +191,8 @@ const IngredientsUsage: React.FC = () => {
           </div>
         </div>
       </dialog>
-    </MOWrapper>
+    </OwnerWrapper>
   );
 };
 
-export default IngredientsUsage;
+export default IngredientsUsageOwner;

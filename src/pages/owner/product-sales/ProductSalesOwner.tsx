@@ -4,11 +4,11 @@ import "react-date-range/dist/theme/default.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ReactToPrint from "react-to-print";
-import { MOWrapper } from "../../../components/Wrapper";
+import { OwnerWrapper } from "../../../components/Wrapper";
 import { getProductSales } from "../../../lib/repository/ReportRepository";
 import { currencyConverter } from "../../../lib/utils/converter";
 
-const ProductSales: React.FC = () => {
+const ProductSalesOwner: React.FC = () => {
   const [selectedYear] = useState(new Date().getFullYear().toString());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   //data handling
@@ -42,7 +42,7 @@ const ProductSales: React.FC = () => {
   }, []);
 
   return (
-    <MOWrapper>
+    <OwnerWrapper>
       <div ref={componentRef}>
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-title-xl font-serif font-bold text-black">
@@ -161,8 +161,8 @@ const ProductSales: React.FC = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5"></div>
-    </MOWrapper>
+    </OwnerWrapper>
   );
 };
 
-export default ProductSales;
+export default ProductSalesOwner;

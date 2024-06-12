@@ -1,20 +1,18 @@
 import { Box, Check, Truck } from "lucide-react";
 import React, { useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import ReactToPrint, { useReactToPrint } from "react-to-print";
+import ReactToPrint from "react-to-print";
 import { IHampers } from "../../lib/interfaces/IHampers";
 import { IProduct } from "../../lib/interfaces/IProducts";
 import { ITransaction } from "../../lib/interfaces/ITransaction";
 import { deleteHampers } from "../../lib/repository/HampersRepository";
 import { deleteProduct } from "../../lib/repository/ProductRepository";
+import { updateTransactionCompleted } from "../../lib/repository/TransactionRepository";
 import { currencyConverter, dateConverter } from "../../lib/utils/converter";
 import { TransactionStatusBadge } from "../Badge";
 import { ProductWithImageList } from "../List/List";
 import { ConfirmationModal, PayModal } from "../Modal";
 import Invoice from "../invoice/Invoice";
-import { ConfirmModal } from "../Modal/ConfirmModal";
-import { updateTransactionCompleted } from "../../lib/repository/TransactionRepository";
-import { mutate } from "swr";
 
 type CardProductProps = {
   product: IProduct;

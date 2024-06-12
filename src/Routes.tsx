@@ -1,73 +1,78 @@
-import { Navigate, createBrowserRouter, useRoutes } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/customer/home/Home";
 // import Login from "./pages/customer/login/Login";
 // import Products from "./pages/customer/products/Products";
-import About from "./pages/customer/about/About";
-import Dashboard from "./pages/admin/dashboard/Dashboard";
-import Hampers from "./pages/admin/hampers/Hampers";
-import AddHampers from "./pages/admin/hampers/AddHampers";
-import AdminProducts from "./pages/admin/products/Products";
-import Ingredients from "./pages/admin/foodstuff/Ingredients";
-import AddIngredients from "./pages/admin/foodstuff/AddIngredients";
-import Recipe from "./pages/admin/foodstuff/Recipe";
-import DashboardMO from "./pages/mo/dashboard/DashboardMO";
-import EditIngredients from "./pages/admin/foodstuff/EditIngredients";
-import Employee from "./pages/mo/employee/Employee.";
-import DashboardOwner from "./pages/owner/dashboard/Dashboard";
-import JobTitle from "./pages/mo/jobTitle/JobTitle";
-import EditProduct from "./pages/admin/products/EditProduct";
-import EditHampers from "./pages/admin/hampers/EditHampers";
-import AddPromoPoints from "./pages/admin/points/AddPromoPoints";
-import PromoPoints from "./pages/admin/points/PromoPoints";
-import Partner from "./pages/mo/partner/Partner";
-import AddEmployee from "./pages/mo/employee/AddEmployee";
-import EditEmployee from "./pages/mo/employee/EditEmployee";
-import AddPartner from "./pages/mo/partner/AddPartner";
-import EditPartner from "./pages/mo/partner/EditPartner";
-import AddJobTitle from "./pages/mo/jobTitle/AddJobTitle";
-import EditJobTitle from "./pages/mo/jobTitle/EditJobTitle";
-import OwnerEmployee from "./pages/owner/employee/OwnerEmployee";
-import EditOwnerEmployee from "./pages/owner/employee/EditOwnerEmployee";
-import DetailRecipe from "./pages/admin/foodstuff/DetailRecipe";
-import AddMyProduct from "./pages/admin/products/AddMyProduct";
-import AddConsignment from "./pages/admin/products/AddConsignment";
-import OtherExpenses from "./pages/mo/other-expenses/OtherExpenses";
-import Attendance from "./pages/mo/attendance/Attendance";
-import AdminProfile from "./pages/admin/profile/AdminProfile";
-import OwnerProfile from "./pages/owner/profile/OwnerProfile";
-import Profile from "./pages/customer/profile/Profile";
-import AddressList from "./pages/customer/profile/AddressList";
-import Login from "./pages/customer/login/Login";
-import Products from "./pages/admin/products/Products";
-import Register from "./pages/customer/register/Register";
-import MOProfile from "./pages/mo/profile/MOProfile";
-import ForgotPassword from "./pages/customer/forgot-password/ForgotPassword";
-import { ReactNode } from "react";
 import ProtectedRoutes from "./lib/utils/protected-routes";
-import IngredientPurchase from "./pages/mo/ingredients/IngredientPurchase";
-import AddIngredientPurchase from "./pages/mo/ingredients/AddIngredientPurchase";
-import EditIngredientPurchase from "./pages/mo/ingredients/EditIngredientPurchase";
-import AddOtherExpenses from "./pages/mo/other-expenses/AddExpenses";
-import EditOtherExpenses from "./pages/mo/other-expenses/EditOtherExpenses";
+import CancelledOrder from "./pages/admin/cancelled-order/CancelledOrder";
 import CustomerSearch from "./pages/admin/customer-search/CustomerSearch";
 import OrderHistoryAdmin from "./pages/admin/customer-search/OrderHistory";
-import OrderHistory from "./pages/customer/profile/OrderHistory";
-import { Cart } from "./pages/customer/cart/Cart";
-import ListProduct from "./pages/customer/products/ListProduct";
-import DetailProduct from "./pages/customer/products/DetailProduct";
-import HowToOrder from "./pages/customer/how-to-order/HowToOrder";
-import DetailsOrder from "./pages/customer/profile/DetailsOrder";
-import Invoice from "./components/invoice/Invoice";
-import Checkout from "./pages/customer/checkout/checkout";
-import TaskOrder from "./pages/mo/customer-order/TaskOrder";
-import IngredientsUsage from "./pages/mo/ingredients-usage/IngredientsUsage";
-import RejectOrder from "./pages/mo/customer-order/RejectOrder";
-import ConfirmedOrder from "./pages/mo/customer-order/ConfirmedOrder";
+import Dashboard from "./pages/admin/dashboard/Dashboard";
+import AddIngredients from "./pages/admin/foodstuff/AddIngredients";
+import DetailRecipe from "./pages/admin/foodstuff/DetailRecipe";
+import EditIngredients from "./pages/admin/foodstuff/EditIngredients";
+import Ingredients from "./pages/admin/foodstuff/Ingredients";
+import Recipe from "./pages/admin/foodstuff/Recipe";
+import AddHampers from "./pages/admin/hampers/AddHampers";
+import EditHampers from "./pages/admin/hampers/EditHampers";
+import Hampers from "./pages/admin/hampers/Hampers";
+import PromoPoints from "./pages/admin/points/PromoPoints";
+import AddConsignment from "./pages/admin/products/AddConsignment";
+import AddMyProduct from "./pages/admin/products/AddMyProduct";
+import EditProduct from "./pages/admin/products/EditProduct";
+import {
+  default as AdminProducts,
+  default as Products,
+} from "./pages/admin/products/Products";
+import AdminProfile from "./pages/admin/profile/AdminProfile";
 import RefundCustomer from "./pages/admin/refund-customer/RefundCustomer";
-import PartnerReport from "./pages/mo/partner-report/PartnerReport";
-import CancelledOrder from "./pages/admin/cancelled-order/CancelledOrder";
-import ProductSales from "./pages/mo/product-sales/ProductSales";
+import About from "./pages/customer/about/About";
+import { Cart } from "./pages/customer/cart/Cart";
+import Checkout from "./pages/customer/checkout/checkout";
+import ForgotPassword from "./pages/customer/forgot-password/ForgotPassword";
+import HowToOrder from "./pages/customer/how-to-order/HowToOrder";
+import Login from "./pages/customer/login/Login";
+import DetailProduct from "./pages/customer/products/DetailProduct";
+import ListProduct from "./pages/customer/products/ListProduct";
+import AddressList from "./pages/customer/profile/AddressList";
+import DetailsOrder from "./pages/customer/profile/DetailsOrder";
+import OrderHistory from "./pages/customer/profile/OrderHistory";
+import Profile from "./pages/customer/profile/Profile";
+import Register from "./pages/customer/register/Register";
+import AttendanceReport from "./pages/mo/attendance-report/AttendanceReport";
+import ConfirmedOrder from "./pages/mo/customer-order/ConfirmedOrder";
+import RejectOrder from "./pages/mo/customer-order/RejectOrder";
+import TaskOrder from "./pages/mo/customer-order/TaskOrder";
+import DashboardMO from "./pages/mo/dashboard/DashboardMO";
+import AddEmployee from "./pages/mo/employee/AddEmployee";
+import EditEmployee from "./pages/mo/employee/EditEmployee";
+import Employee from "./pages/mo/employee/Employee.";
+import ExpenseIncomeReport from "./pages/mo/expense-income-report/ExpenseIncomeReport";
 import IngredientsStock from "./pages/mo/ingredients-stock/IngredientsStock";
+import IngredientsUsage from "./pages/mo/ingredients-usage/IngredientsUsage";
+import AddIngredientPurchase from "./pages/mo/ingredients/AddIngredientPurchase";
+import EditIngredientPurchase from "./pages/mo/ingredients/EditIngredientPurchase";
+import IngredientPurchase from "./pages/mo/ingredients/IngredientPurchase";
+import AddJobTitle from "./pages/mo/jobTitle/AddJobTitle";
+import EditJobTitle from "./pages/mo/jobTitle/EditJobTitle";
+import JobTitle from "./pages/mo/jobTitle/JobTitle";
+import AddOtherExpenses from "./pages/mo/other-expenses/AddExpenses";
+import EditOtherExpenses from "./pages/mo/other-expenses/EditOtherExpenses";
+import OtherExpenses from "./pages/mo/other-expenses/OtherExpenses";
+import PartnerReport from "./pages/mo/partner-report/PartnerReport";
+import AddPartner from "./pages/mo/partner/AddPartner";
+import EditPartner from "./pages/mo/partner/EditPartner";
+import Partner from "./pages/mo/partner/Partner";
+import ProductSales from "./pages/mo/product-sales/ProductSales";
+import MOProfile from "./pages/mo/profile/MOProfile";
+import SalesReport from "./pages/mo/sales-report/SalesReport";
+import DashboardOwner from "./pages/owner/dashboard/Dashboard";
+import EditOwnerEmployee from "./pages/owner/employee/EditOwnerEmployee";
+import OwnerEmployee from "./pages/owner/employee/OwnerEmployee";
+import IngredientsStockOwner from "./pages/owner/ingredients-stock/IngredientsStockOwner";
+import IngredientsUsageOwner from "./pages/owner/ingredients-usage/IngredientsUsage";
+import PartnerReportOwner from "./pages/owner/partner-report/PartnerReportOwner";
+import ProductSalesOwner from "./pages/owner/product-sales/ProductSalesOwner";
+import OwnerProfile from "./pages/owner/profile/OwnerProfile";
 
 export const router = createBrowserRouter([
   {
@@ -476,6 +481,38 @@ export const router = createBrowserRouter([
       </ProtectedRoutes>
     ),
   },
+  {
+    path: "/mo/report/sales-report",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <SalesReport />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo/report/attendance-report",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <AttendanceReport />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo/report/expense-income-report",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <ExpenseIncomeReport />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/mo/report/expense-income-report",
+    element: (
+      <ProtectedRoutes role_id="3">
+        <ProductSales />
+      </ProtectedRoutes>
+    ),
+  },
 
   /*
  
@@ -520,6 +557,38 @@ export const router = createBrowserRouter([
     element: (
       <ProtectedRoutes role_id="1">
         <OwnerProfile />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/owner/report/ingredients-usage",
+    element: (
+      <ProtectedRoutes role_id="1">
+        <IngredientsUsageOwner />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/owner/report/partner",
+    element: (
+      <ProtectedRoutes role_id="1">
+        <PartnerReportOwner />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/owner/report/product-sales",
+    element: (
+      <ProtectedRoutes role_id="1">
+        <ProductSalesOwner />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: "/owner/report/ingredients-stock",
+    element: (
+      <ProtectedRoutes role_id="1">
+        <IngredientsStockOwner />
       </ProtectedRoutes>
     ),
   },

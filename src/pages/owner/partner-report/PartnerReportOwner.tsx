@@ -3,10 +3,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ReactToPrint from "react-to-print";
 import { PartnerReportTable } from "../../../components/Table/Table";
-import { MOWrapper } from "../../../components/Wrapper";
+import { OwnerWrapper } from "../../../components/Wrapper";
 import { getAllPartnerReport } from "../../../lib/repository/PartnerReport";
 
-const PartnerReport: React.FC = () => {
+const PartnerReportOwner: React.FC = () => {
   const [selectedYear] = useState(new Date().getFullYear().toString());
   const [selectedMonth, setSelectedMonth] = useState<string>("");
 
@@ -48,7 +48,7 @@ const PartnerReport: React.FC = () => {
   }, []);
 
   return (
-    <MOWrapper>
+    <OwnerWrapper>
       <div ref={componentRef} className="ml-3 mr-3">
         <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-title-xl font-serif font-bold text-black">
@@ -121,8 +121,8 @@ const PartnerReport: React.FC = () => {
           </div>
         )}
       </div>
-    </MOWrapper>
+    </OwnerWrapper>
   );
 };
 
-export default PartnerReport;
+export default PartnerReportOwner;

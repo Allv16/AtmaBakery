@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { OtherExpensesBreadcrumb } from "../../../components/Breadcrumbs/Breadcrumb";
 import { MOWrapper } from "../../../components/Wrapper";
 import { addOtherExpenses } from "../../../lib/repository/OtherExpensesRepository";
-import { useNavigate } from "react-router-dom";
 
 const AddOtherExpenses: React.FC = () => {
   const inputField = {
@@ -18,10 +18,6 @@ const AddOtherExpenses: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-  };
-
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 

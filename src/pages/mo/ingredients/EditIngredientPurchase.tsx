@@ -15,11 +15,7 @@ const EditIngredientPurchase: React.FC = () => {
   // API CALL
   const { id } = useParams<{ id: string }>();
   const { data, error, isLoading } = getIngredientPurchaseById(id!);
-  const {
-    data: ingredientsData,
-    error: ingredientsError,
-    isLoading: ingredientsIsLoading,
-  } = getAllIngredients();
+  const { data: ingredientsData } = getAllIngredients();
   const navigate = useNavigate();
   console.log(data);
 

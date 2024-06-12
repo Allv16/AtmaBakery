@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PartnerBreadcrumb } from "../../../components/Breadcrumbs/Breadcrumb";
 import { MOWrapper } from "../../../components/Wrapper";
 import { addPartner } from "../../../lib/repository/PartnerRepository";
-import { useNavigate } from "react-router-dom";
 
 const AddPartner: React.FC = () => {
   const inputField = {
@@ -16,10 +16,6 @@ const AddPartner: React.FC = () => {
   const [input, setInput] = useState(inputField);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-  };
-
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 

@@ -1,17 +1,15 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
 import { NavWrapper } from "../../../components/Wrapper";
-import useSWR from "swr";
 import {
   getAllProcuts,
   getTopProducts,
 } from "../../../lib/repository/ProductRepository";
 import { currencyConverter } from "../../../lib/utils/converter";
-import { IProduct } from "../../../lib/interfaces/IProducts";
 
 export default function ListProduct() {
   const navigate = useNavigate();
-  const { data: products, isLoading, error } = getAllProcuts();
+  const { data: products, isLoading } = getAllProcuts();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [search, setSearch] = React.useState("");
 

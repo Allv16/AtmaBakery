@@ -1,7 +1,7 @@
-import useSWR, { mutate } from "swr";
-import { axiosInstance, fetcher } from "../utils/utils";
 import { toast } from "sonner";
+import useSWR from "swr";
 import { IAttendanceReport } from "../interfaces/IAttendanceReport";
+import { fetcher } from "../utils/utils";
 
 export const getAllAttendanceReport = (year: string, month: string) => {
   let { data, error, isLoading, isValidating, mutate } = useSWR(

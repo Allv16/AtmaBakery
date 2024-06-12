@@ -1,7 +1,7 @@
-import useSWR, { mutate } from "swr";
-import { fetcher } from "../utils/utils";
 import { toast } from "sonner";
+import useSWR from "swr";
 import { IPartnerReport } from "../interfaces/IPartnerReport";
+import { fetcher } from "../utils/utils";
 
 export const getAllPartnerReport = (year: string, month: string) => {
   let { data, error, isLoading, isValidating, mutate } = useSWR(

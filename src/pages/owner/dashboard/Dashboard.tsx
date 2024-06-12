@@ -1,17 +1,17 @@
-import React, { useRef, useState, useEffect } from "react";
-import { OwnerWrapper } from "../../../components/Wrapper";
-import { getAllSalesReport } from "../../../lib/repository/SalesReportRepository";
+import React, { useEffect, useRef, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import ReactToPrint from "react-to-print";
+import Chart from "../../../components/Chart/Chart";
 import {
   AttendanceReportTable,
   IncomeReportTable,
   SalesReportTable,
 } from "../../../components/Table/Table";
-import Chart from "../../../components/Chart/Chart";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { getAllIncomeExpenseReport } from "../../../lib/repository/IncomeExpenseReport";
-import ReactToPrint, { useReactToPrint } from "react-to-print";
+import { OwnerWrapper } from "../../../components/Wrapper";
 import { getAllAttendanceReport } from "../../../lib/repository/AttendanceRepository";
+import { getAllIncomeExpenseReport } from "../../../lib/repository/IncomeExpenseReport";
+import { getAllSalesReport } from "../../../lib/repository/SalesReportRepository";
 
 const DashboardOwner: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState(
@@ -21,20 +21,13 @@ const DashboardOwner: React.FC = () => {
     (new Date().getMonth() + 1).toString()
   );
 
-  const {
-    data: incomeData,
-    isLoading: incomeIsLoading,
-    isValidating: incomeIsValidating,
-  } = getAllIncomeExpenseReport(selectedYear, selectedMonth);
+  const { data: incomeData, isLoading: incomeIsLoading } =
+    getAllIncomeExpenseReport(selectedYear, selectedMonth);
 
-  const {
-    data: attendanceData,
-    isLoading: attendanceIsLoading,
-    isValidating: attendanceIsValidating,
-  } = getAllAttendanceReport(selectedYear, selectedMonth);
+  const { data: attendanceData, isLoading: attendanceIsLoading } =
+    getAllAttendanceReport(selectedYear, selectedMonth);
 
-  const { data, error, isLoading, isValidating } =
-    getAllSalesReport(selectedYear);
+  const { data, error, isLoading } = getAllSalesReport(selectedYear);
 
   const handleYearChange = (date: Date) => {
     setSelectedYear(date.getFullYear().toString());

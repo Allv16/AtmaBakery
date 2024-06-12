@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 // import SidebarLinkGroup from './SidebarLinkGroup';
 
+import { NotebookIcon } from "lucide-react";
 import Logo from "../../assets/images/kitchen.svg";
 
 interface SidebarProps {
@@ -167,22 +168,62 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Employee
                 </NavLink>
               </li>
-              {/* <!-- /Employee --> */}
+            </ul>
+          </div>
 
-              {/* <!-- Menu Item Data Pages --> */}
-              {/* <SidebarLinkGroup
-                                activeCondition={
-                                    pathname.includes('ingredients') || pathname.includes('recipe')
-                                }
-                            >
-                                {(handleClick, open) => {
-                                    return (
-                                        <React.Fragment>
-                                            
-                                        </React.Fragment>
-                                    );
-                                }}
-                            </SidebarLinkGroup> */}
+          <div>
+            <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
+              REPORTS
+            </h3>
+            <ul className="mb-6 flex flex-col">
+              {/* <!-- Employee --> */}
+              <li>
+                <NavLink
+                  to="/owner/report/ingredients-usage"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes("/owner/report/ingredients-usage") &&
+                    "bg-graydark"
+                  }`}
+                >
+                  <NotebookIcon size={18} />
+                  Ingredients Usage
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/owner/report/partner"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes("/owner/report/partner") && "bg-graydark"
+                  }`}
+                >
+                  <NotebookIcon size={18} />
+                  Partner Report
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/owner/report/product-sales"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes("/owner/report/product-sales") &&
+                    "bg-graydark"
+                  }`}
+                >
+                  <NotebookIcon size={18} />
+                  Product Sales
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/owner/report/ingredients-stock"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark ${
+                    pathname.includes("/owner/report/ingredients-stock") &&
+                    "bg-graydark"
+                  }`}
+                >
+                  <NotebookIcon size={18} />
+                  Ingredients Stock
+                </NavLink>
+              </li>
             </ul>
           </div>
         </nav>

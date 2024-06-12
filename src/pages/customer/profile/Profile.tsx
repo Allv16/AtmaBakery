@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Label } from "../../../components/Label";
 import { NavWrapper } from "../../../components/Wrapper";
-import React, { useState, useEffect } from "react";
 import { IProfileCustomer } from "../../../lib/interfaces/IProfileCustomer";
-import { useNavigate } from "react-router-dom";
 import {
   editProfile,
   getProfileCustomer,
@@ -12,7 +12,7 @@ import { currencyConverter } from "../../../lib/utils/converter";
 export default function Profile() {
   // API CALL
   const navigate = useNavigate();
-  const { data, error, isLoading } = getProfileCustomer();
+  const { data, isLoading } = getProfileCustomer();
 
   const [input, setInput] = useState<IProfileCustomer>({
     id_user: "",
@@ -47,23 +47,6 @@ export default function Profile() {
   const handleSubmit = async () => {
     await editProfile(input, data.id_customer);
     navigate("/u/profile");
-  };
-
-  const ProfileForm = () => {
-    const [image, setImage] = useState(
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGZhY2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60"
-    );
-
-    const handleImageChange = (event: { target: { files: any[] } }) => {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-      };
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-    };
   };
 
   const handleEditConfirmation = () => {

@@ -1,4 +1,3 @@
-import React from "react";
 type ServiceDetailsProps = {
   title: string;
   description: string[];

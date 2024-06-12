@@ -6,7 +6,7 @@ import { IPartner } from "../../../lib/interfaces/IPartner";
 
 const Partner: React.FC = () => {
   //API CALL
-  const { data, error, isLoading, isValidating } = getAllPartner();
+  const { data, error, isLoading } = getAllPartner();
   const [search, setSearch] = React.useState("");
 
   const dataFiltered = data?.filter((item: IPartner) => {

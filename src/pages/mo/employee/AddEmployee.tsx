@@ -19,10 +19,6 @@ const AddEmployee: React.FC = () => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-  };
-
   const handleSubmit = async () => {
     // e.preventDefault();
     await addEmployee(input);

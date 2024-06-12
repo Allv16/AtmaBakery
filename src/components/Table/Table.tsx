@@ -8,13 +8,18 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IAttendanceReport } from "../../lib/interfaces/IAttendanceReport";
 import { ICart } from "../../lib/interfaces/ICart";
 import { ICustomer } from "../../lib/interfaces/ICustomer";
 import { IEmployee } from "../../lib/interfaces/IEmployee";
+import { IIncomeExpenseReport } from "../../lib/interfaces/IIncomeExpenseReport";
 import { IIngredientPurchase } from "../../lib/interfaces/IIngredientPurchase";
 import { IIngredients } from "../../lib/interfaces/IIngredients";
 import { IOtherExpenses } from "../../lib/interfaces/IOtherExpenses";
 import { IPartner } from "../../lib/interfaces/IPartner";
+import { IPartnerProduct } from "../../lib/interfaces/IPartnerProduct";
+import { IRefund } from "../../lib/interfaces/IRefund";
+import { ISalesReport } from "../../lib/interfaces/ISalesReport";
 import { ITransaction } from "../../lib/interfaces/ITransaction";
 import { deleteEmployee } from "../../lib/repository/EmployeeRepository";
 import { deleteIngredientPurchase } from "../../lib/repository/IngredientPurchaseRepository";
@@ -28,12 +33,6 @@ import {
   numbertoMonthConverter,
 } from "../../lib/utils/converter";
 import { TransactionStatusBadge } from "../Badge";
-import { IRefund } from "../../lib/interfaces/IRefund";
-import { ISalesReport } from "../../lib/interfaces/ISalesReport";
-import { IIncomeExpenseReport } from "../../lib/interfaces/IIncomeExpenseReport";
-import { IPartnerProduct } from "../../lib/interfaces/IPartnerProduct";
-import { IAttendanceReport } from "../../lib/interfaces/IAttendanceReport";
-import { it } from "date-fns/locale";
 
 type IngredientsTableProps = {
   ingredientsData: IIngredients[];
@@ -1275,7 +1274,6 @@ export const AdminOnProcessTable = ({
 export const LowIngredientsTable = (props: IngredientsTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const navigate = useNavigate();
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -1384,7 +1382,6 @@ export const AdminRefundTable = ({ data, onClick }: AdminRefundTableProps) => {
 export const SalesReportTable = (props: SalesReportTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
-  const navigate = useNavigate();
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -1445,7 +1442,7 @@ export const SalesReportTable = (props: SalesReportTableProps) => {
 };
 
 export const IncomeReportTable = (props: IncomeExpenseReportTableProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage] = useState(1);
   const itemsPerPage = 12;
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -1505,7 +1502,6 @@ export const IncomeReportTable = (props: IncomeExpenseReportTableProps) => {
 export const PartnerReportTable = (props: PartnerReportTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
-  const navigate = useNavigate();
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -1574,9 +1570,12 @@ export const PartnerReportTable = (props: PartnerReportTableProps) => {
             <th>Total Received</th>
           </tr>
         </thead>
-        <tbody>{renderTableRows()}
+        <tbody>
+          {renderTableRows()}
           <tr>
-            <td colSpan={5} className="text-end font-bold">Total</td>
+            <td colSpan={5} className="text-end font-bold">
+              Total
+            </td>
             <td className="font-bold">{currencyConverter(totalReceived)}</td>
           </tr>
         </tbody>
@@ -1588,7 +1587,6 @@ export const PartnerReportTable = (props: PartnerReportTableProps) => {
 export const AttendanceReportTable = (props: AttendanceReportTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
-  const navigate = useNavigate();
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;

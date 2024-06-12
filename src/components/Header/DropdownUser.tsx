@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-import User from '../../assets/images/profile.png';
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import User from "../../assets/images/profile.png";
 
 export const DropdownAdmin = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -11,15 +10,9 @@ export const DropdownAdmin = () => {
   const dropdown = useRef<any>(null);
   const navigate = useNavigate();
 
-  const [profileUrl, setProfileUrl] = useState(localStorage.getItem("profile_url"));
-  const [token, setToken] = useState(localStorage.getItem("token"));
-
   const handleLogout = () => {
     localStorage.removeItem("profile_url");
     localStorage.removeItem("token");
-
-    setProfileUrl(null);
-    setToken(null);
 
     navigate("/login");
   };
@@ -35,8 +28,8 @@ export const DropdownAdmin = () => {
         return;
       setDropdownOpen(false);
     };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
   });
 
   useEffect(() => {
@@ -44,8 +37,8 @@ export const DropdownAdmin = () => {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
     };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
   });
 
   return (
@@ -57,9 +50,7 @@ export const DropdownAdmin = () => {
         to="#"
       >
         <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black">
-            Admin
-          </span>
+          <span className="block text-sm font-medium text-black">Admin</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -88,8 +79,9 @@ export const DropdownAdmin = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-4 flex w-60 flex-col rounded-sm border border-stroke bg-white shadow-default ${dropdownOpen === true ? 'block' : 'hidden'
-          }`}
+        className={`absolute right-0 mt-4 flex w-60 flex-col rounded-sm border border-stroke bg-white shadow-default ${
+          dropdownOpen === true ? "block" : "hidden"
+        }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-8">
           <li>
@@ -118,7 +110,10 @@ export const DropdownAdmin = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={handleLogout}>
+        <button
+          className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleLogout}
+        >
           <svg
             className="fill-current"
             width="22"
@@ -150,16 +145,10 @@ export const DropdownMO = () => {
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
   const navigate = useNavigate();
-  const [profileUrl, setProfileUrl] = useState(localStorage.getItem("profile_url"));
-  const [token, setToken] = useState(localStorage.getItem("token"));
 
   const handleLogout = () => {
     localStorage.removeItem("profile_url");
     localStorage.removeItem("token");
-
-    setProfileUrl(null);
-    setToken(null);
-
     navigate("/login");
   };
 
@@ -174,8 +163,8 @@ export const DropdownMO = () => {
         return;
       setDropdownOpen(false);
     };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
   });
 
   useEffect(() => {
@@ -183,8 +172,8 @@ export const DropdownMO = () => {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
     };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
   });
 
   return (
@@ -227,8 +216,9 @@ export const DropdownMO = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-4 flex w-60 flex-col rounded-sm border border-stroke bg-white shadow-default ${dropdownOpen === true ? 'block' : 'hidden'
-          }`}
+        className={`absolute right-0 mt-4 flex w-60 flex-col rounded-sm border border-stroke bg-white shadow-default ${
+          dropdownOpen === true ? "block" : "hidden"
+        }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-8">
           <li>
@@ -257,10 +247,12 @@ export const DropdownMO = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={handleLogout}>
+        <button
+          className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleLogout}
+        >
           <svg
             className="fill-current"
-
             width="22"
             height="22"
             viewBox="0 0 22 22"
@@ -290,15 +282,10 @@ export const DropdownOwner = () => {
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
   const navigate = useNavigate();
-  const [profileUrl, setProfileUrl] = useState(localStorage.getItem("profile_url"));
-  const [token, setToken] = useState(localStorage.getItem("token"));
 
   const handleLogout = () => {
     localStorage.removeItem("profile_url");
     localStorage.removeItem("token");
-
-    setProfileUrl(null);
-    setToken(null);
 
     navigate("/login");
   };
@@ -314,8 +301,8 @@ export const DropdownOwner = () => {
         return;
       setDropdownOpen(false);
     };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
   });
 
   useEffect(() => {
@@ -323,8 +310,8 @@ export const DropdownOwner = () => {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
     };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
   });
 
   return (
@@ -336,9 +323,7 @@ export const DropdownOwner = () => {
         to="#"
       >
         <span className="hidden text-right lg:block">
-          <span className="block text-sm font-medium text-black">
-            Owner
-          </span>
+          <span className="block text-sm font-medium text-black">Owner</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
@@ -367,8 +352,9 @@ export const DropdownOwner = () => {
         ref={dropdown}
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
-        className={`absolute right-0 mt-4 flex w-60 flex-col rounded-sm border border-stroke bg-white shadow-default ${dropdownOpen === true ? 'block' : 'hidden'
-          }`}
+        className={`absolute right-0 mt-4 flex w-60 flex-col rounded-sm border border-stroke bg-white shadow-default ${
+          dropdownOpen === true ? "block" : "hidden"
+        }`}
       >
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-8">
           <li>
@@ -397,7 +383,10 @@ export const DropdownOwner = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={handleLogout}>
+        <button
+          className="flex items-center gap-3 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleLogout}
+        >
           <svg
             className="fill-current"
             width="22"
@@ -422,4 +411,3 @@ export const DropdownOwner = () => {
     </div>
   );
 };
-
