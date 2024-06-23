@@ -11,6 +11,7 @@ export default function DetailsOrder() {
   const customer = JSON.parse(localStorage.getItem("customer_id") || "{}")
     .customer as ICustomer;
   const { data, isLoading } = getTransactionById(id!);
+  console.log(data);
 
   const handleBack = () => {
     navigate("/u/transactions");
@@ -75,7 +76,7 @@ export default function DetailsOrder() {
                   <span className="loading loading-dots loading-md"></span>
                 </div>
               ) : (
-                <OrderDetailsCard transaction={data} key={data.id_transaksi} />
+                <OrderDetailsCard transaction={data} key={id} />
               )}
             </div>
           </div>

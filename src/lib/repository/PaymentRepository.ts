@@ -15,7 +15,9 @@ export const payTransaction = async (data: any, id: string) => {
 
     if (response.status.toString().startsWith("20")) {
       mutate(
-        `${import.meta.env.VITE_BASE_API}/transaksi/${customer.id_customer}`
+        `${import.meta.env.VITE_BASE_API}/transaksi/customer/${
+          customer.id_customer
+        }`
       );
       toast.success("Successfully Payment This Order");
     } else {

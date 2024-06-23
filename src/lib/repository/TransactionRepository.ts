@@ -5,7 +5,7 @@ import { axiosInstance, fetcher } from "../utils/utils";
 
 export const getAllTransactionByIdCustomer = (id: string) => {
   let { data, error, isLoading, isValidating, mutate } = useSWR(
-    `${import.meta.env.VITE_BASE_API}/transaksi/${id}`,
+    `${import.meta.env.VITE_BASE_API}/transaksi/customer/${id}`,
     fetcher
   );
 
@@ -311,9 +311,9 @@ export const updateTransactionCompleted = async (id: string) => {
       );
       mutate(`${import.meta.env.VITE_BASE_API}/transaksi/id/${id}`);
       mutate(
-        `${import.meta.env.VITE_BASE_API}/transaksi/${localStorage.getItem(
-          "customer_id"
-        )}`
+        `${
+          import.meta.env.VITE_BASE_API
+        }/transaksi/customer/${localStorage.getItem("customer_id")}`
       );
     }
   } catch (error) {

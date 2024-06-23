@@ -1665,10 +1665,8 @@ export const CancelledOrderTable = ({ data }: ICancleOrderProps) => {
             <th>#</th>
             <th>Customer</th>
             <th>Order Date</th>
-            <th>Due Date</th>
+            <th>Payment Types</th>
             <th>Total Payment</th>
-            <th>Poin Earned</th>
-            <th>Poin Used</th>
           </tr>
         </thead>
         <tbody>
@@ -1677,10 +1675,8 @@ export const CancelledOrderTable = ({ data }: ICancleOrderProps) => {
               <td>{item.id_transaksi}</td>
               <td>{item.customer.nama_customer}</td>
               <td>{dateConverter(item.tanggal_nota_dibuat)}</td>
-              <td>{dateConverter(item.tanggal_ambil)}</td>
+              <td>{item.pembayaran.jenis_pembayaran}</td>
               <td>{currencyConverter(item.pembayaran.total_pembayaran)}</td>
-              <td>{item.poin_diperoleh}</td>
-              <td>{item.poin_digunakan}</td>
             </tr>
           ))}
         </tbody>
